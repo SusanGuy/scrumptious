@@ -1,0 +1,30 @@
+.load-more {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  margin: 20px 0 0 -20px;
+}
+.load-more:before,
+.load-more:after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 30px;
+  height: 30px;
+  left: 50%;
+  top: 50%;
+  margin-top: -15px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  border-bottom-color: rgba(109, 205, 49, 0.37);
+  border-right-color: rgba(109, 205, 49, 0.37);
+  border-radius: 0 0 5px 0;
+
+  transform: translate(-50%, -50%) rotate(45deg);
+
+  transition: all 0.4s ease-in-out;
+}
