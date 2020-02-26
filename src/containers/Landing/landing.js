@@ -38,7 +38,7 @@ const Landing = () => {
   }
 
   const loadedRecipes = recipes.filter((recipe, index) => index <= counter);
-  console.log(loadedRecipes);
+
   return (
     <div className="recipe-content">
       {loadedRecipes.map(
