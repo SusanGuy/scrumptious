@@ -53,7 +53,11 @@ const Landing = ({ hidden, recipe }) => {
           ingredients,
           instructions,
           count,
-          nutrients: { calories, ...nutrient }
+          nutrients: { calories, ...nutrient },
+          vegetarian,
+          vegan,
+          glutenFree,
+          dairyFree
         }) => {
           return (
             <RecipeCard
@@ -66,6 +70,10 @@ const Landing = ({ hidden, recipe }) => {
               nutrients={nutrient}
               instructions={instructions}
               ingredients={ingredients}
+              vegetarian={vegetarian}
+              vegan={vegan}
+              glutenFree={glutenFree}
+              dairyFree={dairyFree}
             />
           );
         }

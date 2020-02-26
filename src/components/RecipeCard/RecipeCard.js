@@ -12,7 +12,8 @@ const RecipeCard = ({
   showModal,
   nutrients,
   ingredients,
-  instructions
+  instructions,
+  ...rest
 }) => {
   return (
     <Aux>
@@ -25,7 +26,8 @@ const RecipeCard = ({
             calories,
             ingredients,
             nutrients,
-            instructions
+            instructions,
+            ...rest
           })
         }
         className="recipe-card"

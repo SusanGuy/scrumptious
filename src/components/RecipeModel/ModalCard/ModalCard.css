@@ -1,0 +1,24 @@
+.ingredients {
+  background-color: white;
+  border-top: 1px solid #eee;
+  margin: 15px 35px 0px;
+}
+
+.ingredients h4 {
+  margin-top: 10px;
+}
+
+.ingredients ul {
+  margin: 0px;
+  padding: 15px 0px;
+  text-align: left;
+}
+.ingredients ul li {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  text-indent: 0px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
