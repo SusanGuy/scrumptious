@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
+import { connect } from "react-redux";
 import axios from "../../axios";
 import "./landing.css";
+import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
-const Landing = () => {
+const Landing = ({ hidden, recipe }) => {
   const [state, setState] = useState({
     recipes: [],
     loading: true,
@@ -41,14 +43,17 @@ const Landing = () => {
 
   return (
     <div className="recipe-content">
+      {hidden && <RecipeModal recipe={recipe} />}
       {loadedRecipes.map(
         ({
           _id,
           title,
           readyInMinutes,
           image,
+          ingredients,
+          instructions,
           count,
-          nutrients: { calories }
+          nutrients: { calories, ...nutrient }
         }) => {
           return (
             <RecipeCard
@@ -58,6 +63,9 @@ const Landing = () => {
               src={image}
               people={count}
               calories={calories}
+              nutrients={nutrient}
+              instructions={instructions}
+              ingredients={ingredients}
             />
           );
         }
@@ -68,5 +76,11 @@ const Landing = () => {
     </div>
   );
 };
+const mapStateToProps = state => {
+  return {
+    hidden: state.modal.hidden,
+    recipe: state.modal.recipe
+  };
+};
 
-export default Landing;
+export default connect(mapStateToProps)(Landing);
