@@ -6,18 +6,19 @@ import "./landing.css";
 import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
-const Landing = ({ hidden, recipe }) => {
+
+const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
   const [state, setState] = useState({
     recipes: [],
     loading: true,
     error: {}
   });
   const [counter, setCounter] = useState(47);
+
   useEffect(() => {
     const getRecipes = async () => {
       try {
         const { data } = await axios.get("/recipes");
-
         setState({
           error: {},
           loading: false,
@@ -39,10 +40,23 @@ const Landing = ({ hidden, recipe }) => {
     return <Spinner />;
   }
 
-  const loadedRecipes = recipes.filter((recipe, index) => index <= counter);
+  let daiRecipes = recipes;
+
+  if (recipeFilter) {
+    daiRecipes = recipes.filter(recipe =>
+      recipe.title.toLowerCase().includes(recipeFilter.toLowerCase())
+    );
+  }
+
+  const loadedRecipes = daiRecipes.filter((recipe, index) => index <= counter);
 
   return (
     <div className="recipe-content">
+      <h1 className="recipe-content-title ">
+        <span>
+          {filter ? `${daiRecipes.length} suggested recipes` : "Just for You"}
+        </span>
+      </h1>
       {hidden && <RecipeModal recipe={recipe} />}
       {loadedRecipes.map(
         ({
@@ -78,7 +92,7 @@ const Landing = ({ hidden, recipe }) => {
           );
         }
       )}
-      {loadedRecipes.length !== 192 && (
+      {loadedRecipes.length !== daiRecipes.length && (
         <LoadMore clicked={() => setCounter(counter + 24)} />
       )}
     </div>
@@ -87,7 +101,9 @@ const Landing = ({ hidden, recipe }) => {
 const mapStateToProps = state => {
   return {
     hidden: state.modal.hidden,
-    recipe: state.modal.recipe
+    recipe: state.modal.recipe,
+    filter: state.filter.filter,
+    recipeFilter: state.filter.recipeFilter
   };
 };
 

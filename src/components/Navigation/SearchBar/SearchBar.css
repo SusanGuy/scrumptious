@@ -16,7 +16,7 @@
 }
 
 .searchTerm:focus {
-  color: rgb(109, 205, 49);
+  color: #000000;
 }
 
 .searchButton {

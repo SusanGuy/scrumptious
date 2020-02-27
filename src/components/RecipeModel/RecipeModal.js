@@ -71,6 +71,7 @@ const RecipeModal = ({
               className="stars"
               src="https://static.tumblr.com/e1u6zhi/7gDndrvtx/star-star-star-star-star.png"
               height="16px"
+              alt="reviews"
             />
           </section>
 
