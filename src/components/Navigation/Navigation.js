@@ -1,10 +1,10 @@
 import React from "react";
-import SearchBar from "./SearchBar/SearchBar";
+import SearchContainer from "./SearchContainer/SearchContainer";
 import "./Navigation.css";
 const Navigation = () => {
   return (
     <header>
-      <SearchBar />
+      <SearchContainer />
     </header>
   );
 };

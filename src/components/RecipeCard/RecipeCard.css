@@ -34,7 +34,7 @@
 .recipe-name {
   width: 100%;
   height: 50px;
-  background: #6ecd31;
+  background: #3a9691;
   opacity: 0.85;
   filter: alpha(opacity=85); /* IE8 and Lower */
   zoom: 1; /* set "zoom", "width" or "height" to trigger "hasLayout" in IE 7 and lower */
@@ -44,8 +44,8 @@
   text-align: center;
   vertical-align: middle;
   line-height: 50px;
-  text-shadow: 1px 1px 2px#6ECD31;
-  border-bottom: 1px dotted #6ecd31;
+  text-shadow: 1px 1px 2px#3a9691;
+  border-bottom: 1px dotted #3a9691;
 }
 
 .recipe-name h3 {
@@ -69,7 +69,7 @@
 
 a:link,
 a:visited {
-  color: #6ecd31;
+  color: #3a9691;
   text-decoration: none;
   font-weight: 700;
 }

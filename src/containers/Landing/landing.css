@@ -1,20 +1,16 @@
 .recipe-content {
-  width: 100%;
+  width: 88%;
   padding: 15px;
-  margin: 60px auto;
+  margin: 30px auto;
   text-align: center;
 }
 
 .recipe-content-title {
-  max-width: 940px;
+  max-width: 100%;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 24px;
   line-height: 1.333333333333333;
   font-weight: 700;
-  text-align: left;
-}
-
-.recipe-content-title span {
-  margin-left: 90px;
+  text-align: center;
 }
