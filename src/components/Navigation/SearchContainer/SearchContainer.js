@@ -1,17 +1,31 @@
 import React from "react";
 import "./searchcontainer.css";
 import SearchBar from "./SearchBar/SearchBar";
+import { connect } from "react-redux";
+import {
+  hideFilterModal,
+  showFilterModal
+} from "../../../store/actions/filterModal";
 import FilterModal from "../../FilterModal/FilterModal";
-const SearchContainer = () => {
+
+const SearchContainer = ({ hidden, showFilterModal, hideFilterModal }) => {
   return (
     <div className="cookbook-search-results">
       <div className="search-tools">
         <div className="search-tools-meta ">
           <SearchBar />
           <div className="filter-sort-organization">
-            <div className="toggle-filters">
+            <div
+              onClick={() => (!hidden ? showFilterModal() : hideFilterModal())}
+              className="toggle-filters"
+            >
               <span className="filter-sliders"></span>
-              <i className="fas fa-sliders-h"></i>
+              <i
+                style={{
+                  color: hidden ? "#3a9691" : ""
+                }}
+                className="fas fa-sliders-h"
+              ></i>
               <span className="filters-title">Filter</span>
             </div>
             <div className="guided-search-breadcrumbs">
@@ -19,11 +33,18 @@ const SearchContainer = () => {
               <div className="guided-search-breadcrumbs-list"></div>
             </div>
           </div>
-          <FilterModal />
+          {hidden && <FilterModal />}
         </div>
       </div>
     </div>
   );
 };
+const mapStateToProps = state => {
+  return {
+    hidden: state.filterContainer.hidden
+  };
+};
 
-export default SearchContainer;
+export default connect(mapStateToProps, { showFilterModal, hideFilterModal })(
+  SearchContainer
+);

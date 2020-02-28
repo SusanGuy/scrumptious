@@ -1,7 +1,11 @@
 import React from "react";
 import "./loadMore.css";
 const loadMore = ({ clicked }) => {
-  return <span onClick={clicked} className="load-more"></span>;
+  return (
+    <div onClick={clicked} className="arrow bounce">
+      <i className="fa fa-arrow-down fa-2x"></i>
+    </div>
+  );
 };
 
 export default loadMore;

@@ -13,7 +13,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
     loading: true,
     error: {}
   });
-  const [counter, setCounter] = useState(43);
+  const [counter, setCounter] = useState(39);
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -96,10 +96,10 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
               );
             }
           )}
-          {loadedRecipes.length !== daiRecipes.length && (
-            <LoadMore clicked={() => setCounter(counter + 24)} />
-          )}
         </div>
+        {loadedRecipes.length !== daiRecipes.length && (
+          <LoadMore clicked={() => setCounter(counter + 24)} />
+        )}
       </div>
     </div>
   );

@@ -5,12 +5,14 @@ import { BrowserRouter as Router } from "react-router-dom";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import modalReducer from "./store/reducers/recipeModal";
+import filterModalReducer from "./store/reducers/filterModal";
 import filterReducer from "./store/reducers/filter";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   modal: modalReducer,
-  filter: filterReducer
+  filter: filterReducer,
+  filterContainer: filterModalReducer
 });
 const composeEnhancers =
   process.env.NODE_ENV === "development"
