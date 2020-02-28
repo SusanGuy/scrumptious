@@ -13,6 +13,16 @@
   line-height: 38px;
   margin: 0;
 }
+
+.title-meta h5 {
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.title-meta h5 i {
+  color: #85bb65;
+}
+
 .full-bk p,
 .full-bk section {
   margin-top: 0px;
@@ -23,7 +33,7 @@
   position: fixed;
   overflow: hidden;
   z-index: 400;
-  background: rgba(10, 10, 10, 0.75);
+  background: rgba(10, 10, 10, 0.9);
   top: 0;
   left: 0;
   bottom: 0;

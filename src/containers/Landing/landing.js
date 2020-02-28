@@ -13,7 +13,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
     loading: true,
     error: {}
   });
-  const [counter, setCounter] = useState(47);
+  const [counter, setCounter] = useState(43);
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -42,7 +42,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
 
   let daiRecipes = recipes;
 
-  if (recipeFilter) {
+  if (recipeFilter !== "") {
     daiRecipes = recipes.filter(recipe =>
       recipe.title.toLowerCase().includes(recipeFilter.toLowerCase())
     );
@@ -67,6 +67,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
           ingredients,
           instructions,
           count,
+          cost,
           nutrients: { calories, ...nutrient },
           vegetarian,
           vegan,
@@ -88,6 +89,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
               vegan={vegan}
               glutenFree={glutenFree}
               dairyFree={dairyFree}
+              cost={cost}
             />
           );
         }

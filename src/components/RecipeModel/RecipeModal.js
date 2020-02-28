@@ -14,6 +14,7 @@ const RecipeModal = ({
     ingredients,
     nutrients,
     calories,
+    cost,
     ...rest
   }
 }) => {
@@ -67,6 +68,10 @@ const RecipeModal = ({
         <div className="right clear">
           <section className="title-meta" data-step="step0">
             <h2>{title}</h2>
+            <h5>
+              <i className="fas fa-dollar-sign"></i>
+              <span> {(cost / 100).toFixed(2)}</span>
+            </h5>
             <img
               className="stars"
               src="https://static.tumblr.com/e1u6zhi/7gDndrvtx/star-star-star-star-star.png"
@@ -86,6 +91,12 @@ const RecipeModal = ({
               return null;
             } else {
               track++;
+              if (instruction.includes("<p>")) {
+                instruction = instruction.replace(/<p>/g, "");
+              }
+              if (instruction.includes("</p>")) {
+                instruction = instruction.replace(/<\/p>/g, "");
+              }
               return (
                 <section key={instruction} className="steps">
                   <h3>Step {track}</h3>

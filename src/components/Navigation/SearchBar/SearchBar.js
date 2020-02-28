@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./SearchBar.css";
 import { connect } from "react-redux";
 import { filterByName } from "../../../store/actions/filter";
-const SearchBar = ({ filterByName }) => {
+const SearchBar = ({ filterByName, filter }) => {
   const [recipeName, setRecipeName] = useState("");
   useEffect(() => {
-    filterByName(recipeName);
-  }, [filterByName, recipeName]);
+    if (recipeName !== "" || filter) {
+      filterByName(recipeName.trim());
+    }
+  }, [filterByName, filter, recipeName]);
   return (
     <div className="wrap">
       <form>
@@ -33,4 +35,10 @@ const SearchBar = ({ filterByName }) => {
   );
 };
 
-export default connect(null, { filterByName })(SearchBar);
+const mapStateToProps = state => {
+  return {
+    filter: state.filter.filter
+  };
+};
+
+export default connect(mapStateToProps, { filterByName })(SearchBar);
