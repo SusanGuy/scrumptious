@@ -20,8 +20,8 @@
   border-width: 2px;
   border-style: solid;
   border-color: transparent;
-  border-bottom-color: rgba(109, 205, 49, 0.37);
-  border-right-color: rgba(109, 205, 49, 0.37);
+  border-bottom-color: rgba(13, 14, 13, 0.411);
+  border-right-color: rgba(13, 14, 13, 0.411);
   border-radius: 0 0 5px 0;
 
   transform: translate(-50%, -50%) rotate(45deg);

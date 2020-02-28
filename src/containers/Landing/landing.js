@@ -52,51 +52,55 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
 
   return (
     <div className="recipe-content">
-      <h1 className="recipe-content-title ">
-        <span>
-          {filter ? `${daiRecipes.length} suggested recipes` : "Just for You"}
-        </span>
-      </h1>
-      {hidden && <RecipeModal recipe={recipe} />}
-      {loadedRecipes.map(
-        ({
-          _id,
-          title,
-          readyInMinutes,
-          image,
-          ingredients,
-          instructions,
-          count,
-          cost,
-          nutrients: { calories, ...nutrient },
-          vegetarian,
-          vegan,
-          glutenFree,
-          dairyFree
-        }) => {
-          return (
-            <RecipeCard
-              key={_id}
-              title={title}
-              time={readyInMinutes}
-              src={image}
-              people={count}
-              calories={calories}
-              nutrients={nutrient}
-              instructions={instructions}
-              ingredients={ingredients}
-              vegetarian={vegetarian}
-              vegan={vegan}
-              glutenFree={glutenFree}
-              dairyFree={dairyFree}
-              cost={cost}
-            />
-          );
-        }
-      )}
-      {loadedRecipes.length !== daiRecipes.length && (
-        <LoadMore clicked={() => setCounter(counter + 24)} />
-      )}
+      <div className="main-flex-wrapper">
+        <h1 className="recipe-content-title ">
+          <span>
+            {filter ? `${daiRecipes.length} suggested recipes` : "Just for You"}
+          </span>
+        </h1>
+        <div>
+          {hidden && <RecipeModal recipe={recipe} />}
+          {loadedRecipes.map(
+            ({
+              _id,
+              title,
+              readyInMinutes,
+              image,
+              ingredients,
+              instructions,
+              count,
+              cost,
+              nutrients: { calories, ...nutrient },
+              vegetarian,
+              vegan,
+              glutenFree,
+              dairyFree
+            }) => {
+              return (
+                <RecipeCard
+                  key={_id}
+                  title={title}
+                  time={readyInMinutes}
+                  src={image}
+                  people={count}
+                  calories={calories}
+                  nutrients={nutrient}
+                  instructions={instructions}
+                  ingredients={ingredients}
+                  vegetarian={vegetarian}
+                  vegan={vegan}
+                  glutenFree={glutenFree}
+                  dairyFree={dairyFree}
+                  cost={cost}
+                />
+              );
+            }
+          )}
+          {loadedRecipes.length !== daiRecipes.length && (
+            <LoadMore clicked={() => setCounter(counter + 24)} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
