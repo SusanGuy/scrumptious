@@ -1,13 +1,32 @@
 import React from "react";
 import "./FiltersList.css";
-const FiltersList = ({ children, clicked, activeFilter }) => {
+import FilterCount from "./FilterCount/FilterCount";
+const FiltersList = ({
+  children,
+  time,
+  cost,
+  allergies,
+  clicked,
+  activeFilter
+}) => {
+  let filterList = null;
+  if (time && children === "Time") {
+    filterList = <FilterCount value="1" />;
+  }
+  if (cost && children === "Cost") {
+    filterList = <FilterCount value="1" />;
+  }
+  if (allergies.length !== 0 && children === "Allergies") {
+    filterList = <FilterCount value={allergies.length} />;
+  }
   return (
     <li
       onClick={clicked}
       className={`filter-category ${activeFilter === children ? "active" : ""}`}
     >
       <h3 className="filter-title">
-        {children} <span className="filter-count">1</span>
+        {children}
+        {filterList}
       </h3>
     </li>
   );

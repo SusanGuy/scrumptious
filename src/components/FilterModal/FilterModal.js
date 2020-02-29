@@ -8,7 +8,8 @@ const FilterModal = ({
   activeFilter: { name },
   setActiveFilter,
   cost,
-  time
+  time,
+  allergies
 }) => {
   const filters = ["Ingredients", "Cost", "Time", "Allergies", "Nutrition"];
 
@@ -23,6 +24,7 @@ const FilterModal = ({
                   <FilterList
                     cost={cost}
                     time={time}
+                    allergies={allergies}
                     activeFilter={name}
                     clicked={() => setActiveFilter(filter)}
                     key={filter}
@@ -43,8 +45,9 @@ const FilterModal = ({
 const mapStateToProps = state => {
   return {
     activeFilter: state.filter.activeFilter,
-    cost: state.filter.cost === 0,
-    time: state.filter.time === 0
+    cost: state.filter.cost !== 0,
+    time: state.filter.time !== 0,
+    allergies: state.filter.allergies
   };
 };
 

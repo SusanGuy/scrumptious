@@ -95,7 +95,11 @@ const filterReducer = (state = initialState, action) => {
       };
 
     case actionTypes.RESET_FILTERS:
-      return initialState;
+      return {
+        ...initialState,
+        filter: state.filter,
+        recipeFilter: state.recipeFilter
+      };
     default:
       return state;
   }

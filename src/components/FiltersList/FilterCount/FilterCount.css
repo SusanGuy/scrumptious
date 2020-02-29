@@ -1,0 +1,14 @@
+.filter-count {
+  position: absolute;
+  top: 11px;
+  right: 18px;
+  bottom: auto;
+  left: auto;
+  background-color: #3a9691;
+  color: #fff;
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  letter-spacing: 0;
+}
