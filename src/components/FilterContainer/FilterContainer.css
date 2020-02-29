@@ -64,14 +64,6 @@
   box-sizing: border-box;
   vertical-align: top;
 }
-
-.filter-item-title:hover {
-  color: #3a9691;
-}
-
-.allergies {
-  column-count: 4;
-}
 .filter-item-title {
   position: relative;
   color: #707070;
@@ -79,6 +71,18 @@
   transition: color 400ms;
   font-size: 16px;
   line-height: 2;
+}
+
+.filter-item-title:hover {
+  color: #3a9691;
+}
+
+.allergy-clicked {
+  color: #3a9691;
+}
+
+.allergies {
+  column-count: 4;
 }
 
 .filter-item-title::after {

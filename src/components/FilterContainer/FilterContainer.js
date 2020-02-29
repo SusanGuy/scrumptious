@@ -3,8 +3,16 @@ import "./FilterContainer.css";
 import Aux from "../../hoc/Aux";
 import TimeAndCostBox from "./TimeAndCostBox/TimeAndCost";
 import { connect } from "react-redux";
-import { setCost, setTime } from "../../store/actions/filter";
-const FilterContainer = ({ name, costState, timeState, setCost, setTime }) => {
+import { setCost, setTime, setAllergy } from "../../store/actions/filter";
+const FilterContainer = ({
+  name,
+  costState,
+  timeState,
+  setCost,
+  setTime,
+  setAllergy,
+  allergies
+}) => {
   let filterRow;
   if (name === "Ingredients") {
     filterRow = (
@@ -50,17 +58,41 @@ const FilterContainer = ({ name, costState, timeState, setCost, setTime }) => {
     filterRow = (
       <Aux>
         <div className="allergies">
-          <div className="filter-item">
-            <h3 className="filter-item-title">Dairy-Free</h3>
+          <div onClick={() => setAllergy("vegetarian")} className="filter-item">
+            <h3
+              className={`${
+                allergies.includes("vegetarian") ? "allergy-clicked" : ""
+              } filter-item-title`}
+            >
+              Vegetarian
+            </h3>
           </div>
-          <div className="filter-item">
-            <h3 className="filter-item-title">Egg-Free</h3>
+          <div onClick={() => setAllergy("vegan")} className="filter-item">
+            <h3
+              className={`${
+                allergies.includes("vegan") ? "allergy-clicked" : ""
+              } filter-item-title`}
+            >
+              Vegan
+            </h3>
           </div>
-          <div className="filter-item">
-            <h3 className="filter-item-title">Gluten-Free</h3>
+          <div onClick={() => setAllergy("glutenFree")} className="filter-item">
+            <h3
+              className={`${
+                allergies.includes("glutenFree") ? "allergy-clicked" : ""
+              } filter-item-title`}
+            >
+              Gluten-Free
+            </h3>
           </div>
-          <div className="filter-item">
-            <h3 className="filter-item-title">Peanut-Free</h3>
+          <div onClick={() => setAllergy("dairyFree")} className="filter-item">
+            <h3
+              className={`${
+                allergies.includes("dairyFree") ? "allergy-clicked" : ""
+              } filter-item-title`}
+            >
+              Dairy-Free
+            </h3>
           </div>
         </div>
       </Aux>
@@ -118,7 +150,10 @@ const FilterContainer = ({ name, costState, timeState, setCost, setTime }) => {
 const mapStateToProps = state => {
   return {
     costState: state.filter.cost,
-    timeState: state.filter.time
+    timeState: state.filter.time,
+    allergies: state.filter.allergies
   };
 };
-export default connect(mapStateToProps, { setCost, setTime })(FilterContainer);
+export default connect(mapStateToProps, { setCost, setTime, setAllergy })(
+  FilterContainer
+);

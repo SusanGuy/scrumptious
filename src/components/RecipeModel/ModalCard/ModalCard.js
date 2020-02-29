@@ -15,13 +15,22 @@ const ModalCard = ({ ingredients, allergies, nutrition, children }) => {
     );
   }
   if (allergies) {
-    list = Object.keys(allergies)
-      .filter(allergy => allergies[allergy] === true)
-      .map(allergy => (
+    const allergiesArray = Object.keys(allergies).filter(
+      allergy => allergies[allergy] === true
+    );
+    if (allergiesArray.length === 0) {
+      list = (
+        <p>
+          Sorry :( This recipe is not vegetarian,vegan,gluten-free or dairyFree{" "}
+        </p>
+      );
+    } else {
+      list = allergiesArray.map(allergy => (
         <li key={allergy}>
           {allergy.charAt(0).toUpperCase() + allergy.slice(1)}
         </li>
       ));
+    }
   }
 
   if (nutrition) {

@@ -4,11 +4,17 @@ import SearchBar from "./SearchBar/SearchBar";
 import { connect } from "react-redux";
 import {
   hideFilterModal,
-  showFilterModal
+  showFilterModal,
+  resetFilters
 } from "../../../store/actions/filter";
 import FilterModal from "../../FilterModal/FilterModal";
 
-const SearchContainer = ({ hidden, showFilterModal, hideFilterModal }) => {
+const SearchContainer = ({
+  hidden,
+  showFilterModal,
+  hideFilterModal,
+  resetFilters
+}) => {
   return (
     <div className="cookbook-search-results">
       <div className="search-tools">
@@ -28,7 +34,10 @@ const SearchContainer = ({ hidden, showFilterModal, hideFilterModal }) => {
               ></i>
               <span className="filters-title">Filter</span>
             </div>
-            <div className="guided-search-breadcrumbs">
+            <div
+              onClick={() => resetFilters()}
+              className="guided-search-breadcrumbs"
+            >
               <span className="reset">Reset</span>
               <div className="guided-search-breadcrumbs-list"></div>
             </div>
@@ -45,6 +54,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { showFilterModal, hideFilterModal })(
-  SearchContainer
-);
+export default connect(mapStateToProps, {
+  showFilterModal,
+  hideFilterModal,
+  resetFilters
+})(SearchContainer);

@@ -5,7 +5,7 @@ import { filterByName } from "../../../../store/actions/filter";
 const SearchBar = ({ filterByName, filter }) => {
   const [recipeName, setRecipeName] = useState("");
   useEffect(() => {
-    if (recipeName !== "" || filter) {
+    if (filter || recipeName !== "") {
       filterByName(recipeName.trim());
     }
   }, [filterByName, filter, recipeName]);

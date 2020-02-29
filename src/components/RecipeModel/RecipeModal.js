@@ -45,7 +45,7 @@ const RecipeModal = ({
     <div className="full-bk clear">
       <div ref={node} className="widget-frame">
         <div className="actions">
-          <a href="#">Save</a>
+          <button>Save</button>
         </div>
         <div
           className="img-bk active"

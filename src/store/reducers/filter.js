@@ -5,6 +5,7 @@ const initialState = {
   recipes: [],
   time: 0,
   cost: 0,
+  allergies: [],
   hidden: false,
   activeFilter: {
     active: false,
@@ -80,6 +81,21 @@ const filterReducer = (state = initialState, action) => {
 
         time: payload
       };
+
+    case actionTypes.SEARCH_BY_ALLERGY:
+      if (state.allergies.includes(payload)) {
+        return {
+          ...state,
+          allergies: state.allergies.filter(allergy => allergy !== payload)
+        };
+      }
+      return {
+        ...state,
+        allergies: state.allergies.concat(payload)
+      };
+
+    case actionTypes.RESET_FILTERS:
+      return initialState;
     default:
       return state;
   }

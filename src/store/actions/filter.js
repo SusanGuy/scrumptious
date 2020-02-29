@@ -39,3 +39,16 @@ export const setTime = time => {
     payload: time
   };
 };
+
+export const setAllergy = allergy => {
+  return {
+    type: actionTypes.SEARCH_BY_ALLERGY,
+    payload: allergy
+  };
+};
+
+export const resetFilters = () => {
+  return {
+    type: actionTypes.RESET_FILTERS
+  };
+};

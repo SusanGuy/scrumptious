@@ -7,7 +7,15 @@ import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
 
-const Landing = ({ hidden, recipeFilter, recipe, filter, cost, time }) => {
+const Landing = ({
+  hidden,
+  recipeFilter,
+  recipe,
+  filter,
+  cost,
+  time,
+  allergies
+}) => {
   const [state, setState] = useState({
     recipes: [],
     loading: true,
@@ -34,7 +42,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter, cost, time }) => {
     };
     getRecipes();
   }, []);
-  const { recipes, loading, error } = state;
+  const { recipes, loading } = state;
 
   if (loading) {
     return <Spinner />;
@@ -56,6 +64,12 @@ const Landing = ({ hidden, recipeFilter, recipe, filter, cost, time }) => {
     daiRecipes = daiRecipes.filter(recipe => recipe.readyInMinutes <= time);
   }
 
+  if (allergies.length !== 0) {
+    allergies.forEach(allergy => {
+      daiRecipes = daiRecipes.filter(recipe => recipe[allergy] === true);
+    });
+  }
+
   const loadedRecipes = daiRecipes.filter((recipe, index) => index <= counter);
 
   return (
@@ -63,7 +77,7 @@ const Landing = ({ hidden, recipeFilter, recipe, filter, cost, time }) => {
       <div className="main-flex-wrapper">
         <h1 className="recipe-content-title ">
           <span>
-            {filter || cost !== 0 || time !== 0
+            {filter || cost !== 0 || time !== 0 || allergies.length !== 0
               ? `${daiRecipes.length} suggested recipes`
               : "Just for You"}
           </span>
@@ -121,7 +135,8 @@ const mapStateToProps = state => {
     filter: state.filter.filter,
     recipeFilter: state.filter.recipeFilter,
     cost: state.filter.cost,
-    time: state.filter.time
+    time: state.filter.time,
+    allergies: state.filter.allergies
   };
 };
 
