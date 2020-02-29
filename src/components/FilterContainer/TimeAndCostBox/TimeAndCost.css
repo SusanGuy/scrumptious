@@ -1,0 +1,25 @@
+.time-cost-box {
+  cursor: pointer;
+  margin-left: 0;
+  padding: 8px 24px;
+  margin: 0 0.4rem 0 0;
+  font-size: 14px;
+  line-height: 1.714285714285714;
+  background-color: #fff;
+  color: #707070;
+  min-width: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.05) inset;
+  display: inline-block;
+  border-radius: 3em;
+  text-transform: capitalize;
+  transition: all 200ms ease;
+}
+
+.time-cost-box:hover {
+  color: #3a9691;
+  background-color: #eeeeee;
+}
+
+.box-clicked {
+  color: 3a9691;
+}

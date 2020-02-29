@@ -87,16 +87,19 @@ const RecipeModal = ({
           </ModalCard>
 
           {instructions.split(".").map(instruction => {
+            if (instruction.includes("<p>")) {
+              instruction = instruction.replace(/<p>/g, "");
+            }
+            if (instruction.includes("<br>")) {
+              instruction = instruction.replace(/<br>/g, "");
+            }
+            if (instruction.includes("</p>")) {
+              instruction = instruction.replace(/<\/p>/g, "");
+            }
             if (instruction === "" || Number.isInteger(parseInt(instruction))) {
               return null;
             } else {
               track++;
-              if (instruction.includes("<p>")) {
-                instruction = instruction.replace(/<p>/g, "");
-              }
-              if (instruction.includes("</p>")) {
-                instruction = instruction.replace(/<\/p>/g, "");
-              }
               return (
                 <section key={instruction} className="steps">
                   <h3>Step {track}</h3>

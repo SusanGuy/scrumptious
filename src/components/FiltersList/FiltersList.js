@@ -6,7 +6,9 @@ const FiltersList = ({ children, clicked, activeFilter }) => {
       onClick={clicked}
       className={`filter-category ${activeFilter === children ? "active" : ""}`}
     >
-      <h3 className="filter-title">{children}</h3>
+      <h3 className="filter-title">
+        {children} <span className="filter-count">1</span>
+      </h3>
     </li>
   );
 };

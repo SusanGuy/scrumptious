@@ -31,3 +31,18 @@
   transition: all 2s ease-in-out;
   transform-origin: left;
 }
+
+.filter-count {
+  position: absolute;
+  top: 11px;
+  right: 18px;
+  bottom: auto;
+  left: auto;
+  background-color: #3a9691;
+  color: #fff;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  line-height: 18px;
+  letter-spacing: 0;
+}

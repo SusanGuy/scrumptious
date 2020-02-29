@@ -10,7 +10,8 @@
 }
 
 body {
-  font-family: europa-boldregular, sans-serif;
+  /* font-family: europa-boldregular, sans-serif; */
+  font-family: "Montserrat", sans-serif;
   font-style: normal;
   background: #fff;
 }
