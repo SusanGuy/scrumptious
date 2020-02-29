@@ -2,7 +2,9 @@ import React from "react";
 import "./FilterContainer.css";
 import Aux from "../../hoc/Aux";
 import TimeAndCostBox from "./TimeAndCostBox/TimeAndCost";
-const FilterContainer = ({ name }) => {
+import { connect } from "react-redux";
+import { setCost, setTime } from "../../store/actions/filter";
+const FilterContainer = ({ name, costState, timeState, setCost, setTime }) => {
   let filterRow;
   if (name === "Ingredients") {
     filterRow = (
@@ -65,28 +67,40 @@ const FilterContainer = ({ name }) => {
     );
   }
 
-  if (name === "Cost") {
-    const costs = [20, 30, 40, 45, 50, 55];
+  if (name === "Time") {
+    const times = [20, 30, 40, 50, 60, 80, 600];
     filterRow = (
       <Aux>
         <h2 className="cooktime-cost-title">Cooking time, less than:</h2>
         <div className="time-cost-options">
-          {costs.map(cost => (
-            <TimeAndCostBox key={cost} value={cost} unit="min" />
+          {times.map(time => (
+            <TimeAndCostBox
+              time={timeState}
+              clicked={() => setTime(time)}
+              key={time}
+              value={time}
+              unit="min"
+            />
           ))}
         </div>
       </Aux>
     );
   }
 
-  if (name === "Time") {
-    const costs = [10, 15, 20, 25, 30, 35, 40, 45, 50];
+  if (name === "Cost") {
+    const costs = [10, 20, 30, 40, 60, 80];
     filterRow = (
       <Aux>
         <h2 className="cooktime-cost-title">Cost, less than:</h2>
         <div className="time-cost-options">
           {costs.map(cost => (
-            <TimeAndCostBox key={cost} value="$" unit={cost} />
+            <TimeAndCostBox
+              cost={costState}
+              clicked={() => setCost(cost)}
+              key={cost}
+              value="$"
+              unit={cost}
+            />
           ))}
         </div>
       </Aux>
@@ -101,4 +115,10 @@ const FilterContainer = ({ name }) => {
   );
 };
 
-export default FilterContainer;
+const mapStateToProps = state => {
+  return {
+    costState: state.filter.cost,
+    timeState: state.filter.time
+  };
+};
+export default connect(mapStateToProps, { setCost, setTime })(FilterContainer);

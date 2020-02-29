@@ -3,8 +3,13 @@ import "./FilterModal.css";
 import FilterList from "../FiltersList/FiltersList";
 import { connect } from "react-redux";
 import FilterContainer from "../FilterContainer/FilterContainer";
-import { setActiveFilter } from "../../store/actions/filterModal";
-const FilterModal = ({ activeFilter: { name }, setActiveFilter }) => {
+import { setActiveFilter } from "../../store/actions/filter";
+const FilterModal = ({
+  activeFilter: { name },
+  setActiveFilter,
+  cost,
+  time
+}) => {
   const filters = ["Ingredients", "Cost", "Time", "Allergies", "Nutrition"];
 
   return (
@@ -16,6 +21,8 @@ const FilterModal = ({ activeFilter: { name }, setActiveFilter }) => {
               {filters.map(filter => {
                 return (
                   <FilterList
+                    cost={cost}
+                    time={time}
                     activeFilter={name}
                     clicked={() => setActiveFilter(filter)}
                     key={filter}
@@ -35,7 +42,9 @@ const FilterModal = ({ activeFilter: { name }, setActiveFilter }) => {
 
 const mapStateToProps = state => {
   return {
-    activeFilter: state.filterContainer.activeFilter
+    activeFilter: state.filter.activeFilter,
+    cost: state.filter.cost === 0,
+    time: state.filter.time === 0
   };
 };
 

@@ -7,7 +7,7 @@ import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
 
-const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
+const Landing = ({ hidden, recipeFilter, recipe, filter, cost, time }) => {
   const [state, setState] = useState({
     recipes: [],
     loading: true,
@@ -43,9 +43,17 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
   let daiRecipes = recipes;
 
   if (recipeFilter !== "") {
-    daiRecipes = recipes.filter(recipe =>
+    daiRecipes = daiRecipes.filter(recipe =>
       recipe.title.toLowerCase().includes(recipeFilter.toLowerCase())
     );
+  }
+
+  if (cost !== 0) {
+    daiRecipes = daiRecipes.filter(recipe => recipe.cost / 100 <= cost);
+  }
+
+  if (time !== 0) {
+    daiRecipes = daiRecipes.filter(recipe => recipe.readyInMinutes <= time);
   }
 
   const loadedRecipes = daiRecipes.filter((recipe, index) => index <= counter);
@@ -55,7 +63,9 @@ const Landing = ({ hidden, recipeFilter, recipe, filter }) => {
       <div className="main-flex-wrapper">
         <h1 className="recipe-content-title ">
           <span>
-            {filter ? `${daiRecipes.length} suggested recipes` : "Just for You"}
+            {filter || cost !== 0 || time !== 0
+              ? `${daiRecipes.length} suggested recipes`
+              : "Just for You"}
           </span>
         </h1>
         <div>
@@ -109,7 +119,9 @@ const mapStateToProps = state => {
     hidden: state.modal.hidden,
     recipe: state.modal.recipe,
     filter: state.filter.filter,
-    recipeFilter: state.filter.recipeFilter
+    recipeFilter: state.filter.recipeFilter,
+    cost: state.filter.cost,
+    time: state.filter.time
   };
 };
 

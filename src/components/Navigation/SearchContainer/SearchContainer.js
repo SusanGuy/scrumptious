@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import {
   hideFilterModal,
   showFilterModal
-} from "../../../store/actions/filterModal";
+} from "../../../store/actions/filter";
 import FilterModal from "../../FilterModal/FilterModal";
 
 const SearchContainer = ({ hidden, showFilterModal, hideFilterModal }) => {
@@ -41,7 +41,7 @@ const SearchContainer = ({ hidden, showFilterModal, hideFilterModal }) => {
 };
 const mapStateToProps = state => {
   return {
-    hidden: state.filterContainer.hidden
+    hidden: state.filter.hidden
   };
 };
 
