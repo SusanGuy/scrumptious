@@ -1,0 +1,36 @@
+.custom-alert {
+  width: 100%;
+  z-index: 90;
+  height: 7vh;
+  top: 4rem;
+  transform: translateY(0%);
+  animation: popUpEntrada 0.5s;
+  color: #333;
+  padding: 1rem;
+  border: 1px solid rgba(51, 51, 51, 0.09);
+  border-radius: 4px;
+}
+.success {
+  background-color: #e6ffee;
+}
+.failure {
+  background-color: #fce6e2;
+}
+
+.custom-alert-row {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 60rem;
+}
+
+.custom-alert-column {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  width: 91.66667%;
+  float: left;
+}
+
+.custom-alert-column i {
+  line-height: 1.59rem;
+  margin-right: 10px;
+}
