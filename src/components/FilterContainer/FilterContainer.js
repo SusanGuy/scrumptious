@@ -54,6 +54,40 @@ const FilterContainer = ({
       </div>
     );
   }
+
+  if (name === "Nutrition") {
+    filterRow = (
+      <Aux>
+        <div className="nutrition">
+          <div class="filter-item" role="button">
+            <h3 class="filter-item-title">Low Fat</h3>
+            <p class="filter-item-desc">10g or less per serving</p>
+          </div>
+          <div class="filter-item" role="button">
+            <h3 class="filter-item-title">Low Calories</h3>
+            <p class="filter-item-desc">400 kcal or less per serving</p>
+          </div>
+          <div class="filter-item" role="button">
+            <h3 class="filter-item-title">High Fiber</h3>
+            <p class="filter-item-desc">6g or more per serving</p>
+          </div>
+          <div class="filter-item" role="button">
+            <h3 class="filter-item-title">Low Carb</h3>
+            <p class="filter-item-desc">30g or less per serving</p>
+          </div>
+          <div class="filter-item" role="button">
+            <h3 class="filter-item-title">Low Sodium</h3>
+            <p class="filter-item-desc">500mg or less per serving</p>
+          </div>
+          <div class="filter-item" role="button">
+            <h3 class="filter-item-title">Low Sugar</h3>
+            <p class="filter-item-desc">10g or less per serving</p>
+          </div>
+        </div>
+      </Aux>
+    );
+  }
+
   if (name === "Allergies") {
     filterRow = (
       <Aux>
@@ -138,6 +172,7 @@ const FilterContainer = ({
       </Aux>
     );
   }
+
   return (
     <div className="filter-group-wrapper">
       <div className="filter-group">
