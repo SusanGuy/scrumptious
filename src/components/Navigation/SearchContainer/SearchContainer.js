@@ -28,7 +28,7 @@ const SearchContainer = ({
               <span className="filter-sliders"></span>
               <i
                 style={{
-                  color: hidden ? "#3a9691" : ""
+                  color: hidden ? "#659dbd" : ""
                 }}
                 className="fas fa-sliders-h"
               ></i>

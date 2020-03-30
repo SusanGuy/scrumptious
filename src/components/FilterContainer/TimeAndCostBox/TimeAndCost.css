@@ -16,11 +16,11 @@
 }
 
 .time-cost-box:hover {
-  color: #3a9691;
+  color: #659dbd;
   background-color: #eeeeee;
 }
 
 .box-clicked {
   background-color: #eeeeee;
-  color: #3a9691;
+  color: #659dbd;
 }

@@ -9,11 +9,11 @@
 }
 
 .filter-category.active {
-  color: #3a9691;
+  color: #659dbd;
 }
 
 .filter-category:hover {
-  color: #3a9691;
+  color: #659dbd;
 }
 
 .filter-category .filter-title {
@@ -27,7 +27,7 @@
   display: block;
   height: 3px;
   margin-top: 6px;
-  background: #3a9691;
+  background: #659dbd;
   transition: all 2s ease-in-out;
   transform-origin: left;
 }

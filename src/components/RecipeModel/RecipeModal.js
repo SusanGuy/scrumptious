@@ -54,10 +54,6 @@ const RecipeModal = ({
             backgroundImage: `url(${src})`
           }}
         ></div>
-        <div className="img-bk"></div>
-        <div className="img-bk"></div>
-        <div className="img-bk"></div>
-        <div className="img-bk"></div>
 
         <div className="time-wrap">
           <div>
