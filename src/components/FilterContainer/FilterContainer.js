@@ -2,6 +2,7 @@ import React from "react";
 import "./FilterContainer.css";
 import Aux from "../../hoc/Aux";
 import TimeAndCostBox from "./TimeAndCostBox/TimeAndCost";
+import NutriAllerContainer from "./NutritionandAllergiesContainer/NutriAllerContainer";
 import { connect } from "react-redux";
 import { setCost, setTime, setAllergy } from "../../store/actions/filter";
 const FilterContainer = ({
@@ -57,79 +58,48 @@ const FilterContainer = ({
 
   if (name === "Nutrition") {
     filterRow = (
-      <Aux>
-        <div className="nutrition">
-          <div class="filter-item" role="button">
-            <h3 class="filter-item-title">Low Fat</h3>
-            <p class="filter-item-desc">10g or less per serving</p>
-          </div>
-          <div class="filter-item" role="button">
-            <h3 class="filter-item-title">Low Calories</h3>
-            <p class="filter-item-desc">400 kcal or less per serving</p>
-          </div>
-          <div class="filter-item" role="button">
-            <h3 class="filter-item-title">High Fiber</h3>
-            <p class="filter-item-desc">6g or more per serving</p>
-          </div>
-          <div class="filter-item" role="button">
-            <h3 class="filter-item-title">Low Carb</h3>
-            <p class="filter-item-desc">30g or less per serving</p>
-          </div>
-          <div class="filter-item" role="button">
-            <h3 class="filter-item-title">Low Sodium</h3>
-            <p class="filter-item-desc">500mg or less per serving</p>
-          </div>
-          <div class="filter-item" role="button">
-            <h3 class="filter-item-title">Low Sugar</h3>
-            <p class="filter-item-desc">10g or less per serving</p>
-          </div>
+      <div className="nutrition">
+        <div class="filter-item" role="button">
+          <h3 class="filter-item-title">High Calories</h3>
+          <p class="filter-item-desc">1500 kcal or more per serving</p>
         </div>
-      </Aux>
+        <div class="filter-item" role="button">
+          <h3 class="filter-item-title">Low Calories</h3>
+          <p class="filter-item-desc">400 kcal or less per serving</p>
+        </div>
+        <div class="filter-item" role="button">
+          <h3 class="filter-item-title">High Carbs</h3>
+          <p class="filter-item-desc">50g or more per serving</p>
+        </div>
+        <div class="filter-item" role="button">
+          <h3 class="filter-item-title">Low Carb</h3>
+          <p class="filter-item-desc">30g or less per serving</p>
+        </div>
+        <div class="filter-item" role="button">
+          <h3 class="filter-item-title">High Protein</h3>
+          <p class="filter-item-desc">20g or more per serving</p>
+        </div>
+        <div class="filter-item" role="button">
+          <h3 class="filter-item-title">High Fat</h3>
+          <p class="filter-item-desc">15g or more per serving</p>
+        </div>
+      </div>
     );
   }
 
   if (name === "Allergies") {
+    const allergiesArray = ["vegetarian", "vegan", "glutenFree", "dairyFree"];
     filterRow = (
-      <Aux>
-        <div className="allergies">
-          <div onClick={() => setAllergy("vegetarian")} className="filter-item">
-            <h3
-              className={`${
-                allergies.includes("vegetarian") ? "allergy-clicked" : ""
-              } filter-item-title`}
-            >
-              Vegetarian
-            </h3>
-          </div>
-          <div onClick={() => setAllergy("vegan")} className="filter-item">
-            <h3
-              className={`${
-                allergies.includes("vegan") ? "allergy-clicked" : ""
-              } filter-item-title`}
-            >
-              Vegan
-            </h3>
-          </div>
-          <div onClick={() => setAllergy("glutenFree")} className="filter-item">
-            <h3
-              className={`${
-                allergies.includes("glutenFree") ? "allergy-clicked" : ""
-              } filter-item-title`}
-            >
-              Gluten-Free
-            </h3>
-          </div>
-          <div onClick={() => setAllergy("dairyFree")} className="filter-item">
-            <h3
-              className={`${
-                allergies.includes("dairyFree") ? "allergy-clicked" : ""
-              } filter-item-title`}
-            >
-              Dairy-Free
-            </h3>
-          </div>
-        </div>
-      </Aux>
+      <div className="allergies">
+        {allergiesArray.map(allergy => (
+          <NutriAllerContainer
+            key={allergy}
+            name={allergy}
+            allergies={allergies}
+            clicked={() => setAllergy(allergy)}
+          />
+        ))}
+      </div>
     );
   }
 
