@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SearchBar.css";
 import { connect } from "react-redux";
-import { filterByName } from "../../../../store/actions/filter";
+import { filterByName } from "../../../store/actions/filter";
 const SearchBar = ({ filterByName, filter }) => {
   const [recipeName, setRecipeName] = useState("");
   useEffect(() => {

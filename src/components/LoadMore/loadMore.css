@@ -5,6 +5,7 @@
 
 .arrow i {
   cursor: pointer;
+  color: #659dbd;
 }
 .bounce {
   -moz-animation: bounce 2s infinite;

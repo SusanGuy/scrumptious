@@ -1,0 +1,23 @@
+.sign-in {
+  font-weight: 500;
+  font-size: 16px;
+  margin-left: 20px;
+  padding: 9px 25px;
+  background-color: rgba(101, 157, 189, 1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: #edf0f1;
+}
+
+.sign-out {
+  font-family: inherit;
+  background-color: #fff;
+  color: #55565a;
+}
+
+.sign-in:hover {
+  background-color: rgba(101, 157, 189, 0.8);
+  color: #fff;
+}

@@ -1,0 +1,17 @@
+.nav_link {
+  font-weight: 900;
+  font-size: 14px;
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav_link a {
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  color: #55565a;
+}
+
+.nav_link a:hover {
+  color: #15c7c7;
+  transition: 0.7s;
+}

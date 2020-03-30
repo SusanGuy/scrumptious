@@ -6,8 +6,8 @@ import {
   hideFilterModal,
   showFilterModal,
   resetFilters
-} from "../../../store/actions/filter";
-import FilterModal from "../../FilterModal/FilterModal";
+} from "../../store/actions/filter";
+import FilterModal from "../FilterModal/FilterModal";
 
 const SearchContainer = ({
   hidden,
