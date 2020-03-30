@@ -56,42 +56,12 @@
   margin: 0 20px;
 }
 
-.filter-item {
-  width: 100%;
-  padding: 1rem 0;
-  cursor: pointer;
-  display: inline-block;
-  box-sizing: border-box;
-  vertical-align: top;
-}
-.filter-item-title {
-  position: relative;
-  color: #707070;
-  line-height: 2;
-  transition: color 400ms;
-  font-size: 16px;
-  line-height: 2;
-}
-
-.filter-item-title:hover {
-  color: #3a9691;
-}
-
-.allergy-clicked {
-  color: #3a9691;
-}
-
 .allergies {
   column-count: 4;
 }
 
 .nutrition {
-  column-count: 3;
-}
-
-.filter-item-desc {
-  color: #bababa;
-  margin: 0;
+  column-count: 4;
 }
 
 .cooktime-cost-title {

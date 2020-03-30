@@ -12,7 +12,8 @@ const FilterContainer = ({
   setCost,
   setTime,
   setAllergy,
-  allergies
+  allergies,
+  nutritions
 }) => {
   let filterRow;
   if (name === "Ingredients") {
@@ -57,32 +58,27 @@ const FilterContainer = ({
   }
 
   if (name === "Nutrition") {
+    const nutritionArray = [
+      { name: "High Calories", description: "1500 kcal or more per serving" },
+      { name: "Low Calories", description: "400 kcal or less per serving" },
+      { name: "High Carbs", description: "100g or more per serving" },
+      { name: "Low Carbs", description: "50g or less per serving" },
+      { name: "High Protein", description: "20g or more per serving" },
+      { name: "Low Protein", description: "8g or less per serving" },
+      { name: "High Fat", description: "15g or more per serving" },
+      { name: "Low Fat", description: "8g or less per serving" }
+    ];
     filterRow = (
       <div className="nutrition">
-        <div class="filter-item" role="button">
-          <h3 class="filter-item-title">High Calories</h3>
-          <p class="filter-item-desc">1500 kcal or more per serving</p>
-        </div>
-        <div class="filter-item" role="button">
-          <h3 class="filter-item-title">Low Calories</h3>
-          <p class="filter-item-desc">400 kcal or less per serving</p>
-        </div>
-        <div class="filter-item" role="button">
-          <h3 class="filter-item-title">High Carbs</h3>
-          <p class="filter-item-desc">50g or more per serving</p>
-        </div>
-        <div class="filter-item" role="button">
-          <h3 class="filter-item-title">Low Carb</h3>
-          <p class="filter-item-desc">30g or less per serving</p>
-        </div>
-        <div class="filter-item" role="button">
-          <h3 class="filter-item-title">High Protein</h3>
-          <p class="filter-item-desc">20g or more per serving</p>
-        </div>
-        <div class="filter-item" role="button">
-          <h3 class="filter-item-title">High Fat</h3>
-          <p class="filter-item-desc">15g or more per serving</p>
-        </div>
+        {nutritionArray.map(({ name, description }) => (
+          <NutriAllerContainer
+            key={name}
+            name={name}
+            nutritions={nutritions}
+            description={description}
+            isNutrition
+          />
+        ))}
       </div>
     );
   }
@@ -156,7 +152,8 @@ const mapStateToProps = state => {
   return {
     costState: state.filter.cost,
     timeState: state.filter.time,
-    allergies: state.filter.allergies
+    allergies: state.filter.allergies,
+    nutritions: state.filter.nutritions
   };
 };
 export default connect(mapStateToProps, { setCost, setTime, setAllergy })(

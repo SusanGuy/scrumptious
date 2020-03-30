@@ -4,22 +4,25 @@ import TickMark from "./ClickedMark/ClickedMark";
 
 const NutriAllerContainer = ({
   clicked,
-  nutrition,
+  isNutrition,
   description,
   allergies,
-  name
+  name,
+  nutritions
 }) => {
   return (
     <div onClick={clicked} className="filter-item">
       <h3
         className={`${
-          allergies.includes(name) ? "allergy-clicked" : ""
+          allergies && allergies.includes(name) ? "allergy-clicked" : ""
         } filter-item-title`}
       >
         {name}
-        {allergies.includes(name) && <TickMark />}
+        {((allergies && allergies.includes(name)) || nutritions) && (
+          <TickMark />
+        )}
       </h3>
-      {nutrition && <p class="filter-item-desc">{description}</p>}
+      {isNutrition && <p class="filter-item-desc">{description}</p>}
     </div>
   );
 };

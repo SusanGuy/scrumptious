@@ -6,6 +6,7 @@ const initialState = {
   time: 0,
   cost: 0,
   allergies: [],
+  nutritions: [],
   hidden: false,
   activeFilter: {
     active: false,
