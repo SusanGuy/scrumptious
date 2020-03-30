@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import "./RecipeModal.css";
 import ModalCard from "./ModalCard/ModalCard";
+import AuthButton from "../authButton/authButton";
 import { hideModal } from "../../store/actions/recipeModal";
 import { connect } from "react-redux";
 const RecipeModal = ({
@@ -45,7 +46,7 @@ const RecipeModal = ({
     <div className="full-bk clear">
       <div ref={node} className="widget-frame">
         <div className="actions">
-          <button>Save</button>
+          <AuthButton save>Save</AuthButton>
         </div>
         <div
           className="img-bk active"
