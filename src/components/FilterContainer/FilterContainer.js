@@ -4,7 +4,12 @@ import Aux from "../../hoc/Aux";
 import TimeAndCostBox from "./TimeAndCostBox/TimeAndCost";
 import NutriAllerContainer from "./NutritionandAllergiesContainer/NutriAllerContainer";
 import { connect } from "react-redux";
-import { setCost, setTime, setAllergy } from "../../store/actions/filter";
+import {
+  setCost,
+  setTime,
+  setAllergy,
+  setNutrition
+} from "../../store/actions/filter";
 const FilterContainer = ({
   name,
   costState,
@@ -13,7 +18,8 @@ const FilterContainer = ({
   setTime,
   setAllergy,
   allergies,
-  nutritions
+  nutritions,
+  setNutrition
 }) => {
   let filterRow;
   if (name === "Ingredients") {
@@ -59,23 +65,32 @@ const FilterContainer = ({
 
   if (name === "Nutrition") {
     const nutritionArray = [
-      { name: "High Calories", description: "1500 kcal or more per serving" },
-      { name: "Low Calories", description: "400 kcal or less per serving" },
-      { name: "High Carbs", description: "100g or more per serving" },
-      { name: "Low Carbs", description: "50g or less per serving" },
-      { name: "High Protein", description: "20g or more per serving" },
-      { name: "Low Protein", description: "8g or less per serving" },
-      { name: "High Fat", description: "15g or more per serving" },
-      { name: "Low Fat", description: "8g or less per serving" }
+      {
+        name: "Calories",
+        type: "High",
+        quantity: 1500
+      },
+      {
+        name: "Calories",
+        type: "Low",
+        quantity: 400
+      },
+      { name: "Carbs", type: "High", quantity: 100 },
+      { name: "Carbs", type: "Low", quantity: 50 },
+      { name: "Protein", type: "High", quantity: 20 },
+      { name: "Protein", type: "Low", quantity: 8 },
+      { name: "Fat", type: "High", quantity: 15 },
+      { name: "Fat", type: "Low", quantity: 8 }
     ];
     filterRow = (
       <div className="nutrition">
-        {nutritionArray.map(({ name, description }) => (
+        {nutritionArray.map(nutrition => (
           <NutriAllerContainer
-            key={name}
-            name={name}
+            key={nutrition.type + " " + nutrition.name}
+            name={nutrition.type + " " + nutrition.name}
             nutritions={nutritions}
-            description={description}
+            quantity={nutrition.quantity}
+            clicked={() => setNutrition(nutrition)}
             isNutrition
           />
         ))}
@@ -156,6 +171,9 @@ const mapStateToProps = state => {
     nutritions: state.filter.nutritions
   };
 };
-export default connect(mapStateToProps, { setCost, setTime, setAllergy })(
-  FilterContainer
-);
+export default connect(mapStateToProps, {
+  setCost,
+  setTime,
+  setAllergy,
+  setNutrition
+})(FilterContainer);

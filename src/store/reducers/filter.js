@@ -95,6 +95,32 @@ const filterReducer = (state = initialState, action) => {
         allergies: state.allergies.concat(payload)
       };
 
+    case actionTypes.SEARCH_BY_NUTRITION:
+      if (
+        state.nutritions.length > 0 &&
+        state.nutritions.find(
+          ({ name, type }) => name === payload.name && type === payload.type
+        )
+      ) {
+        return {
+          ...state,
+          nutritions: state.nutritions.filter(
+            nutrition =>
+              nutrition.name !== payload.name && nutrition.type !== payload.type
+          )
+        };
+      } else if (
+        state.nutritions.length > 0 &&
+        state.nutritions.find(({ name }) => name === payload.name)
+      ) {
+        state.nutritions = state.nutritions.filter(
+          nutrition => nutrition.name !== payload.name
+        );
+      }
+      return {
+        ...state,
+        nutritions: state.nutritions.concat(payload)
+      };
     case actionTypes.RESET_FILTERS:
       return {
         ...initialState,

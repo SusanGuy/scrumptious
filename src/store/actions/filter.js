@@ -47,6 +47,13 @@ export const setAllergy = allergy => {
   };
 };
 
+export const setNutrition = nutrition => {
+  return {
+    type: actionTypes.SEARCH_BY_NUTRITION,
+    payload: nutrition
+  };
+};
+
 export const resetFilters = () => {
   return {
     type: actionTypes.RESET_FILTERS

@@ -5,7 +5,7 @@ import TickMark from "./ClickedMark/ClickedMark";
 const NutriAllerContainer = ({
   clicked,
   isNutrition,
-  description,
+  quantity,
   allergies,
   name,
   nutritions
@@ -14,15 +14,36 @@ const NutriAllerContainer = ({
     <div onClick={clicked} className="filter-item">
       <h3
         className={`${
-          allergies && allergies.includes(name) ? "allergy-clicked" : ""
+          (allergies && allergies.includes(name)) ||
+          (isNutrition &&
+            nutritions &&
+            nutritions.length > 0 &&
+            nutritions.find(
+              nutrition =>
+                nutrition.name === name.split(" ")[1] &&
+                nutrition.quantity === quantity
+            ))
+            ? "allergy-clicked"
+            : ""
         } filter-item-title`}
       >
         {name}
-        {((allergies && allergies.includes(name)) || nutritions) && (
-          <TickMark />
-        )}
+        {((allergies && allergies.includes(name)) ||
+          (isNutrition &&
+            nutritions &&
+            nutritions.length > 0 &&
+            nutritions.find(
+              nutrition =>
+                nutrition.name === name.split(" ")[1] &&
+                nutrition.quantity === quantity
+            ))) && <TickMark />}
       </h3>
-      {isNutrition && <p class="filter-item-desc">{description}</p>}
+      {isNutrition && (
+        <p className="filter-item-desc">
+          {quantity} {name.split(" ")[1] === "Calories" ? "kcal" : "g"} or{" "}
+          {name.split(" ")[0] === "High" ? "more" : "less"} per serving
+        </p>
+      )}
     </div>
   );
 };

@@ -7,7 +7,8 @@ const FiltersList = ({
   cost,
   allergies,
   clicked,
-  activeFilter
+  activeFilter,
+  nutritions
 }) => {
   let filterList = null;
   if (time && children === "Time") {
@@ -18,6 +19,10 @@ const FiltersList = ({
   }
   if (allergies.length !== 0 && children === "Allergies") {
     filterList = <FilterCount value={allergies.length} />;
+  }
+
+  if (nutritions.length !== 0 && children === "Nutrition") {
+    filterList = <FilterCount value={nutritions.length} />;
   }
   return (
     <li
