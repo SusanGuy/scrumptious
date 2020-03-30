@@ -14,7 +14,8 @@ const Landing = ({
   filter,
   cost,
   time,
-  allergies
+  allergies,
+  nutritions
 }) => {
   const [state, setState] = useState({
     recipes: [],
@@ -70,6 +71,22 @@ const Landing = ({
     });
   }
 
+  if (nutritions.length !== 0) {
+    nutritions.forEach(nutrition => {
+      daiRecipes = daiRecipes.filter(recipe => {
+        const value =
+          nutrition.name === "calories"
+            ? recipe.nutrients[nutrition.name.toLowerCase()]
+            : parseInt(
+                recipe.nutrients[nutrition.name.toLowerCase()].replace("g", "")
+              );
+        return nutrition.type === "High"
+          ? value > nutrition.quantity
+          : value < nutrition.quantity;
+      });
+    });
+  }
+
   const loadedRecipes = daiRecipes.filter((recipe, index) => index <= counter);
 
   return (
@@ -77,7 +94,11 @@ const Landing = ({
       <div className="main-flex-wrapper">
         <h1 className="recipe-content-title ">
           <span>
-            {filter || cost !== 0 || time !== 0 || allergies.length !== 0
+            {filter ||
+            cost !== 0 ||
+            time !== 0 ||
+            allergies.length !== 0 ||
+            nutritions.length !== 0
               ? `${daiRecipes.length} suggested recipes`
               : "Just for You"}
           </span>
@@ -136,7 +157,8 @@ const mapStateToProps = state => {
     recipeFilter: state.filter.recipeFilter,
     cost: state.filter.cost,
     time: state.filter.time,
-    allergies: state.filter.allergies
+    allergies: state.filter.allergies,
+    nutritions: state.filter.nutritions
   };
 };
 
