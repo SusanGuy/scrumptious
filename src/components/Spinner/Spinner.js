@@ -1,13 +1,15 @@
 import React from "react";
-import "./Spinner.css";
-const Spinner = () => {
+import "./spinner.css";
+const Spinner = props => {
   return (
-    <div className="loader">
-      <div className="inner one"></div>
-      <div className="inner two"></div>
-      <div className="inner three"></div>
+    <div
+      style={{
+        ...props
+      }}
+      className="loader"
+    >
+      Loading...
     </div>
   );
 };
-
 export default Spinner;

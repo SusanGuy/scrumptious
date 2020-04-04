@@ -12,6 +12,6 @@
 }
 
 .nav_link a:hover {
-  color: #15c7c7;
+  color: rgba(101, 157, 189, 1);
   transition: 0.7s;
 }

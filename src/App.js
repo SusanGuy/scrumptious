@@ -5,6 +5,7 @@ import Auth from "./containers/Auth/auth";
 import Landing from "../src/containers/Landing/landing";
 import { loadUser } from "./store/actions/auth";
 import { connect } from "react-redux";
+import Logout from "./components/logout/logout";
 import "./App.css";
 import { setAuthToken } from "./utils";
 import PrivateRoute from "./components/routing/privateRoute";
@@ -23,6 +24,7 @@ function App({ loadUser }) {
       <Navigation />
       <Switch>
         <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
+        <PrivateRoute exact path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />
         <Route to="/" exact component={Landing} />
       </Switch>

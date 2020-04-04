@@ -5,6 +5,7 @@ import CustomButton from "../../components/CustomButton/customButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { connect } from "react-redux";
 import { login, signup } from "../../store/actions/auth";
+import Spinner from "../../components/Spinner/Spinner";
 const Auth = ({ history, login, signup, loading }) => {
   const [classesName, setClasses] = useState({
     classes: ["cont"]
@@ -12,9 +13,11 @@ const Auth = ({ history, login, signup, loading }) => {
   const { classes } = classesName;
 
   const [formData, setformData] = useState({
+    name: "",
     email: "",
     password: ""
   });
+
   const { name, email, password } = formData;
 
   const handleFormChange = e => {
@@ -32,6 +35,16 @@ const Auth = ({ history, login, signup, loading }) => {
     });
   };
 
+  const handleLoginSubmit = async e => {
+    e.preventDefault();
+    login(email, password, history);
+  };
+
+  const handleSignupSubmit = async e => {
+    e.preventDefault();
+    signup(name, email, password, history);
+  };
+
   return (
     <Aux>
       <p className="tip">
@@ -40,12 +53,13 @@ const Auth = ({ history, login, signup, loading }) => {
       <div className={classes.join(" ")}>
         <div className="form sign-in-box">
           <h2>Welcome back,</h2>
-          <form>
+          <form onSubmit={e => handleLoginSubmit(e)}>
             <CustomInput
               onChange={e => handleFormChange(e)}
               value={email}
               type="email"
               name="email"
+              required
             >
               Email
             </CustomInput>
@@ -54,11 +68,24 @@ const Auth = ({ history, login, signup, loading }) => {
               value={password}
               type="password"
               name="password"
+              required
             >
               Password
             </CustomInput>
             <p className="forgot-pass">Forgot password?</p>
-            <CustomButton type="submit">Sign In</CustomButton>
+            <CustomButton type="submit">
+              {loading ? (
+                <Spinner
+                  margin="2px auto"
+                  width="2em"
+                  height="2em"
+                  background="#d4af7a"
+                  color="#d4af7a"
+                />
+              ) : (
+                "Sign in"
+              )}
+            </CustomButton>
             <CustomButton facebook>
               Continue with <span>facebook</span>
             </CustomButton>
@@ -93,12 +120,13 @@ const Auth = ({ history, login, signup, loading }) => {
           </div>
           <div className="form sign-up-box">
             <h2>Time to feel like home,</h2>
-            <form>
+            <form onSubmit={e => handleSignupSubmit(e)}>
               <CustomInput
                 onChange={e => handleFormChange(e)}
                 value={name}
                 type="text"
                 name="name"
+                required
               >
                 Name
               </CustomInput>
@@ -107,6 +135,7 @@ const Auth = ({ history, login, signup, loading }) => {
                 value={email}
                 type="email"
                 name="email"
+                required
               >
                 Email
               </CustomInput>
@@ -115,10 +144,24 @@ const Auth = ({ history, login, signup, loading }) => {
                 value={password}
                 type="password"
                 name="password"
+                required
               >
                 Password
               </CustomInput>
-              <CustomButton type="submit">Sign Up</CustomButton>
+              <CustomButton type="submit">
+                {" "}
+                {loading ? (
+                  <Spinner
+                    margin="2px auto"
+                    width="2em"
+                    height="2em"
+                    background="inherit"
+                    color="white"
+                  />
+                ) : (
+                  "Sign Up"
+                )}
+              </CustomButton>
               <CustomButton facebook>
                 Join with <span>facebook</span>
               </CustomButton>
