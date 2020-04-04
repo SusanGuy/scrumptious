@@ -6,6 +6,8 @@ import "./landing.css";
 import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
+import Aux from "../../hoc/Aux";
+import SearchContainer from "../../components/SearchContainer/SearchContainer";
 
 const Landing = ({
   hidden,
@@ -46,7 +48,12 @@ const Landing = ({
   const { recipes, loading } = state;
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <Aux>
+        <SearchContainer />
+        <Spinner />
+      </Aux>
+    );
   }
 
   let daiRecipes = recipes;
@@ -90,63 +97,66 @@ const Landing = ({
   const loadedRecipes = daiRecipes.filter((recipe, index) => index <= counter);
 
   return (
-    <div className="recipe-content">
-      <div className="main-flex-wrapper">
-        <h1 className="recipe-content-title ">
-          <span>
-            {filter ||
-            cost !== 0 ||
-            time !== 0 ||
-            allergies.length !== 0 ||
-            nutritions.length !== 0
-              ? `${daiRecipes.length} suggested recipes`
-              : "Just for You"}
-          </span>
-        </h1>
-        <div>
-          {hidden && <RecipeModal recipe={recipe} />}
-          {loadedRecipes.map(
-            ({
-              _id,
-              title,
-              readyInMinutes,
-              image,
-              ingredients,
-              instructions,
-              count,
-              cost,
-              nutrients: { calories, ...nutrient },
-              vegetarian,
-              vegan,
-              glutenFree,
-              dairyFree
-            }) => {
-              return (
-                <RecipeCard
-                  key={_id}
-                  title={title}
-                  time={readyInMinutes}
-                  src={image}
-                  people={count}
-                  calories={calories}
-                  nutrients={nutrient}
-                  instructions={instructions}
-                  ingredients={ingredients}
-                  vegetarian={vegetarian}
-                  vegan={vegan}
-                  glutenFree={glutenFree}
-                  dairyFree={dairyFree}
-                  cost={cost}
-                />
-              );
-            }
+    <Aux>
+      <SearchContainer />
+      <div className="recipe-content">
+        <div className="main-flex-wrapper">
+          <h1 className="recipe-content-title ">
+            <span>
+              {filter ||
+              cost !== 0 ||
+              time !== 0 ||
+              allergies.length !== 0 ||
+              nutritions.length !== 0
+                ? `${daiRecipes.length} suggested recipes`
+                : "Just for You"}
+            </span>
+          </h1>
+          <div>
+            {hidden && <RecipeModal recipe={recipe} />}
+            {loadedRecipes.map(
+              ({
+                _id,
+                title,
+                readyInMinutes,
+                image,
+                ingredients,
+                instructions,
+                count,
+                cost,
+                nutrients: { calories, ...nutrient },
+                vegetarian,
+                vegan,
+                glutenFree,
+                dairyFree
+              }) => {
+                return (
+                  <RecipeCard
+                    key={_id}
+                    title={title}
+                    time={readyInMinutes}
+                    src={image}
+                    people={count}
+                    calories={calories}
+                    nutrients={nutrient}
+                    instructions={instructions}
+                    ingredients={ingredients}
+                    vegetarian={vegetarian}
+                    vegan={vegan}
+                    glutenFree={glutenFree}
+                    dairyFree={dairyFree}
+                    cost={cost}
+                  />
+                );
+              }
+            )}
+          </div>
+          {loadedRecipes.length !== daiRecipes.length && (
+            <LoadMore clicked={() => setCounter(counter + 24)} />
           )}
         </div>
-        {loadedRecipes.length !== daiRecipes.length && (
-          <LoadMore clicked={() => setCounter(counter + 24)} />
-        )}
       </div>
-    </div>
+    </Aux>
   );
 };
 const mapStateToProps = state => {

@@ -1,5 +1,5 @@
 import React from "react";
-import SearchContainer from "../SearchContainer/SearchContainer";
+
 import NavigationItems from "./navigationItems/navigationItems";
 import { Link } from "react-router-dom";
 import AuthButton from "../authButton/authButton";
@@ -18,7 +18,6 @@ const Navigation = () => {
           <AuthButton>Sign In</AuthButton>
         </Link>
       </header>
-      <SearchContainer />
     </Aux>
   );
 };

@@ -1,0 +1,35 @@
+.main-button {
+  display: block;
+  margin: 0 auto;
+  width: 260px;
+  height: 36px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.submit {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  background: #d4af7a;
+  text-transform: uppercase;
+}
+.fb-btn {
+  background: #3b579d;
+}
+.fb-btn span {
+  font-weight: bold;
+  color: #fff;
+}
+
+.fb-btn:hover {
+  background-color: #4261b0;
+}
+
+.fb-btn .fab {
+  font-size: 1em;
+  color: #fff;
+  line-height: 0.875rem;
+  margin-right: 10px;
+}
