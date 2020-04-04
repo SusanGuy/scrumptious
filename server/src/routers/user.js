@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     if (err.toString().includes("Error: ")) {
       return res.status(400).send({
-        authError: err.toString().split("Error: ")[1]
+        authError: err.toString().split("Error: ")[1],
       });
     }
     res.status(500).send(err);
@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", auth, async (req, res) => {
   try {
-    req.user.tokens = req.user.tokens.filter(token => {
+    req.user.tokens = req.user.tokens.filter((token) => {
       return token.token !== req.token;
     });
     await req.user.save();
@@ -116,7 +116,7 @@ router.get("/me", auth, async (req, res) => {
 router.patch("/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password", "recipe"];
-  const isValidOperation = updates.every(update =>
+  const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
 
@@ -125,7 +125,7 @@ router.patch("/me", auth, async (req, res) => {
   }
 
   try {
-    updates.forEach(update => (req.user[update] = req.body[update]));
+    updates.forEach((update) => (req.user[update] = req.body[update]));
     await req.user.save();
     res.send(req.user);
   } catch (e) {

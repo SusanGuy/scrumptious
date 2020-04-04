@@ -8,22 +8,22 @@ import { login, signup } from "../../store/actions/auth";
 import Spinner from "../../components/Spinner/Spinner";
 const Auth = ({ history, login, signup, loading }) => {
   const [classesName, setClasses] = useState({
-    classes: ["cont"]
+    classes: ["cont"],
   });
   const { classes } = classesName;
 
   const [formData, setformData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   const { name, email, password } = formData;
 
-  const handleFormChange = e => {
+  const handleFormChange = (e) => {
     setformData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -31,16 +31,16 @@ const Auth = ({ history, login, signup, loading }) => {
     setformData({
       name: "",
       email: "",
-      password: ""
+      password: "",
     });
   };
 
-  const handleLoginSubmit = async e => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     login(email, password, history);
   };
 
-  const handleSignupSubmit = async e => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
     signup(name, email, password, history);
   };
@@ -53,9 +53,9 @@ const Auth = ({ history, login, signup, loading }) => {
       <div className={classes.join(" ")}>
         <div className="form sign-in-box">
           <h2>Welcome back,</h2>
-          <form onSubmit={e => handleLoginSubmit(e)}>
+          <form onSubmit={(e) => handleLoginSubmit(e)}>
             <CustomInput
-              onChange={e => handleFormChange(e)}
+              onChange={(e) => handleFormChange(e)}
               value={email}
               type="email"
               name="email"
@@ -64,7 +64,7 @@ const Auth = ({ history, login, signup, loading }) => {
               Email
             </CustomInput>
             <CustomInput
-              onChange={e => handleFormChange(e)}
+              onChange={(e) => handleFormChange(e)}
               value={password}
               type="password"
               name="password"
@@ -110,7 +110,7 @@ const Auth = ({ history, login, signup, loading }) => {
                 setClasses({
                   classes: classes.includes("s--signup")
                     ? ["cont"]
-                    : [...classes, "s--signup"]
+                    : [...classes, "s--signup"],
                 });
               }}
             >
@@ -120,9 +120,9 @@ const Auth = ({ history, login, signup, loading }) => {
           </div>
           <div className="form sign-up-box">
             <h2>Time to feel like home,</h2>
-            <form onSubmit={e => handleSignupSubmit(e)}>
+            <form onSubmit={(e) => handleSignupSubmit(e)}>
               <CustomInput
-                onChange={e => handleFormChange(e)}
+                onChange={(e) => handleFormChange(e)}
                 value={name}
                 type="text"
                 name="name"
@@ -131,7 +131,7 @@ const Auth = ({ history, login, signup, loading }) => {
                 Name
               </CustomInput>
               <CustomInput
-                onChange={e => handleFormChange(e)}
+                onChange={(e) => handleFormChange(e)}
                 value={email}
                 type="email"
                 name="email"
@@ -140,7 +140,7 @@ const Auth = ({ history, login, signup, loading }) => {
                 Email
               </CustomInput>
               <CustomInput
-                onChange={e => handleFormChange(e)}
+                onChange={(e) => handleFormChange(e)}
                 value={password}
                 type="password"
                 name="password"
@@ -173,9 +173,9 @@ const Auth = ({ history, login, signup, loading }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    loading: state.auth.loading
+    loading: state.auth.loading,
   };
 };
 
