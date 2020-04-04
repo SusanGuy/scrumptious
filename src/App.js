@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Aux from "./hoc/Aux";
 import { Switch, Route } from "react-router-dom";
 import Auth from "./containers/Auth/auth";
 import Landing from "../src/containers/Landing/landing";
+import { loadUser } from "./store/actions/auth";
+import { connect } from "react-redux";
 import "./App.css";
+import { setAuthToken } from "./utils";
+import PrivateRoute from "./components/routing/privateRoute";
 import Navigation from "./components/Navigation/Navigation";
-function App() {
+import UserRecipes from "./containers/Recipes/recipes";
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+function App({ loadUser }) {
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
   return (
     <Aux>
       <Navigation />
       <Switch>
+        <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
         <Route path="/auth" component={Auth} />
         <Route to="/" exact component={Landing} />
       </Switch>
@@ -17,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { loadUser })(App);

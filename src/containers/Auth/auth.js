@@ -3,12 +3,34 @@ import "./auth.css";
 import Aux from "../../hoc/Aux";
 import CustomButton from "../../components/CustomButton/customButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
-
-const Auth = () => {
+import { connect } from "react-redux";
+import { login, signup } from "../../store/actions/auth";
+const Auth = ({ history, login, signup, loading }) => {
   const [classesName, setClasses] = useState({
     classes: ["cont"]
   });
   const { classes } = classesName;
+
+  const [formData, setformData] = useState({
+    email: "",
+    password: ""
+  });
+  const { name, email, password } = formData;
+
+  const handleFormChange = e => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const clearFormValues = () => {
+    setformData({
+      name: "",
+      email: "",
+      password: ""
+    });
+  };
 
   return (
     <Aux>
@@ -19,10 +41,20 @@ const Auth = () => {
         <div className="form sign-in-box">
           <h2>Welcome back,</h2>
           <form>
-            <CustomInput type="email" name="email">
+            <CustomInput
+              onChange={e => handleFormChange(e)}
+              value={email}
+              type="email"
+              name="email"
+            >
               Email
             </CustomInput>
-            <CustomInput type="password" name="password">
+            <CustomInput
+              onChange={e => handleFormChange(e)}
+              value={password}
+              type="password"
+              name="password"
+            >
               Password
             </CustomInput>
             <p className="forgot-pass">Forgot password?</p>
@@ -47,6 +79,7 @@ const Auth = () => {
             <div
               className="img__btn"
               onClick={() => {
+                clearFormValues();
                 setClasses({
                   classes: classes.includes("s--signup")
                     ? ["cont"]
@@ -61,13 +94,28 @@ const Auth = () => {
           <div className="form sign-up-box">
             <h2>Time to feel like home,</h2>
             <form>
-              <CustomInput type="text" name="name">
+              <CustomInput
+                onChange={e => handleFormChange(e)}
+                value={name}
+                type="text"
+                name="name"
+              >
                 Name
               </CustomInput>
-              <CustomInput type="email" name="email">
+              <CustomInput
+                onChange={e => handleFormChange(e)}
+                value={email}
+                type="email"
+                name="email"
+              >
                 Email
               </CustomInput>
-              <CustomInput type="password" name="password">
+              <CustomInput
+                onChange={e => handleFormChange(e)}
+                value={password}
+                type="password"
+                name="password"
+              >
                 Password
               </CustomInput>
               <CustomButton type="submit">Sign Up</CustomButton>
@@ -82,4 +130,10 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading
+  };
+};
+
+export default connect(mapStateToProps, { login, signup })(Auth);

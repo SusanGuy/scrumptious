@@ -6,11 +6,13 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import modalReducer from "./store/reducers/recipeModal";
 import filterReducer from "./store/reducers/filter";
+import authReducer from "./store/reducers/auth";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   modal: modalReducer,
-  filter: filterReducer
+  filter: filterReducer,
+  auth: authReducer
 });
 const composeEnhancers =
   process.env.NODE_ENV === "development"
