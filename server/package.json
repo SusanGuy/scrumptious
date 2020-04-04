@@ -1,0 +1,37 @@
+{
+  "name": "scrumtious",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "env-cmd -f ./config/dev.env node src/index.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon -e .js,.env src/index.js "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^6.5.2",
+    "bcrypt": "^3.0.8",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.1",
+    "multer": "^1.4.2",
+    "sharp": "^0.24.1",
+    "validator": "^12.2.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npaudyal/Scrumtious.git"
+  },
+  "bugs": {
+    "url": "https://github.com/npaudyal/Scrumtious/issues"
+  },
+  "homepage": "https://github.com/npaudyal/Scrumtious#readme",
+  "description": ""
+}
