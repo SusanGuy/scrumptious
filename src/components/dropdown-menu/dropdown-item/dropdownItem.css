@@ -1,0 +1,20 @@
+.dropdown-item {
+  margin: 0;
+  display: block;
+}
+
+.dropdown-item a {
+  color: #6f7074 !important;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: none;
+  border-radius: 0 !important;
+  padding: 5px 8px;
+  line-height: 1.42857143;
+  display: block;
+}
+
+.dropdown-item a:hover {
+  background-color: #15c7c7;
+  color: white !important;
+}

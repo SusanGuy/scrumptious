@@ -4,9 +4,10 @@ import Aux from "../../hoc/Aux";
 import CustomButton from "../../components/CustomButton/customButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { login, signup } from "../../store/actions/auth";
 import Spinner from "../../components/Spinner/Spinner";
-const Auth = ({ history, login, signup, loading }) => {
+const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
   const [classesName, setClasses] = useState({
     classes: ["cont"],
   });
@@ -45,6 +46,9 @@ const Auth = ({ history, login, signup, loading }) => {
     signup(name, email, password, history);
   };
 
+  if (isAuthenticated) {
+    return <Redirect to="/my-recipes" />;
+  }
   return (
     <Aux>
       <p className="tip">
@@ -176,6 +180,7 @@ const Auth = ({ history, login, signup, loading }) => {
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 
