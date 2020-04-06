@@ -16,7 +16,7 @@ const DropDownMenu = ({ user }) => {
     };
   }, []);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (node.current.contains(e.target)) {
       return;
     }
@@ -48,9 +48,9 @@ const DropDownMenu = ({ user }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
   };
 };
 

@@ -1,0 +1,15 @@
+.profile-image {
+  border: 0 solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.dropdown-image {
+  width: 2.5em;
+  height: 2.5em;
+  margin-right: 1rem !important;
+}
