@@ -4,7 +4,7 @@ import { setAuthToken } from "../../utils";
 const userLoaded = (token, user) => {
   return {
     type: actionTypes.USER_LOADED,
-    payload: { token, user }
+    payload: { token, user },
   };
 };
 
@@ -13,12 +13,12 @@ export const clearErrors = () => {
 };
 
 export const login = (email, password, history) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(authStart());
       const submitForm = { email, password };
       const {
-        data: { token }
+        data: { token },
       } = await axios.post("/users/login", submitForm);
       dispatch(authSuccess(token));
       dispatch(loadUser());
@@ -30,12 +30,12 @@ export const login = (email, password, history) => {
 };
 
 export const signup = (name, email, password, history) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(authStart());
       const submitForm = { name, email, password };
       const {
-        data: { token }
+        data: { token },
       } = await axios.post("/users", submitForm);
       dispatch(authSuccess(token));
       dispatch(loadUser());
@@ -47,7 +47,7 @@ export const signup = (name, email, password, history) => {
 };
 
 export const loadUser = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       setAuthToken(localStorage.token);
       const { data } = await axios.get("/users/me");
@@ -60,25 +60,25 @@ export const loadUser = () => {
 
 const authStart = () => {
   return {
-    type: actionTypes.AUTH_START
+    type: actionTypes.AUTH_START,
   };
 };
 
-const authSuccess = token => {
+const authSuccess = (token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    payload: { token }
+    payload: { token },
   };
 };
-const authFail = error => {
+const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
-    payload: error
+    payload: error,
   };
 };
 
 export const signout = () => {
   return {
-    type: actionTypes.AUTH_LOGOUT
+    type: actionTypes.AUTH_LOGOUT,
   };
 };

@@ -1,18 +1,26 @@
 import React from "react";
 import "./selected.css";
-const selected = ({ ingredients }) => {
+import { connect } from "react-redux";
+import { removeFilterIngredient } from "../../../../store/actions/filter";
+const Selected = ({ ingredients, type, removeFilterIngredient }) => {
   return (
     <div className="chosen-ingredient-exclusions">
-      {ingredients.map(({ _id, name }) => (
-        <span key={_id} className="pill">
-          <span className="delete-ingredient-suggested">
-            <i className="fas fa-times"></i>
-            {name}
+      {ingredients.map((ingredient) => {
+        const { _id, name } = ingredient;
+        return (
+          <span key={_id} className="pill">
+            <span className="delete-ingredient-suggested">
+              <i
+                onClick={() => removeFilterIngredient(ingredient, type)}
+                className="fas fa-times"
+              ></i>
+              {name}
+            </span>
           </span>
-        </span>
-      ))}
+        );
+      })}
     </div>
   );
 };
 
-export default selected;
+export default connect(null, { removeFilterIngredient })(Selected);

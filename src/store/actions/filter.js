@@ -1,61 +1,75 @@
 import * as actionTypes from "./actionTypes";
 
-export const filterByName = name => {
+export const filterByName = (name) => {
   return {
     type: actionTypes.SEARCH_BY_RECIPE_NAME,
-    payload: name
+    payload: name,
   };
 };
 
 export const showFilterModal = () => {
   return {
-    type: actionTypes.SHOW_FILTER_MODAL
+    type: actionTypes.SHOW_FILTER_MODAL,
   };
 };
 
 export const hideFilterModal = () => {
   return {
-    type: actionTypes.HIDE_FILTER_MODAL
+    type: actionTypes.HIDE_FILTER_MODAL,
   };
 };
 
-export const setActiveFilter = name => {
+export const setActiveFilter = (name) => {
   return {
     type: actionTypes.SET_ACTIVE_FILTER,
-    payload: name
+    payload: name,
   };
 };
 
-export const setCost = cost => {
+export const setCost = (cost) => {
   return {
     type: actionTypes.SEARCH_BY_COST,
-    payload: cost
+    payload: cost,
   };
 };
 
-export const setTime = time => {
+export const setTime = (time) => {
   return {
     type: actionTypes.SEARCH_BY_TIME,
-    payload: time
+    payload: time,
   };
 };
 
-export const setAllergy = allergy => {
+export const setAllergy = (allergy) => {
   return {
     type: actionTypes.SEARCH_BY_ALLERGY,
-    payload: allergy
+    payload: allergy,
   };
 };
 
-export const setNutrition = nutrition => {
+export const setNutrition = (nutrition) => {
   return {
     type: actionTypes.SEARCH_BY_NUTRITION,
-    payload: nutrition
+    payload: nutrition,
+  };
+};
+
+export const addFilterIngredient = (ingredient, type) => {
+  return {
+    type: actionTypes.ADD_FILTER_INGREDIENT,
+    payload: { ingredient, type },
+  };
+};
+
+export const removeFilterIngredient = (ingredient, type) => {
+  return {
+    type: actionTypes.REMOVE_FILTER_INGREDIENT,
+    payload: { ingredient, type },
   };
 };
 
 export const resetFilters = () => {
   return {
-    type: actionTypes.RESET_FILTERS
+    type: actionTypes.RESET_FILTERS,
   };
 };

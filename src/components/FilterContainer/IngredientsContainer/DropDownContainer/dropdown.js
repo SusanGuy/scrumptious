@@ -1,7 +1,15 @@
 import React from "react";
 import Spinner from "../../../Spinner/Spinner";
 import "./dropdown.css";
-const Dropdown = ({ ingredients, loading }) => {
+import { connect } from "react-redux";
+import { addFilterIngredient } from "../../../../store/actions/filter";
+const Dropdown = ({
+  ingredients,
+  loading,
+  type,
+  addFilterIngredient,
+  hide,
+}) => {
   let mama;
   if (loading) {
     mama = <Spinner width="4em" height="4em" />;
@@ -17,11 +25,21 @@ const Dropdown = ({ ingredients, loading }) => {
       </p>
     );
   } else {
-    mama = ingredients.map(({ _id, name }) => (
-      <div key={_id} className="checkbox-group">
-        {name}
-      </div>
-    ));
+    mama = ingredients.map((ingredient) => {
+      const { _id, name } = ingredient;
+      return (
+        <div
+          onClick={() => {
+            addFilterIngredient(ingredient, type);
+            hide(true);
+          }}
+          key={_id}
+          className="checkbox-group"
+        >
+          {name}
+        </div>
+      );
+    });
   }
   return (
     <div className="suggestion-container">
@@ -30,4 +48,4 @@ const Dropdown = ({ ingredients, loading }) => {
   );
 };
 
-export default Dropdown;
+export default connect(null, { addFilterIngredient })(Dropdown);

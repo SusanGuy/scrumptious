@@ -2,16 +2,17 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   filter: false,
   recipeFilter: "",
-  recipes: [],
   time: 0,
   cost: 0,
+  withIngredients: [],
+  withoutIngredients: [],
   allergies: [],
   nutritions: [],
   hidden: false,
   activeFilter: {
     active: false,
-    name: ""
-  }
+    name: "",
+  },
 };
 
 const filterReducer = (state = initialState, action) => {
@@ -20,28 +21,28 @@ const filterReducer = (state = initialState, action) => {
     case actionTypes.SHOW_FILTER_MODAL:
       return {
         ...state,
-        hidden: true
+        hidden: true,
       };
     case actionTypes.HIDE_FILTER_MODAL:
       return {
         ...state,
         activeFilter: { active: false, name: "" },
-        hidden: false
+        hidden: false,
       };
 
     case actionTypes.SET_ACTIVE_FILTER:
       if (payload === state.activeFilter.name) {
         return {
           ...state,
-          activeFilter: { active: false, name: "" }
+          activeFilter: { active: false, name: "" },
         };
       }
       return {
         ...state,
         activeFilter: {
           active: true,
-          name: payload
-        }
+          name: payload,
+        },
       };
 
     case actionTypes.SEARCH_BY_RECIPE_NAME:
@@ -49,51 +50,87 @@ const filterReducer = (state = initialState, action) => {
         return {
           ...state,
           filter: false,
-          recipeFilter: ""
+          recipeFilter: "",
         };
       }
       return {
         ...state,
         filter: true,
-        recipeFilter: payload
+        recipeFilter: payload,
       };
 
     case actionTypes.SEARCH_BY_COST:
       if (payload === state.cost) {
         return {
           ...state,
-          cost: 0
+          cost: 0,
         };
       }
       return {
         ...state,
 
-        cost: payload
+        cost: payload,
       };
     case actionTypes.SEARCH_BY_TIME:
       if (payload === state.time) {
         return {
           ...state,
-          time: 0
+          time: 0,
         };
       }
       return {
         ...state,
 
-        time: payload
+        time: payload,
       };
 
     case actionTypes.SEARCH_BY_ALLERGY:
       if (state.allergies.includes(payload)) {
         return {
           ...state,
-          allergies: state.allergies.filter(allergy => allergy !== payload)
+          allergies: state.allergies.filter((allergy) => allergy !== payload),
         };
       }
       return {
         ...state,
-        allergies: state.allergies.concat(payload)
+        allergies: state.allergies.concat(payload),
       };
+
+    case actionTypes.ADD_FILTER_INGREDIENT:
+      if (payload.type === "withIngredient") {
+        return !state.withIngredients.includes(payload.ingredient)
+          ? {
+              ...state,
+              withIngredients: state.withIngredients.concat(payload.ingredient),
+            }
+          : state;
+      } else {
+        return !state.withoutIngredients.includes(payload.ingredient)
+          ? {
+              ...state,
+              withoutIngredients: state.withoutIngredients.concat(
+                payload.ingredient
+              ),
+            }
+          : state;
+      }
+
+    case actionTypes.REMOVE_FILTER_INGREDIENT:
+      if (payload.type === "withIngredient") {
+        return {
+          ...state,
+          withIngredients: state.withIngredients.filter(
+            (ingredient) => ingredient !== payload.ingredient
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          withoutIngredients: state.withoutIngredients.filter(
+            (ingredient) => ingredient !== payload.ingredient
+          ),
+        };
+      }
 
     case actionTypes.SEARCH_BY_NUTRITION:
       if (
@@ -105,27 +142,27 @@ const filterReducer = (state = initialState, action) => {
         return {
           ...state,
           nutritions: state.nutritions.filter(
-            nutrition =>
+            (nutrition) =>
               nutrition.name !== payload.name && nutrition.type !== payload.type
-          )
+          ),
         };
       } else if (
         state.nutritions.length > 0 &&
         state.nutritions.find(({ name }) => name === payload.name)
       ) {
         state.nutritions = state.nutritions.filter(
-          nutrition => nutrition.name !== payload.name
+          (nutrition) => nutrition.name !== payload.name
         );
       }
       return {
         ...state,
-        nutritions: state.nutritions.concat(payload)
+        nutritions: state.nutritions.concat(payload),
       };
     case actionTypes.RESET_FILTERS:
       return {
         ...initialState,
         filter: state.filter,
-        recipeFilter: state.recipeFilter
+        recipeFilter: state.recipeFilter,
       };
     default:
       return state;

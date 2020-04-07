@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import Aux from "../../../hoc/Aux";
 import DropDown from "./DropDownContainer/dropdown";
 import Suggestion from "./SuggestionContainer/selected";
+import { connect } from "react-redux";
 import axios from "../../../axios";
 import "./IngredientsContainer.css";
-const IngredientsContainer = () => {
+
+const IngredientsContainer = ({ withIngredients, withoutIngredients }) => {
   const [withHidden, setWithHidden] = useState(false);
   const [withoutHidden, setWithoutHidden] = useState(false);
   const node = useRef();
@@ -42,8 +44,8 @@ const IngredientsContainer = () => {
 
   const getIngredients = async (text, field) => {
     try {
+      console.log(text);
       const { data } = await axios.get(`/ingredients/${text}`);
-
       if (field === "withIngredient") {
         setIngredientState({
           ...ingredientState,
@@ -96,7 +98,7 @@ const IngredientsContainer = () => {
                     [e.target.name]: e.target.value,
                   });
 
-                  getIngredients(withIngredient, e.target.name);
+                  getIngredients(e.target.value, e.target.name);
                 }}
                 onClick={() => {
                   if (withHidden) {
@@ -111,8 +113,10 @@ const IngredientsContainer = () => {
               />
               {withIngredient !== "" && !withHidden && (
                 <DropDown
+                  type="withIngredient"
                   ingredients={withIngredientsData}
                   loading={withLoading}
+                  hide={setWithHidden}
                 />
               )}
             </div>
@@ -120,6 +124,7 @@ const IngredientsContainer = () => {
               <i className="fas fa-search"></i>
             </span>
           </form>
+          <Suggestion type="withIngredient" ingredients={withIngredients} />
         </div>
         <div className="ingredient-suggest-wrapper">
           <form className="suggest-form">
@@ -131,7 +136,7 @@ const IngredientsContainer = () => {
                     [e.target.name]: e.target.value,
                   });
 
-                  getIngredients(withoutIngredient, e.target.name);
+                  getIngredients(e.target.value, e.target.name);
                 }}
                 onClick={() => {
                   if (withoutHidden) {
@@ -146,8 +151,10 @@ const IngredientsContainer = () => {
               />
               {withoutIngredient !== "" && !withoutHidden && (
                 <DropDown
+                  type="withoutIngredient"
                   ingredients={withoutIngredientsData}
                   loading={withoutLoading}
+                  hide={setWithoutHidden}
                 />
               )}
             </div>
@@ -155,10 +162,21 @@ const IngredientsContainer = () => {
               <i className="fas fa-search"></i>
             </span>
           </form>
+          <Suggestion
+            type="withoutIngredient"
+            ingredients={withoutIngredients}
+          />
         </div>
       </div>
     </Aux>
   );
 };
 
-export default IngredientsContainer;
+const mapStateToProps = (state) => {
+  return {
+    withIngredients: state.filter.withIngredients,
+    withoutIngredients: state.filter.withoutIngredients,
+  };
+};
+
+export default connect(mapStateToProps)(IngredientsContainer);
