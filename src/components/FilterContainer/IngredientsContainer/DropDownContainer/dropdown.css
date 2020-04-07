@@ -1,0 +1,30 @@
+.suggestion-container {
+  background-color: white;
+  border: 1px solid #efe6de;
+  border-radius: 4%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.inner-suggestion {
+  max-height: 19.3em;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+.checkbox-group {
+  padding-top: 0.9rem;
+  padding-bottom: 0.675rem;
+  font-size: 18px;
+  padding-left: 1em;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.checkbox-group:hover {
+  background-color: rgba(101, 157, 189, 1);
+  color: white !important;
+}

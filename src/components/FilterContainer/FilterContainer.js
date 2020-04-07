@@ -1,6 +1,7 @@
 import React from "react";
 import "./FilterContainer.css";
 import Aux from "../../hoc/Aux";
+import IngredientContainer from "../FilterContainer/IngredientsContainer/IngredientsContainer";
 import TimeAndCostBox from "./TimeAndCostBox/TimeAndCost";
 import NutriAllerContainer from "./NutritionandAllergiesContainer/NutriAllerContainer";
 import { connect } from "react-redux";
@@ -8,7 +9,7 @@ import {
   setCost,
   setTime,
   setAllergy,
-  setNutrition
+  setNutrition,
 } from "../../store/actions/filter";
 const FilterContainer = ({
   name,
@@ -19,48 +20,11 @@ const FilterContainer = ({
   setAllergy,
   allergies,
   nutritions,
-  setNutrition
+  setNutrition,
 }) => {
   let filterRow;
   if (name === "Ingredients") {
-    filterRow = (
-      <div className="ingredients-row">
-        <div className="ingredient-suggest-wrapper">
-          <form className="suggest-form">
-            <div className="ingredient-suggest-container">
-              <input
-                type="text"
-                className="ingredient-suggest-input p1-text"
-                name="IngredientSuggestInput"
-                placeholder="With Ingredients"
-                value=""
-              />
-              <div className="suggestion-container"></div>
-            </div>
-            <span className="spyglass mama">
-              <i className="fas fa-search"></i>
-            </span>
-          </form>
-        </div>
-        <div className="ingredient-suggest-wrapper">
-          <form className="suggest-form">
-            <div className="ingredient-suggest-container">
-              <input
-                type="text"
-                className="ingredient-suggest-input p1-text"
-                name="IngredientSuggestInput"
-                placeholder="Without Ingredients"
-                value=""
-              />
-              <div className="suggestion-container"></div>
-            </div>
-            <span className="spyglass mama">
-              <i className="fas fa-search"></i>
-            </span>
-          </form>
-        </div>
-      </div>
-    );
+    filterRow = <IngredientContainer />;
   }
 
   if (name === "Nutrition") {
@@ -68,23 +32,23 @@ const FilterContainer = ({
       {
         name: "Calories",
         type: "High",
-        quantity: 1500
+        quantity: 1500,
       },
       {
         name: "Calories",
         type: "Low",
-        quantity: 400
+        quantity: 400,
       },
       { name: "Carbs", type: "High", quantity: 100 },
       { name: "Carbs", type: "Low", quantity: 50 },
       { name: "Protein", type: "High", quantity: 20 },
       { name: "Protein", type: "Low", quantity: 8 },
       { name: "Fat", type: "High", quantity: 15 },
-      { name: "Fat", type: "Low", quantity: 8 }
+      { name: "Fat", type: "Low", quantity: 8 },
     ];
     filterRow = (
       <div className="nutrition">
-        {nutritionArray.map(nutrition => (
+        {nutritionArray.map((nutrition) => (
           <NutriAllerContainer
             key={nutrition.type + " " + nutrition.name}
             name={nutrition.type + " " + nutrition.name}
@@ -102,7 +66,7 @@ const FilterContainer = ({
     const allergiesArray = ["vegetarian", "vegan", "glutenFree", "dairyFree"];
     filterRow = (
       <div className="allergies">
-        {allergiesArray.map(allergy => (
+        {allergiesArray.map((allergy) => (
           <NutriAllerContainer
             key={allergy}
             name={allergy}
@@ -120,7 +84,7 @@ const FilterContainer = ({
       <Aux>
         <h2 className="cooktime-cost-title">Cooking time, less than:</h2>
         <div className="time-cost-options">
-          {times.map(time => (
+          {times.map((time) => (
             <TimeAndCostBox
               time={timeState}
               clicked={() => setTime(time)}
@@ -140,7 +104,7 @@ const FilterContainer = ({
       <Aux>
         <h2 className="cooktime-cost-title">Cost, less than:</h2>
         <div className="time-cost-options">
-          {costs.map(cost => (
+          {costs.map((cost) => (
             <TimeAndCostBox
               cost={costState}
               clicked={() => setCost(cost)}
@@ -163,17 +127,17 @@ const FilterContainer = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     costState: state.filter.cost,
     timeState: state.filter.time,
     allergies: state.filter.allergies,
-    nutritions: state.filter.nutritions
+    nutritions: state.filter.nutritions,
   };
 };
 export default connect(mapStateToProps, {
   setCost,
   setTime,
   setAllergy,
-  setNutrition
+  setNutrition,
 })(FilterContainer);

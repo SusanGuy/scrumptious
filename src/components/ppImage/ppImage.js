@@ -11,8 +11,8 @@ const ppImage = ({ small, name, avatar }) => {
       className={classes.join(" ")}
       src={
         avatar
-          ? `http://localhost:8000${avatar}`
-          : "https://cdn1.iconfinder.com/data/icons/user-avatars-2/300/07-512.png"
+          ? `http://localhost:5000${avatar}`
+          : "https://api.adorable.io/avatars/285/abott@adorable.io.png"
       }
       alt={name}
     />

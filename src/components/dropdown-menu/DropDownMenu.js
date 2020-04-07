@@ -26,7 +26,7 @@ const DropDownMenu = ({ user }) => {
   return (
     <li className=" logged-in">
       <div className="dropdown">
-        <Link className="dropdown-link" to="/my-campaigns">
+        <Link className="dropdown-link" to="/my-recipes">
           <button className="dropdown-button">
             <Image
               name={user ? user.name : "user's image"}
@@ -38,8 +38,8 @@ const DropDownMenu = ({ user }) => {
       </div>
       {hidden && (
         <ul className="dropdown-menu">
-          <DropDownItem link="/my-campaigns">My Campaigns</DropDownItem>
-          <DropDownItem link="/my-donations">My Donations</DropDownItem>
+          <DropDownItem link="/my-recipes">My Recipes</DropDownItem>
+          <DropDownItem link="/my-fridge">My Fridge</DropDownItem>
           <DropDownItem link="/edit-profile">My Profile</DropDownItem>
           <DropDownItem link="/account-settings">Account Settings</DropDownItem>
         </ul>

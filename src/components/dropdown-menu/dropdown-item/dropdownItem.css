@@ -15,6 +15,6 @@
 }
 
 .dropdown-item a:hover {
-  background-color: #15c7c7;
+  background-color: rgba(101, 157, 189, 1);
   color: white !important;
 }

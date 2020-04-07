@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     const recipes = await Recipe.find({ creator: null })
       .populate({
         path: "ingredients.ingredient",
-        select: "name price"
+        select: "name price",
       })
       .select("-creator");
 
@@ -23,13 +23,13 @@ router.get("/", async (req, res) => {
 router.get("/me", auth, async (req, res) => {
   try {
     const recipes = await UserRecipe.find({
-      user: req.user
+      user: req.user,
     })
       .populate("recipe")
       .select("-user");
     if (recipes.length === 0) {
       return res.status(401).send({
-        errMessage: "Your recipe cart is empty "
+        errMessage: "Your recipe cart is empty ",
       });
     }
     res.send(recipes);
@@ -43,22 +43,22 @@ router.post("/:id", auth, async (req, res) => {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) {
       return res.status(400).send({
-        errMessage: "No such recipe found"
+        errMessage: "No such recipe found",
       });
     }
 
     const userRecipe = await UserRecipe.findOne({
       user: req.user._id,
-      recipe: req.params.id
+      recipe: req.params.id,
     });
     if (userRecipe) {
       return res.status(404).send({
-        errMessage: "You have already added this recipe"
+        errMessage: "You have already added this recipe",
       });
     }
     const newUserRecipe = new UserRecipe({
       user: req.user._id,
-      recipe: recipe._id
+      recipe: recipe._id,
     });
     await newUserRecipe.save();
     recipe.count += 1;
@@ -74,13 +74,13 @@ router.get("/:id", async (req, res) => {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) {
       return res.status(400).send({
-        errMessage: "No such recipe found"
+        errMessage: "No such recipe found",
       });
     }
     await recipe
       .populate({
         path: "ingredients.ingredient",
-        select: "name price"
+        select: "name price",
       })
       .execPopulate();
 
@@ -95,7 +95,7 @@ router.delete("/:id", auth, async (req, res) => {
     const userRecipe = await UserRecipe.findById(req.params.id);
     if (!userRecipe) {
       return res.status(400).send({
-        errMessage: "No recipe to delete"
+        errMessage: "No recipe to delete",
       });
     }
 

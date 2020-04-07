@@ -1,6 +1,6 @@
 import React from "react";
 import NavigationItem from "./navigationItem/navigationItem";
-
+import DropDownMenu from "../../dropdown-menu/DropDownMenu";
 const navigationItems = ({ isAuthenticated }) => {
   return (
     <nav>
@@ -10,6 +10,7 @@ const navigationItems = ({ isAuthenticated }) => {
       <NavigationItem link="/about-us" exact>
         About Us
       </NavigationItem>
+      {isAuthenticated && <DropDownMenu />}
     </nav>
   );
 };
