@@ -10,4 +10,19 @@ router.get("/", async (req, res) => {
     res.send(err);
   }
 });
+
+router.get("/:text", async (req, res) => {
+  try {
+    const ingredients = await Ingredient.find();
+    const wantedIngredients = ingredients
+      .filter((ingredient) =>
+        ingredient.name.toLowerCase().includes(req.params.text.toLowerCase())
+      )
+      .filter((ingro, id) => id <= 20);
+
+    res.send(wantedIngredients);
+  } catch (err) {
+    res.send(err);
+  }
+});
 module.exports = router;
