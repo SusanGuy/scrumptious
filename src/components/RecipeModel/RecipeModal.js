@@ -17,10 +17,10 @@ const RecipeModal = ({
     calories,
     cost,
     ...rest
-  }
+  },
 }) => {
   const handleClick = useCallback(
-    e => {
+    (e) => {
       if (node.current.contains(e.target)) {
         return;
       }
@@ -52,7 +52,7 @@ const RecipeModal = ({
           className="img-bk active"
           data-img="step0"
           style={{
-            backgroundImage: `url(${src})`
+            backgroundImage: `url(${src})`,
           }}
         ></div>
 
@@ -83,7 +83,7 @@ const RecipeModal = ({
             Nutrients - Breakdown
           </ModalCard>
 
-          {instructions.split(".").map(instruction => {
+          {instructions.split(".").map((instruction) => {
             if (instruction.includes("<p>")) {
               instruction = instruction.replace(/<p>/g, "");
             }
@@ -111,9 +111,9 @@ const RecipeModal = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    hidden: state.modal.hidden
+    hidden: state.modal.hidden,
   };
 };
 

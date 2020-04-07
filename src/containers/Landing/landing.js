@@ -17,12 +17,12 @@ const Landing = ({
   cost,
   time,
   allergies,
-  nutritions
+  nutritions,
 }) => {
   const [state, setState] = useState({
     recipes: [],
     loading: true,
-    error: {}
+    error: {},
   });
   const [counter, setCounter] = useState(39);
 
@@ -33,13 +33,13 @@ const Landing = ({
         setState({
           error: {},
           loading: false,
-          recipes: data
+          recipes: data,
         });
       } catch (err) {
         setState({
           recipes: [],
           loading: false,
-          error: err
+          error: err,
         });
       }
     };
@@ -56,31 +56,31 @@ const Landing = ({
     );
   }
 
-  let daiRecipes = recipes;
+  let daiRecipes = recipes.sort((a, b) => (a.title > b.title ? 1 : -1));
 
   if (recipeFilter !== "") {
-    daiRecipes = daiRecipes.filter(recipe =>
+    daiRecipes = daiRecipes.filter((recipe) =>
       recipe.title.toLowerCase().includes(recipeFilter.toLowerCase())
     );
   }
 
   if (cost !== 0) {
-    daiRecipes = daiRecipes.filter(recipe => recipe.cost / 100 <= cost);
+    daiRecipes = daiRecipes.filter((recipe) => recipe.cost / 100 <= cost);
   }
 
   if (time !== 0) {
-    daiRecipes = daiRecipes.filter(recipe => recipe.readyInMinutes <= time);
+    daiRecipes = daiRecipes.filter((recipe) => recipe.readyInMinutes <= time);
   }
 
   if (allergies.length !== 0) {
-    allergies.forEach(allergy => {
-      daiRecipes = daiRecipes.filter(recipe => recipe[allergy] === true);
+    allergies.forEach((allergy) => {
+      daiRecipes = daiRecipes.filter((recipe) => recipe[allergy] === true);
     });
   }
 
   if (nutritions.length !== 0) {
-    nutritions.forEach(nutrition => {
-      daiRecipes = daiRecipes.filter(recipe => {
+    nutritions.forEach((nutrition) => {
+      daiRecipes = daiRecipes.filter((recipe) => {
         const value =
           nutrition.name === "calories"
             ? recipe.nutrients[nutrition.name.toLowerCase()]
@@ -128,7 +128,7 @@ const Landing = ({
                 vegetarian,
                 vegan,
                 glutenFree,
-                dairyFree
+                dairyFree,
               }) => {
                 return (
                   <RecipeCard
@@ -159,7 +159,7 @@ const Landing = ({
     </Aux>
   );
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     hidden: state.modal.hidden,
     recipe: state.modal.recipe,
@@ -168,7 +168,7 @@ const mapStateToProps = state => {
     cost: state.filter.cost,
     time: state.filter.time,
     allergies: state.filter.allergies,
-    nutritions: state.filter.nutritions
+    nutritions: state.filter.nutritions,
   };
 };
 

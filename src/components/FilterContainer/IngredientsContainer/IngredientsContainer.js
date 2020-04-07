@@ -1,78 +1,118 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Aux from "../../../hoc/Aux";
 import DropDown from "./DropDownContainer/dropdown";
 import Suggestion from "./SuggestionContainer/selected";
 import axios from "../../../axios";
 import "./IngredientsContainer.css";
 const IngredientsContainer = () => {
+  const [withHidden, setWithHidden] = useState(false);
+  const [withoutHidden, setWithoutHidden] = useState(false);
+  const node = useRef();
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) {
+      return;
+    }
+
+    setWithHidden(true);
+    setWithoutHidden(true);
+  };
+
+  const [ingredientState, setIngredientState] = useState({
+    withIngredientsData: [],
+    withoutIngredientsData: [],
+    withLoading: true,
+    withoutLoading: true,
+    withErr: {},
+    withoutErr: {},
+  });
+
   const [formData, setFormData] = useState({
     withIngredient: "",
     withoutIngredient: "",
   });
-  const [ingredientData, setIngredientData] = useState({
-    ingredients: [],
-    loading: true,
-    error: {},
-  });
-  useEffect(() => {
-    const getIngredients = async () => {
-      try {
-        const { data } = await axios.get("/ingredients");
-        setIngredientData({
-          error: {},
-          loading: false,
-          ingredients: data,
+
+  const getIngredients = async (text, field) => {
+    try {
+      const { data } = await axios.get(`/ingredients/${text}`);
+
+      if (field === "withIngredient") {
+        setIngredientState({
+          ...ingredientState,
+          withLoading: false,
+          withIngredientsData: data,
         });
-      } catch (err) {
-        setIngredientData({
-          ingredients: [],
-          loading: false,
-          error: err,
+      } else {
+        setIngredientState({
+          ...ingredientState,
+          withoutLoading: false,
+          withoutIngredientsData: data,
         });
       }
-    };
-    getIngredients();
-  }, []);
+    } catch (err) {
+      if (field === "withIngredient") {
+        setIngredientState({
+          ...ingredientState,
+          withLoading: false,
+          withErr: err,
+        });
+      } else {
+        setIngredientState({
+          ...ingredientState,
+          withoutLoading: false,
+          withoutErr: err,
+        });
+      }
+    }
+  };
 
-  const { ingredients, loading } = ingredientData;
+  const {
+    withIngredientsData,
+    withLoading,
+    withoutIngredientsData,
+    withoutLoading,
+  } = ingredientState;
 
   const { withIngredient, withoutIngredient } = formData;
 
-  let modifiedWithIngredients = [];
-  if (withIngredient !== "") {
-    modifiedWithIngredients = ingredients.filter((ingredient) =>
-      ingredient.name.toLowerCase().includes(withIngredient.toLowerCase())
-    );
-  }
-  let modifiedWithoutIngredients = [];
-  if (withoutIngredient !== "") {
-    modifiedWithoutIngredients = ingredients.filter((ingredient) =>
-      ingredient.name.toLowerCase().includes(withIngredient.toLowerCase())
-    );
-  }
-
   return (
     <Aux>
-      <div className="ingredients-row">
+      <div ref={node} className="ingredients-row">
         <div className="ingredient-suggest-wrapper">
           <form className="suggest-form">
             <div className="ingredient-suggest-container">
               <input
-                onChange={(e) =>
+                onChange={(e) => {
                   setFormData({
+                    ...formData,
                     [e.target.name]: e.target.value,
-                  })
-                }
+                  });
+
+                  getIngredients(withIngredient, e.target.name);
+                }}
+                onClick={() => {
+                  if (withHidden) {
+                    setWithHidden(false);
+                  }
+                }}
                 type="text"
                 className="ingredient-suggest-input p1-text"
                 name="withIngredient"
                 placeholder="With Ingredients"
                 value={withIngredient}
               />
-              {withIngredient !== "" && (
+              {withIngredient !== "" && !withHidden && (
                 <DropDown
-                  ingredients={modifiedWithIngredients}
-                  loading={loading}
+                  ingredients={withIngredientsData}
+                  loading={withLoading}
                 />
               )}
             </div>
@@ -85,18 +125,31 @@ const IngredientsContainer = () => {
           <form className="suggest-form">
             <div className="ingredient-suggest-container">
               <input
-                onChange={(e) =>
+                onChange={(e) => {
                   setFormData({
+                    ...formData,
                     [e.target.name]: e.target.value,
-                  })
-                }
+                  });
+
+                  getIngredients(withoutIngredient, e.target.name);
+                }}
+                onClick={() => {
+                  if (withoutHidden) {
+                    setWithoutHidden(false);
+                  }
+                }}
                 type="text"
                 className="ingredient-suggest-input p1-text"
                 name="withoutIngredient"
                 placeholder="Without Ingredients"
                 value={withoutIngredient}
               />
-              {withoutIngredient !== "" && <DropDown loading={loading} />}
+              {withoutIngredient !== "" && !withoutHidden && (
+                <DropDown
+                  ingredients={withoutIngredientsData}
+                  loading={withoutLoading}
+                />
+              )}
             </div>
             <span className="spyglass mama">
               <i className="fas fa-search"></i>
