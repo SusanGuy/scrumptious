@@ -44,7 +44,6 @@ const IngredientsContainer = ({ withIngredients, withoutIngredients }) => {
 
   const getIngredients = async (text, field) => {
     try {
-      console.log(text);
       const { data } = await axios.get(`/ingredients/${text}`);
       if (field === "withIngredient") {
         setIngredientState({

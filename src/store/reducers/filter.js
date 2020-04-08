@@ -98,7 +98,8 @@ const filterReducer = (state = initialState, action) => {
 
     case actionTypes.ADD_FILTER_INGREDIENT:
       if (payload.type === "withIngredient") {
-        return !state.withIngredients.includes(payload.ingredient)
+        return !state.withIngredients.includes(payload.ingredient) &&
+          !state.withoutIngredients.includes(payload.ingredient)
           ? {
               ...state,
               withIngredients: state.withIngredients.concat(payload.ingredient),
