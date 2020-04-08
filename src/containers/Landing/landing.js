@@ -18,6 +18,8 @@ const Landing = ({
   time,
   allergies,
   nutritions,
+  withIngredients,
+  withoutIngredients,
 }) => {
   const [state, setState] = useState({
     recipes: [],
@@ -78,6 +80,28 @@ const Landing = ({
     });
   }
 
+  if (withIngredients.length !== 0) {
+    withIngredients.forEach((ingredient) => {
+      daiRecipes = daiRecipes.filter((recipe) => {
+        return recipe.ingredients.find((ingro) => {
+          return ingro.ingredient.name === ingredient.name;
+        });
+      });
+    });
+  }
+
+  if (withoutIngredients.length !== 0) {
+    withoutIngredients.forEach((ingredient) => {
+      daiRecipes = daiRecipes.filter((recipe) => {
+        return (
+          recipe.ingredients.find((ingro) => {
+            return ingro.ingredient.name === ingredient.name;
+          }) === undefined
+        );
+      });
+    });
+  }
+
   if (nutritions.length !== 0) {
     nutritions.forEach((nutrition) => {
       daiRecipes = daiRecipes.filter((recipe) => {
@@ -107,7 +131,9 @@ const Landing = ({
               cost !== 0 ||
               time !== 0 ||
               allergies.length !== 0 ||
-              nutritions.length !== 0
+              nutritions.length !== 0 ||
+              withIngredients.length !== 0 ||
+              withoutIngredients.length !== 0
                 ? `${daiRecipes.length} suggested recipes`
                 : "Just for You"}
             </span>
@@ -169,6 +195,8 @@ const mapStateToProps = (state) => {
     time: state.filter.time,
     allergies: state.filter.allergies,
     nutritions: state.filter.nutritions,
+    withIngredients: state.filter.withIngredients,
+    withoutIngredients: state.filter.withoutIngredients,
   };
 };
 

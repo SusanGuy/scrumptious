@@ -21,10 +21,17 @@ const FilterContainer = ({
   allergies,
   nutritions,
   setNutrition,
+  withIngredients,
+  withoutIngredients,
 }) => {
   let filterRow;
   if (name === "Ingredients") {
-    filterRow = <IngredientContainer />;
+    filterRow = (
+      <IngredientContainer
+        withIngredients={withIngredients}
+        withoutIngredients={withoutIngredients}
+      />
+    );
   }
 
   if (name === "Nutrition") {
@@ -133,6 +140,8 @@ const mapStateToProps = (state) => {
     timeState: state.filter.time,
     allergies: state.filter.allergies,
     nutritions: state.filter.nutritions,
+    withIngredients: state.filter.withIngredients,
+    withoutIngredients: state.filter.withoutIngredients,
   };
 };
 export default connect(mapStateToProps, {

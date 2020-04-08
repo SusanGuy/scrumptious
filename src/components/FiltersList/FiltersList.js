@@ -8,7 +8,8 @@ const FiltersList = ({
   allergies,
   clicked,
   activeFilter,
-  nutritions
+  nutritions,
+  ingredients,
 }) => {
   let filterList = null;
   if (time && children === "Time") {
@@ -19,6 +20,10 @@ const FiltersList = ({
   }
   if (allergies.length !== 0 && children === "Allergies") {
     filterList = <FilterCount value={allergies.length} />;
+  }
+
+  if (ingredients && children === "Ingredients") {
+    filterList = <FilterCount value={ingredients} />;
   }
 
   if (nutritions.length !== 0 && children === "Nutrition") {

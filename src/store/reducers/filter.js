@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+
 const initialState = {
   filter: false,
   recipeFilter: "",
@@ -99,14 +100,19 @@ const filterReducer = (state = initialState, action) => {
     case actionTypes.ADD_FILTER_INGREDIENT:
       if (payload.type === "withIngredient") {
         return !state.withIngredients.includes(payload.ingredient) &&
-          !state.withoutIngredients.includes(payload.ingredient)
+          !state.withoutIngredients.find(
+            (ingredient) => ingredient.name === payload.ingredient.name
+          )
           ? {
               ...state,
               withIngredients: state.withIngredients.concat(payload.ingredient),
             }
           : state;
       } else {
-        return !state.withoutIngredients.includes(payload.ingredient)
+        return !state.withoutIngredients.includes(payload.ingredient) &&
+          !state.withIngredients.find(
+            (ingredient) => ingredient.name === payload.ingredient.name
+          )
           ? {
               ...state,
               withoutIngredients: state.withoutIngredients.concat(

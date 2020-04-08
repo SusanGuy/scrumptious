@@ -10,7 +10,8 @@ const FilterModal = ({
   cost,
   time,
   allergies,
-  nutritions
+  nutritions,
+  ingredients,
 }) => {
   const filters = ["Ingredients", "Cost", "Time", "Allergies", "Nutrition"];
 
@@ -20,7 +21,7 @@ const FilterModal = ({
         <div className="filter-container">
           <div className="filter-categories">
             <ul className="categories-list">
-              {filters.map(filter => {
+              {filters.map((filter) => {
                 return (
                   <FilterList
                     cost={cost}
@@ -28,6 +29,7 @@ const FilterModal = ({
                     allergies={allergies}
                     nutritions={nutritions}
                     activeFilter={name}
+                    ingredients={ingredients}
                     clicked={() => setActiveFilter(filter)}
                     key={filter}
                   >
@@ -44,13 +46,16 @@ const FilterModal = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     activeFilter: state.filter.activeFilter,
     cost: state.filter.cost !== 0,
     time: state.filter.time !== 0,
     allergies: state.filter.allergies,
-    nutritions: state.filter.nutritions
+    nutritions: state.filter.nutritions,
+    ingredients:
+      state.filter.withIngredients.length +
+      state.filter.withoutIngredients.length,
   };
 };
 

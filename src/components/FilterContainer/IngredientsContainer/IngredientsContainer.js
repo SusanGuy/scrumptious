@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Aux from "../../../hoc/Aux";
 import DropDown from "./DropDownContainer/dropdown";
 import Suggestion from "./SuggestionContainer/selected";
-import { connect } from "react-redux";
+
 import axios from "../../../axios";
 import "./IngredientsContainer.css";
 
@@ -171,11 +171,4 @@ const IngredientsContainer = ({ withIngredients, withoutIngredients }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    withIngredients: state.filter.withIngredients,
-    withoutIngredients: state.filter.withoutIngredients,
-  };
-};
-
-export default connect(mapStateToProps)(IngredientsContainer);
+export default IngredientsContainer;
