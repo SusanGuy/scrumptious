@@ -1,0 +1,17 @@
+.custom-close-button {
+  transform: rotate(45deg);
+  border-radius: 4px;
+  background: 0 0;
+  line-height: 1;
+  cursor: pointer;
+  font-size: 25px !important;
+  border: 0;
+  padding: 0;
+  color: #333;
+  font-weight: bolder;
+}
+
+.passwordchange-close-button {
+  position: absolute;
+  right: 1rem;
+}

@@ -7,6 +7,7 @@ import { loadUser } from "./store/actions/auth";
 import { connect } from "react-redux";
 import Logout from "./components/logout/logout";
 import "./App.css";
+import Alert from "./components/alert/alert";
 import { setAuthToken } from "./utils";
 import PrivateRoute from "./components/routing/privateRoute";
 import Navigation from "./components/Navigation/Navigation";
@@ -14,7 +15,7 @@ import UserRecipes from "./containers/Recipes/recipes";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
-function App({ loadUser }) {
+const App = ({ loadUser, message, type, hidden }) => {
   useEffect(() => {
     loadUser();
   }, [loadUser]);
@@ -22,6 +23,7 @@ function App({ loadUser }) {
   return (
     <Aux>
       <Navigation />
+      {!hidden && <Alert message={message} type={type} />}
       <Switch>
         <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
         <PrivateRoute exact path="/logout" component={Logout} />
@@ -30,6 +32,14 @@ function App({ loadUser }) {
       </Switch>
     </Aux>
   );
-}
+};
 
-export default connect(null, { loadUser })(App);
+const mapStateToProps = (state) => {
+  return {
+    message: state.alert.message,
+    type: state.alert.alertType,
+    hidden: state.alert.hidden,
+  };
+};
+
+export default connect(mapStateToProps, { loadUser })(App);

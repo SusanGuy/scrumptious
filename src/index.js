@@ -7,12 +7,14 @@ import { Provider } from "react-redux";
 import modalReducer from "./store/reducers/recipeModal";
 import filterReducer from "./store/reducers/filter";
 import authReducer from "./store/reducers/auth";
+import alertReducer from "./store/reducers/alert";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   modal: modalReducer,
   filter: filterReducer,
-  auth: authReducer
+  auth: authReducer,
+  alert: alertReducer,
 });
 const composeEnhancers =
   process.env.NODE_ENV === "development"
