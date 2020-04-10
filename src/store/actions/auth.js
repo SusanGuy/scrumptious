@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
+import { createAlert } from "../../store/actions/alert";
 import { setAuthToken } from "../../utils";
 const userLoaded = (token, user) => {
   return {
@@ -24,6 +25,12 @@ export const login = (email, password, history) => {
       dispatch(loadUser());
       history.push("/my-recipes");
     } catch (err) {
+      dispatch(
+        createAlert(
+          err.response ? err.response.data.authError : err.message,
+          "failure"
+        )
+      );
       dispatch(authFail(err.response ? err.response.data : err.message));
     }
   };
@@ -41,6 +48,12 @@ export const signup = (name, email, password, history) => {
       dispatch(loadUser());
       history.push("/my-recipes");
     } catch (err) {
+      dispatch(
+        createAlert(
+          err.response ? err.response.data.authError : err.message,
+          "failure"
+        )
+      );
       dispatch(authFail(err.response ? err.response.data : err.message));
     }
   };
