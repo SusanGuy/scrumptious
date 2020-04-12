@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 import { createAlert } from "../../store/actions/alert";
 import { setAuthToken } from "../../utils";
+import { resetFilters } from "./filter";
 const userLoaded = (token, user) => {
   return {
     type: actionTypes.USER_LOADED,
@@ -23,6 +24,7 @@ export const login = (email, password, history) => {
       } = await axios.post("/users/login", submitForm);
       dispatch(authSuccess(token));
       dispatch(loadUser());
+      dispatch(resetFilters());
       history.push("/my-recipes");
     } catch (err) {
       dispatch(
@@ -46,6 +48,7 @@ export const signup = (name, email, password, history) => {
       } = await axios.post("/users", submitForm);
       dispatch(authSuccess(token));
       dispatch(loadUser());
+      dispatch(resetFilters());
       history.push("/my-recipes");
     } catch (err) {
       dispatch(
