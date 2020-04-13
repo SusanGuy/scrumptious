@@ -3,6 +3,8 @@ import Aux from "./hoc/Aux";
 import { Switch, Route } from "react-router-dom";
 import Auth from "./containers/Auth/auth";
 import Landing from "../src/containers/Landing/landing";
+import Fridge from "../src/containers/Fridge/fridge";
+import Favorites from "./containers/Favorites/favorites";
 import { loadUser } from "./store/actions/auth";
 import { connect } from "react-redux";
 import Logout from "./components/logout/logout";
@@ -25,6 +27,8 @@ const App = ({ loadUser, message, type, hidden }) => {
       <Navigation />
       {!hidden && <Alert message={message} type={type} />}
       <Switch>
+        <PrivateRoute exact path="/my-fridge" component={Fridge} />
+        <PrivateRoute exact path="/favorites" component={Favorites} />
         <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
         <PrivateRoute exact path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />

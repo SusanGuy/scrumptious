@@ -38,6 +38,7 @@ const DropDownMenu = ({ user }) => {
       </div>
       {hidden && (
         <ul className="dropdown-menu">
+          <DropDownItem link="/favorites">Favorites</DropDownItem>
           <DropDownItem link="/my-recipes">My Recipes</DropDownItem>
           <DropDownItem link="/my-fridge">My Fridge</DropDownItem>
           <DropDownItem link="/edit-profile">My Profile</DropDownItem>
