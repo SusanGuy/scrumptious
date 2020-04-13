@@ -3,6 +3,7 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import { connect } from "react-redux";
 import axios from "../../axios";
 import "./landing.css";
+
 import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
@@ -11,6 +12,7 @@ import SearchContainer from "../../components/SearchContainer/SearchContainer";
 
 const Landing = ({
   hidden,
+  hideModal,
   recipeFilter,
   recipe,
   filter,
@@ -46,7 +48,7 @@ const Landing = ({
       }
     };
     getRecipes();
-  }, []);
+  }, [hidden, hideModal]);
   const { recipes, loading } = state;
 
   if (loading) {
@@ -160,6 +162,7 @@ const Landing = ({
                   <RecipeCard
                     key={_id}
                     title={title}
+                    id={_id}
                     time={readyInMinutes}
                     src={image}
                     people={count}

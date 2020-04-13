@@ -8,6 +8,7 @@ import modalReducer from "./store/reducers/recipeModal";
 import filterReducer from "./store/reducers/filter";
 import authReducer from "./store/reducers/auth";
 import alertReducer from "./store/reducers/alert";
+import userReducer from "./store/reducers/user";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   auth: authReducer,
   alert: alertReducer,
+  user: userReducer,
 });
 const composeEnhancers =
   process.env.NODE_ENV === "development"

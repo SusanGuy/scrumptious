@@ -27,7 +27,7 @@ const RecipeCard = ({
             ingredients,
             nutrients,
             instructions,
-            ...rest
+            ...rest,
           })
         }
         className="recipe-card"

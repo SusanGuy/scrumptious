@@ -1,0 +1,101 @@
+.user-card-column {
+  float: left;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  width: 33.33333%;
+  margin-bottom: 1rem !important;
+}
+
+.user-card-inner {
+  background-color: #fff;
+  box-shadow: 0 0.375rem 0.75rem 0 rgba(0, 0, 0, 0.1);
+  height: 100%;
+  margin: 0 1rem 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.user-card-image-wrapper {
+  height: 3.125rem;
+  width: 100%;
+  position: relative;
+}
+
+.user-card-image-wrapper-row {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #666;
+}
+
+.user-card-image-wrapper-row img {
+  max-width: 100%;
+  transform: scale(1.4);
+  opacity: 0.4;
+}
+
+.main-image-container {
+  height: 60px;
+  width: 90px;
+  border-radius: 4px;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  overflow: hidden;
+  background: #666;
+}
+
+.main-image-container img {
+  max-width: 100%;
+  transform: scale(1);
+}
+
+.campaign-action-tile-content {
+  padding: 2rem 1rem 1rem;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+}
+
+.campaign-action-tile-title {
+  font-size: 1.3125rem;
+  color: #333;
+  line-height: 1.5;
+}
+.campaign-action-tile-info {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.new-campaign-tile {
+  height: 100%;
+  padding: 0.5rem;
+}
+
+.new-campaign-tile-body {
+  border: 1px dashed #00b964;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.new-campaign-link {
+  font-weight: 400;
+  text-decoration: underline;
+  color: #333;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.new-campaign-logo {
+  margin: 0 auto;
+  background-image: url(https://d25oniaj7o2jcw.cloudfront.net/ico-folder-norma@2x.png);
+  background-size: 66px 62px;
+  background-repeat: no-repeat;
+  height: 62px;
+  margin-bottom: 1rem !important;
+  width: 66px;
+}

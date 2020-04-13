@@ -2,7 +2,6 @@ const express = require("express");
 const router = new express.Router();
 const Recipe = require("../models/recipe");
 const auth = require("../middleware/auth");
-const fs = require("fs");
 const Ingredient = require("../models/ingredient");
 const UserRecipe = require("../models/userRecipe");
 router.get("/", async (req, res) => {
@@ -20,7 +19,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/me", auth, async (req, res) => {
+router.get("/favorites", auth, async (req, res) => {
   try {
     const recipes = await UserRecipe.find({
       user: req.user,
@@ -29,10 +28,10 @@ router.get("/me", auth, async (req, res) => {
       .select("-user");
     if (recipes.length === 0) {
       return res.status(401).send({
-        errMessage: "Your recipe cart is empty ",
+        errMessage: "No favorites added yet!",
       });
     }
-    res.send(recipes);
+    res.send(recipes.filter(({ recipe: { creator } }) => creator === null));
   } catch (err) {
     res.status(400).send(err);
   }

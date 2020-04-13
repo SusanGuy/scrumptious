@@ -1,0 +1,14 @@
+.user-card-container {
+  margin-top: 2rem !important;
+}
+
+.user-card-row {
+  max-width: 60rem;
+  margin-right: auto;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.user-card-body {
+  width: 100%;
+}

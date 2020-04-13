@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 import { createAlert } from "../../store/actions/alert";
+import { hideModal } from "../../store/actions/recipeModal";
 import { setAuthToken } from "../../utils";
 import { resetFilters } from "./filter";
 const userLoaded = (token, user) => {
@@ -25,6 +26,7 @@ export const login = (email, password, history) => {
       dispatch(authSuccess(token));
       dispatch(loadUser());
       dispatch(resetFilters());
+      dispatch(hideModal());
       history.push("/my-recipes");
     } catch (err) {
       dispatch(
@@ -49,6 +51,7 @@ export const signup = (name, email, password, history) => {
       dispatch(authSuccess(token));
       dispatch(loadUser());
       dispatch(resetFilters());
+      dispatch(hideModal());
       history.push("/my-recipes");
     } catch (err) {
       dispatch(
