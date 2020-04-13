@@ -17,9 +17,27 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.FAVORITES_SUCCESS:
       return {
         ...state,
-        favorites: { ...action.favorites, date: action.date },
+        favorites: action.favorites,
         error: {},
         loading: false,
+      };
+
+    case actionTypes.ADD_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        error: {},
+        loading: false,
+        favorites: state.favorites.concat(action.recipe),
+      };
+
+    case actionTypes.DELETE_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        error: {},
+        loading: false,
+        favorites: state.favorites.filter(
+          (favorite) => favorite._id !== action.recipe._id
+        ),
       };
     case actionTypes.USER_RECIPES_SUCCESS:
       return {

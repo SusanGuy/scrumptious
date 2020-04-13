@@ -4,15 +4,15 @@ import { withRouter } from "react-router-dom";
 import ModalCard from "./ModalCard/ModalCard";
 import AuthButton from "../authButton/authButton";
 import { hideModal } from "../../store/actions/recipeModal";
-import { createAlert } from "../../store/actions/alert";
+import { addToCart } from "../../store/actions/user";
 import { connect } from "react-redux";
-import axios from "../../axios";
+
 const RecipeModal = ({
   hidden,
   hideModal,
   isAuthenticated,
   history,
-  createAlert,
+  addToCart,
   recipe: {
     title,
     time,
@@ -48,24 +48,15 @@ const RecipeModal = ({
   const node = useRef();
   let track = 0;
 
-  const addToCart = async () => {
-    try {
-      await axios.post(`/recipes/${rest.id}`);
-      history.push("/favorites");
-      createAlert("Reciped added to your favorites succesfully", "success");
-    } catch (err) {
-      hideModal();
-      createAlert("Reciped already added to your favorites", "failure");
-    }
-  };
-
   return (
     <div className="full-bk clear">
       <div ref={node} className="widget-frame">
         <div className="actions">
           <AuthButton
             onClick={() =>
-              isAuthenticated ? addToCart() : history.push("/auth")
+              isAuthenticated
+                ? addToCart(rest.id, history)
+                : history.push("/auth")
             }
             save
           >
@@ -142,6 +133,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { hideModal, createAlert })(
+export default connect(mapStateToProps, { hideModal, addToCart })(
   withRouter(RecipeModal)
 );

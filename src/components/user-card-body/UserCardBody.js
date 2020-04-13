@@ -15,17 +15,18 @@ const UserCardBody = ({ favorites, recipes, error }) => {
       />
     ));
   } else if (favorites) {
-    console.log(favorites);
-    cards = favorites.map(({ recipe: { title, image, _id }, createdAt }) => (
-      <UserCard
-        favorite
-        id={_id}
-        key={_id}
-        image={image}
-        title={title}
-        created={createdAt}
-      />
-    ));
+    cards = favorites.map(
+      ({ _id: id, recipe: { title, image, _id }, createdAt }) => (
+        <UserCard
+          favorite
+          id={id}
+          key={_id}
+          image={image}
+          title={title}
+          created={createdAt}
+        />
+      )
+    );
   } else if (error) {
     cards = <p>{error}</p>;
   }

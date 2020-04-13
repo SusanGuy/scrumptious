@@ -1,43 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { getFavorites } from "../../store/actions/user";
 import UserCardBody from "../../components/user-card-body/UserCardBody";
 import Spinner from "../../components/Spinner/Spinner";
-import axios from "../../axios";
-const Favorites = () => {
-  const [state, setState] = useState({
-    favorites: [],
-    error: {},
-    loading: true,
-  });
+const Favorites = ({ getFavorites, favorites, loading, error }) => {
   useEffect(() => {
-    const getFavorites = async () => {
-      try {
-        const { data } = await axios.get("/recipes/favorites");
-
-        setState({
-          loading: false,
-          favorites: data,
-          error: {},
-        });
-      } catch (err) {
-        setState({
-          loading: false,
-          favorites: [],
-          error: err.response ? err.response.data : err.message,
-        });
-      }
-    };
     getFavorites();
-  }, []);
+  }, [getFavorites]);
 
-  const { favorites, loading, error } = state;
-  console.log(favorites);
   if (loading) {
     return <Spinner />;
   }
   if (error.errMessage) {
     return <UserCardBody error={error.errMessage} />;
   }
+  if (favorites.length === 0) {
+    return <UserCardBody error="No favorites added yet!" />;
+  }
   return <UserCardBody favorites={favorites} />;
 };
 
-export default Favorites;
+const mapStateToProps = (state) => {
+  return {
+    favorites: state.user.favorites,
+    loading: state.user.loading,
+    error: state.user.error,
+  };
+};
+
+export default connect(mapStateToProps, { getFavorites })(Favorites);

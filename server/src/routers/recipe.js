@@ -62,7 +62,7 @@ router.post("/:id", auth, async (req, res) => {
     await newUserRecipe.save();
     recipe.count += 1;
     await recipe.save();
-    res.send({ message: "Recipe added" });
+    res.send(newUserRecipe);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -105,7 +105,7 @@ router.delete("/:id", auth, async (req, res) => {
     if (recipe.creator !== null) {
       await Recipe.findByIdAndDelete(recipe._id);
     }
-    res.send({ message: "Recipe deleted" });
+    res.send(userRecipe);
   } catch (err) {
     res.status(400).send(err);
   }

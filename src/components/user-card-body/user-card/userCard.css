@@ -99,3 +99,36 @@
   margin-bottom: 1rem !important;
   width: 66px;
 }
+
+.view-recipe-delete-recipe {
+  margin-top: 10px;
+}
+
+.view-favorite-recipe {
+  color: rgb(116, 156, 156);
+  cursor: pointer;
+}
+
+.view-favorite-recipe:hover {
+  color: rgb(69, 100, 100);
+}
+
+.view-favorite-recipe i {
+  color: rgb(127, 133, 133);
+  margin-right: 2px;
+}
+
+.delete-favorite-recipe {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ec755d;
+}
+
+.delete-favorite-recipe:hover {
+  color: #b8442d;
+}
+
+.delete-favorite-recipe i {
+  color: #f8beb3;
+  margin-right: 2px;
+}
