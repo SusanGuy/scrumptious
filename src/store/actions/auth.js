@@ -11,6 +11,50 @@ const userLoaded = (token, user) => {
   };
 };
 
+export const deleteImage = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(authStart());
+      await axios.delete("/users/me/avatar");
+      dispatch(createAlert("Profile picture removed succesfully", "success"));
+      dispatch(loadUser());
+    } catch (err) {
+      dispatch(authFail(err.response ? err.response.data : err.message));
+    }
+  };
+};
+
+export const updateForm = (email) => {
+  return async (dispatch) => {
+    try {
+      dispatch(authStart());
+
+      const submitForm = { email };
+
+      await axios.patch("/users/me", submitForm);
+      dispatch(createAlert("Your profile has been updated!", "success"));
+      dispatch(loadUser());
+    } catch (err) {
+      dispatch(authFail(err.response ? err.response.data : err.message));
+    }
+  };
+};
+
+export const uploadImage = (image) => {
+  return async (dispatch) => {
+    try {
+      dispatch(authStart());
+      const fd = new FormData();
+      fd.append("upload", image, image.name);
+      await axios.post("/users/me/avatar", fd);
+      dispatch(loadUser());
+      dispatch(createAlert("Profile picture updated succesfully", "success"));
+    } catch (err) {
+      dispatch(authFail(err.response ? err.response.data : err.message));
+    }
+  };
+};
+
 export const clearErrors = () => {
   return { type: actionTypes.CLEAR_ERRORS };
 };

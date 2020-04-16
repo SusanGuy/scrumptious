@@ -1,0 +1,104 @@
+.account-settings-container {
+  padding: 2.8125rem 4.6875rem;
+  margin: 3.5rem auto 0 auto;
+  max-width: 48.5rem;
+  background: #fff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 20;
+}
+
+.account-settings-row {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 48rem;
+}
+
+.account-settings-row::before {
+  display: table;
+  content: " ";
+}
+
+.account-settings-photo {
+  margin-bottom: 1rem !important;
+  align-items: center;
+  display: flex;
+}
+
+.account-settings-avatar {
+  height: 5.625rem;
+  width: 5.625rem;
+  float: left;
+  cursor: pointer;
+  position: relative;
+  margin-right: 16px;
+}
+
+.over-image {
+  position: absolute;
+  bottom: 40px;
+  left: 32px;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+
+  i {
+    color: #15c7c7;
+  }
+  span {
+    margin-right: 100px;
+  }
+}
+
+.file-upload {
+  display: none;
+}
+
+.account-settings-avatar:hover {
+  img {
+    opacity: 0.09;
+  }
+
+  .over-image {
+    opacity: 1;
+  }
+}
+
+.settings-input-email {
+  max-width: 35rem;
+}
+
+.account-settings-password {
+  margin-bottom: 1rem !important;
+}
+
+.dotted-line {
+  background: 0 0;
+  border-bottom: 1px dotted #ddd;
+  margin-bottom: 1rem !important;
+}
+
+.delete-account-row {
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  max-width: 35rem;
+  display: flex;
+}
+
+.delete-account-description {
+  margin-bottom: 1rem !important;
+  width: 60.66667%;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.delete-account-button {
+  text-align: right;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  width: 33.33333%;
+}
+
+.save-changes-button {
+  text-align: center;
+}
