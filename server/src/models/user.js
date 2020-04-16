@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     email: {
       type: String,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
         if (!validator.isEmail(value)) {
           throw new Error("Email is invalid");
         }
-      }
+      },
     },
     password: {
       type: String,
@@ -31,42 +31,35 @@ const userSchema = new mongoose.Schema(
         if (value.toLowerCase().includes("password")) {
           throw new Error('Password cannot contain "password"');
         }
-      }
+      },
+    },
+    token: {
+      type: String,
     },
 
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true
-        }
-      }
-    ],
     avatar: {
-      type: String
-    }
+      type: String,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
-
   delete userObject.password;
-  delete userObject.tokens;
-  delete userObject.avatar;
+  delete userObject.token;
 
   return userObject;
 };
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
 
-  user.tokens = user.tokens.concat({ token });
+  user.token = token;
   await user.save();
 
   return token;
@@ -88,7 +81,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function (next) {
   const user = this;
 
   if (user.isModified("password")) {
@@ -98,7 +91,7 @@ userSchema.pre("save", async function(next) {
   next();
 });
 
-userSchema.pre("remove", async function(next) {
+userSchema.pre("remove", async function (next) {
   const user = this;
   next();
 });

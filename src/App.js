@@ -5,11 +5,13 @@ import Auth from "./containers/Auth/auth";
 import Landing from "../src/containers/Landing/landing";
 import Fridge from "../src/containers/Fridge/fridge";
 import Favorites from "./containers/Favorites/favorites";
+//import AccountSetttings from "./containers/account/account";
 import { loadUser } from "./store/actions/auth";
 import { connect } from "react-redux";
 import Logout from "./components/logout/logout";
 import "./App.css";
 import Alert from "./components/alert/alert";
+import AccountSetttings from "./containers/account/account";
 import { setAuthToken } from "./utils";
 import PrivateRoute from "./components/routing/privateRoute";
 import Navigation from "./components/Navigation/Navigation";
@@ -27,6 +29,11 @@ const App = ({ loadUser, message, type, hidden }) => {
       <Navigation />
       {!hidden && <Alert message={message} type={type} />}
       <Switch>
+        <PrivateRoute
+          exact
+          path="/account-settings"
+          component={AccountSetttings}
+        />
         <PrivateRoute exact path="/my-fridge" component={Fridge} />
         <PrivateRoute exact path="/favorites" component={Favorites} />
         <PrivateRoute exact path="/my-recipes" component={UserRecipes} />

@@ -153,7 +153,6 @@ const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
                 Password
               </CustomInput>
               <CustomButton type="submit">
-                {" "}
                 {loading ? (
                   <Spinner
                     margin="2px auto"

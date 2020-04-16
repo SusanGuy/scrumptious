@@ -10,6 +10,10 @@ const app = express();
 const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
+
+app.use("/avatars", express.static("src/assets/avatars"));
+app.use(express.json());
+
 app.use("/users", userRouter);
 app.use("/recipes", recipeRouter);
 app.use("/ingredients", ingredientRouter);

@@ -9,10 +9,14 @@
   cursor: pointer;
 }
 
+.main-button:hover {
+  background: #c27a15;
+}
+
 .submit {
   margin-top: 40px;
   margin-bottom: 20px;
-  background: #d4af7a;
+  background: #c58e40;
   text-transform: uppercase;
 }
 .fb-btn {

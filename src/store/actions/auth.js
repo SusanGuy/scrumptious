@@ -1,13 +1,48 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
-import { createAlert } from "../../store/actions/alert";
+import { createAlert } from "./alert";
 import { hideModal } from "../../store/actions/recipeModal";
+import { hidePasswordModal } from "./ui";
 import { setAuthToken } from "../../utils";
 import { resetFilters } from "./filter";
 const userLoaded = (token, user) => {
   return {
     type: actionTypes.USER_LOADED,
     payload: { token, user },
+  };
+};
+
+export const changePassword = (oldPassword, new_password, confirm_password) => {
+  return async (dispatch) => {
+    if (oldPassword !== "") {
+      if (new_password !== "" && confirm_password === "") {
+        return dispatch(
+          authFail({
+            confirmError: "Please enter the password again",
+          })
+        );
+      }
+      console.log(new_password, confirm_password);
+      if (new_password !== confirm_password) {
+        return dispatch(
+          authFail({
+            authError: "Passwords donot match",
+          })
+        );
+      }
+    }
+    try {
+      dispatch(authStart());
+      const submitForm = { password: oldPassword, new_password };
+      await axios.patch("/users/me/changePassword", submitForm);
+      dispatch(signout());
+      dispatch(hidePasswordModal());
+      dispatch(
+        createAlert("Password changed succesfully! Login again", "success")
+      );
+    } catch (err) {
+      dispatch(authFail(err.response ? err.response.data : err.message));
+    }
   };
 };
 

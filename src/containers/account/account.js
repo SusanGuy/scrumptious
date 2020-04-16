@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import CustomButton from "../../components/CustomButton/customButton";
 import CustomInput from "../../components/input/input";
 import Label from "../../components/label/label";
-import { showModal } from "../../store/actions/ui";
 import { connect } from "react-redux";
-import Aux from "../../hoc/Aux/aux";
-
+import { showPasswordModal } from "../../store/actions/ui";
+import Aux from "../../hoc/Aux";
 import {
   uploadImage,
   deleteImage,
@@ -14,11 +13,12 @@ import {
 } from "../../store/actions/auth";
 import Image from "../../components/ppImage/ppImage";
 import CustomActionButton from "../../components/custom-action-button/actionButton";
-import Spinner from "../../components/Spinner/spinner";
+import Spinner from "../../components/Spinner/Spinner";
 import ErrorBox from "../../components/errorMessage/errorMessage";
 import PasswordModal from "../../components/changePassword/changePassword";
-import "./account.scss";
 import CustomInputContainer from "../../components/customInputContainer/customInputContainer";
+import "./account.scss";
+
 const Account = ({
   user,
   uploadImage,
@@ -27,7 +27,7 @@ const Account = ({
   error,
   clearErrors,
   updateForm,
-  showModal,
+  showPasswordModal,
   hidden,
 }) => {
   const [formData, setformData] = useState({
@@ -47,6 +47,9 @@ const Account = ({
   const { first_name, last_name, email } = formData;
 
   const handleChange = (e) => {
+    if (error) {
+      clearErrors();
+    }
     setformData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -122,12 +125,12 @@ const Account = ({
               />
             </div>
             {error.emailError && <ErrorBox>{error.emailError}!</ErrorBox>}
-            <Label>Password</Label>
+
             <div className="account-settings-password">
               <CustomActionButton
                 onClick={(e) => {
                   e.preventDefault();
-                  showModal();
+                  showPasswordModal();
                 }}
               >
                 Change
@@ -158,7 +161,7 @@ const Account = ({
 
 const mapStateToProps = (state) => {
   return {
-    hidden: state.modal.hidden,
+    hidden: state.password.hidden,
     loading: state.auth.loading,
     user: state.auth.user,
     error: state.auth.error,
@@ -170,5 +173,5 @@ export default connect(mapStateToProps, {
   deleteImage,
   clearErrors,
   updateForm,
-  showModal,
+  showPasswordModal,
 })(Account);
