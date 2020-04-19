@@ -3,7 +3,7 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import { connect } from "react-redux";
 import axios from "../../axios";
 import "./landing.css";
-
+import { hideFilterModal } from "../../store/actions/filter";
 import RecipeModal from "../../components/RecipeModel/RecipeModal";
 import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
@@ -12,7 +12,6 @@ import SearchContainer from "../../components/SearchContainer/SearchContainer";
 
 const Landing = ({
   hidden,
-  hideModal,
   recipeFilter,
   recipe,
   filter,
@@ -22,6 +21,7 @@ const Landing = ({
   nutritions,
   withIngredients,
   withoutIngredients,
+  hideFilterModal,
 }) => {
   const [state, setState] = useState({
     recipes: [],
@@ -48,7 +48,10 @@ const Landing = ({
       }
     };
     getRecipes();
-  }, [hidden, hideModal]);
+    if (!hidden) {
+      hideFilterModal();
+    }
+  }, [hidden, hideFilterModal]);
   const { recipes, loading } = state;
 
   if (loading) {
@@ -203,4 +206,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Landing);
+export default connect(mapStateToProps, { hideFilterModal })(Landing);

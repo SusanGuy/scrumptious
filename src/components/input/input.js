@@ -1,7 +1,7 @@
 import React from "react";
 import "./input.css";
 const input = ({ textarea, ...props }) => {
-  const classes = ["custom-input"];
+  const classes = ["custom-input-1"];
   if (props.disabled) {
     classes.push("disabled");
   }
