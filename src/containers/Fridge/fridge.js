@@ -1,7 +1,7 @@
 import React from "react";
-
+import IngredientCard from "../../components/IngredientCards/IngredientCards";
 const fridge = () => {
-  return <div>This is fridge</div>;
+  return <IngredientCard />;
 };
 
 export default fridge;
