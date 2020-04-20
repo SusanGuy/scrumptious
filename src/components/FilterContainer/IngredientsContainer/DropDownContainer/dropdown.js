@@ -37,8 +37,8 @@ const Dropdown = ({
       return (
         <div
           onClick={() => {
+            fridge ? hide(false) : hide(true);
             fridge ? setName(name) : addFilterIngredient(ingredient, type);
-            hide(true);
           }}
           key={_id}
           className="checkbox-group"

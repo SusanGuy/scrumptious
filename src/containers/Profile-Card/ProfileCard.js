@@ -8,7 +8,7 @@ const ProfileCard = ({ history, user, favorites, loading }) => {
     return <Spinner />;
   }
   const { name, avatar } = user;
-  console.log(avatar);
+
   const image = avatar
     ? `http://localhost:5000${avatar}`
     : "https://api.adorable.io/avatars/285/abott@adorable.io.png";

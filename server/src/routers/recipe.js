@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const Recipe = require("../models/recipe");
 const auth = require("../middleware/auth");
-const Ingredient = require("../models/ingredient");
+
 const UserRecipe = require("../models/userRecipe");
 router.get("/", async (req, res) => {
   try {

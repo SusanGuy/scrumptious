@@ -1,0 +1,54 @@
+.toggle-info {
+  border-radius: 32px;
+  height: 32px;
+  padding: 0;
+  position: absolute;
+  width: 32px;
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.favorite-edit {
+  background-color: #006600;
+  right: 22px;
+  top: -10px;
+}
+
+.favorite-delete {
+  right: -12px;
+  top: -10px;
+  background: #ff6666;
+}
+
+.fridge {
+  right: 15px;
+  top: 5px;
+  background: #ff6666;
+}
+
+.toggle-info span {
+  background: #ffffff;
+  display: block;
+  height: 2px;
+  position: absolute;
+  top: 15px;
+  transition: all 0.15s 0s ease-out;
+  width: 12px;
+}
+
+.left-card {
+  transform: rotate(45deg);
+  right: 10px;
+}
+
+.right-card {
+  left: 10px;
+  transform: rotate(-45deg);
+}
+
+.toggle-info:hover {
+  box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075) !important;
+  transform: translateY(-3px);
+  transition: all 0.25s 0s ease-out;
+}

@@ -2,6 +2,7 @@
   float: left;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
+  height: 215px;
   width: 33.33333%;
   margin-bottom: 1rem !important;
 }
@@ -56,12 +57,13 @@
 }
 
 .campaign-action-tile-title {
-  font-size: 1.3125rem;
+  font-size: 1.1125rem;
   color: #333;
   line-height: 1.5;
 }
 .campaign-action-tile-info {
-  margin-top: 10px;
+  position: relative;
+  margin-top: 15px;
   font-size: 0.875rem;
   color: #666;
 }

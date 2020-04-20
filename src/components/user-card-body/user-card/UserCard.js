@@ -2,7 +2,7 @@ import React from "react";
 import Aux from "../../../hoc/Aux";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import ActionButton from "../../userActionButton/actionButton";
 import { deleteRecipe } from "../../../store/actions/user";
 import moment from "moment";
 import "./userCard.css";
@@ -35,24 +35,16 @@ const UserCard = (props) => {
               <div className="campaign-action-tile-info">
                 {props.recipes ? "Created " : "Added "}
                 {moment(props.created).fromNow()}
-              </div>
-              <div className="view-recipe-delete-recipe">
-                <span
-                  onClick={() => {
+                <ActionButton
+                  clicked={() => {
                     return props.history.push(`/recipes/${props.id}`);
                   }}
-                  className="view-favorite-recipe"
-                >
-                  <i className="fas fa-edit"></i>
-                  View/Edit Recipe
-                </span>
-                <span
-                  onClick={() => props.deleteRecipe(props.id)}
-                  className="delete-favorite-recipe"
-                >
-                  <i className="fas fa-trash"></i>
-                  Delete
-                </span>
+                  edit
+                />
+                <ActionButton
+                  clicked={() => props.deleteRecipe(props.id)}
+                  remove
+                />
               </div>
             </div>
           </Aux>

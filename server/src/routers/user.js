@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const User = require("../models/user");
+const Ingredient = require("../models/ingredient");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 const fs = require("fs");
@@ -52,6 +53,109 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/ingredients", auth, async (req, res) => {
+  try {
+    const fridgeData = await User.findById(req.user).populate({
+      path: "ingredients.ingredient",
+      select: "name",
+    });
+    if (fridgeData.ingredients.length === 0) {
+      return res.status(400).send({
+        errMessage: "No any ingredients added to your fridge yet!",
+      });
+    }
+    res.send(fridgeData.ingredients);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.post("/ingredients", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user);
+    const { name } = req.body;
+    const ingredient = await Ingredient.findOne({
+      name,
+    });
+
+    let newIngredient;
+
+    if (ingredient) {
+      const userIngredient = user.ingredients.find((ingro) => {
+        return ingro.ingredient.toString() === ingredient._id.toString();
+      });
+
+      if (userIngredient) {
+        return res.status(400).send({
+          errMessage: "Ingredient already in your fridge",
+        });
+      } else {
+        newIngredient = ingredient;
+      }
+    } else {
+      const createdIngredient = new Ingredient({
+        name,
+        price: Math.random() * 200 + 100,
+      });
+      await createdIngredient.save();
+      newIngredient = createdIngredient;
+    }
+    const units = ["servings", "g", "tbsp", "ml", ""];
+    let random;
+    const randomUnit = units[Math.floor(Math.random() * 5)];
+    if (
+      randomUnit === "tbsp" ||
+      randomUnit === "" ||
+      randomUnit === "servings"
+    ) {
+      random = Math.floor(Math.random() * 5) + 1;
+    } else {
+      random = (Math.random() * 500 + 100).toFixed(2);
+    }
+
+    const fridgeData = {
+      ingredient: newIngredient,
+      amount: {
+        unit: randomUnit,
+        value: random,
+      },
+    };
+
+    user.ingredients.push(fridgeData);
+    await user.save();
+    res.send(
+      user.ingredients.find((ingro) => ingro.ingredient === newIngredient)
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+router.delete("/ingredients/:id", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user);
+    const deletedIngredient = user.ingredients.find((ingro) => {
+      return ingro._id.toString() === req.params.id.toString();
+    });
+
+    if (!deletedIngredient) {
+      return res.status(401).send({
+        errMessage: "No such ingredients found to delete!",
+      });
+    }
+
+    user.ingredients = user.ingredients.filter(
+      (ingro) => ingro._id.toString() !== req.params.id.toString()
+    );
+    await user.save();
+
+    res.send(deletedIngredient);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 router.post("/login", async (req, res) => {
   let validationErrors = {};
   if (req.body.email === "" || req.body.password === "") {
@@ -87,16 +191,6 @@ router.post("/logout", auth, async (req, res) => {
     });
     await req.user.save();
 
-    res.send();
-  } catch (e) {
-    res.status(500).send();
-  }
-});
-
-router.post("/logoutAll", auth, async (req, res) => {
-  try {
-    req.user.tokens = [];
-    await req.user.save();
     res.send();
   } catch (e) {
     res.status(500).send();

@@ -1,7 +1,7 @@
 import React from "react";
-
+import ActionButton from "../userActionButton/actionButton";
 import "./IngredientCards.scss";
-const IngredientCards = ({ name }) => {
+const IngredientCards = ({ id, deleteIngredient, name }) => {
   return (
     <div className="ingredient_card">
       <div className="card__image-holder">
@@ -12,7 +12,8 @@ const IngredientCards = ({ name }) => {
         />
       </div>
       <div className="card-title">
-        <h2>Card title</h2>
+        <ActionButton fridge clicked={() => deleteIngredient(id)} />
+        <h2>{name}</h2>
       </div>
     </div>
   );

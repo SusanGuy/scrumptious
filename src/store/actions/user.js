@@ -9,12 +9,12 @@ const favoriteSuccess = (favorites) => {
   };
 };
 
-// const contributionSuccess = (contributions) => {
-//   return {
-//     type: actionTypes.CONTRIBUTIONS_SUCCESS,
-//     contributions,
-//   };
-// };
+const fridgeSuccess = (fridge) => {
+  return {
+    type: actionTypes.FRIDGE_SUCCESS,
+    fridge,
+  };
+};
 
 const userError = (err) => {
   return {
@@ -23,17 +23,16 @@ const userError = (err) => {
   };
 };
 
-// export const getContributions = () => {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(startLoading());
-//       const { data } = await axios.get("/causes/me");
-//       dispatch(contributionSuccess(data));
-//     } catch (err) {
-//       dispatch(userError(err.response ? err.response.data : err.message));
-//     }
-//   };
-// };
+export const getUserIngredients = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get("/users/ingredients");
+      dispatch(fridgeSuccess(data));
+    } catch (err) {
+      dispatch(userError(err.response ? err.response.data : err.message));
+    }
+  };
+};
 
 const startLoading = () => {
   return {
@@ -41,10 +40,56 @@ const startLoading = () => {
   };
 };
 
+const addFridgeSuccess = (fridge) => {
+  return {
+    type: actionTypes.ADD_FRIDGE_SUCCESS,
+    fridge,
+  };
+};
+
+export const addToFridge = (name) => {
+  return async (dispatch) => {
+    try {
+      dispatch(startLoading());
+      const { data } = await axios.post("/users/ingredients", { name });
+      dispatch(addFridgeSuccess(data));
+      dispatch(
+        createAlert("Ingredient added to your fridge succesfully!", "success")
+      );
+    } catch (err) {
+      dispatch(userError(err.response ? err.response.data : err.message));
+      dispatch(
+        createAlert("Ingredient already added to your fridge!", "failure")
+      );
+    }
+  };
+};
+
+export const deleteFromFridge = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch(startLoading());
+      const { data } = await axios.delete(`/users/ingredients/${id}`);
+      dispatch(deleteFridgeSuccess(data));
+      dispatch(createAlert("Ingredient removed succesfully!", "success"));
+    } catch (err) {
+      dispatch(userError(err.response ? err.response.data : err.message));
+      dispatch(createAlert("Failed to remove the ingredient!", "failure"));
+    }
+  };
+};
+
 const addFavoriteSuccess = (recipe) => {
   return {
     type: actionTypes.ADD_FAVORITE_SUCCESS,
     recipe,
+  };
+};
+
+const deleteFridgeSuccess = (fridge) => {
+  return {
+    type: actionTypes.DELETE_FRIDGE_SUCCESS,
+    fridge,
   };
 };
 
@@ -62,7 +107,7 @@ export const addToCart = (id, history) => {
       const { data } = await axios.post(`/recipes/${id}`);
       dispatch(addFavoriteSuccess(data));
       dispatch(hideModal());
-      history.push("/favorites");
+      history.push("/my-favorites");
       dispatch(
         createAlert("Reciped added to your favorites succesfully!", "success")
       );
@@ -93,7 +138,6 @@ export const deleteRecipe = (id) => {
 export const getFavorites = () => {
   return async (dispatch) => {
     try {
-      dispatch(startLoading());
       const { data } = await axios.get("/recipes/favorites");
       dispatch(favoriteSuccess(data));
     } catch (err) {

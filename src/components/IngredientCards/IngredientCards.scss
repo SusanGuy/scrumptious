@@ -9,10 +9,10 @@ div.ingredient_card {
   transition: all 0.3s 0s ease-in;
   width: 300px;
   z-index: 1;
-  cursor: pointer;
 }
 div.ingredient_card img {
   max-width: 300px;
+  cursor: pointer;
 }
 div.ingredient_card card__image-holder {
   background: rgba(0, 0, 0, 0.1);

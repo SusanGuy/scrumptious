@@ -33,6 +33,22 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    ingredients: [
+      {
+        ingredient: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "ingredient",
+        },
+        amount: {
+          unit: {
+            type: String,
+          },
+          value: {
+            type: Number,
+          },
+        },
+      },
+    ],
     token: {
       type: String,
     },
@@ -51,7 +67,7 @@ userSchema.methods.toJSON = function () {
   const userObject = user.toObject();
   delete userObject.password;
   delete userObject.token;
-
+  delete userObject.ingredients;
   return userObject;
 };
 

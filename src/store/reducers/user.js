@@ -2,8 +2,9 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   favorites: [],
   userRecipes: [],
+  fridge: [],
   error: {},
-  loading: false,
+  loading: true,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -22,6 +23,22 @@ const userReducer = (state = initialState, action) => {
         loading: false,
       };
 
+    case actionTypes.FRIDGE_SUCCESS:
+      return {
+        ...state,
+        fridge: action.fridge,
+        error: {},
+        loading: false,
+      };
+
+    case actionTypes.ADD_FRIDGE_SUCCESS:
+      return {
+        ...state,
+        error: {},
+        loading: false,
+        fridge: state.fridge.concat(action.fridge),
+      };
+
     case actionTypes.ADD_FAVORITE_SUCCESS:
       return {
         ...state,
@@ -38,6 +55,14 @@ const userReducer = (state = initialState, action) => {
         favorites: state.favorites.filter(
           (favorite) => favorite._id !== action.recipe._id
         ),
+      };
+
+    case actionTypes.DELETE_FRIDGE_SUCCESS:
+      return {
+        ...state,
+        error: {},
+        loading: false,
+        fridge: state.fridge.filter((fridg) => fridg._id !== action.fridge._id),
       };
     case actionTypes.USER_RECIPES_SUCCESS:
       return {

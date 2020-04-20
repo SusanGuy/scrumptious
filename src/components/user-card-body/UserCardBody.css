@@ -6,7 +6,7 @@
   max-width: 60rem;
   margin-right: auto;
   margin-left: auto;
-  flex-wrap: wrap;
+  flex-wrap: wrap !important;
 }
 
 .user-card-body {
