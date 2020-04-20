@@ -22,7 +22,7 @@ export const changePassword = (oldPassword, new_password, confirm_password) => {
           })
         );
       }
-      console.log(new_password, confirm_password);
+
       if (new_password !== confirm_password) {
         return dispatch(
           authFail({

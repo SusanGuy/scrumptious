@@ -17,7 +17,7 @@ const Dropdown = ({
     mama = (
       <p
         style={{
-          padding: "20px 0",
+          padding: "20px 20px",
           fontSize: "18px",
         }}
       >

@@ -1,14 +1,15 @@
 import React from "react";
-import "./IngredientCards.css";
-const IngredientCards = () => {
+
+import "./IngredientCards.scss";
+const IngredientCards = ({ name }) => {
   return (
     <div className="cards">
       <div className="ingredient_card">
         <div className="card__image-holder">
           <img
             className="card__image"
-            src="https://source.unsplash.com/300x225/?wave"
-            alt="wave"
+            src={`https://source.unsplash.com/300x225/?${name}`}
+            alt={name}
           />
         </div>
         <div className="card-title">
