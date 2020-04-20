@@ -9,28 +9,35 @@ const Dropdown = ({
   type,
   addFilterIngredient,
   hide,
+  setName,
+  fridge,
+  ...rest
 }) => {
   let mama;
   if (loading) {
     mama = <Spinner width="4em" height="4em" />;
   } else if (ingredients.length === 0) {
-    mama = (
-      <p
-        style={{
-          padding: "20px 20px",
-          fontSize: "18px",
-        }}
-      >
-        No any ingredients found!
-      </p>
-    );
+    if (fridge) {
+      hide(true);
+    } else {
+      mama = (
+        <p
+          style={{
+            padding: "8px 8px",
+            fontSize: "18px",
+          }}
+        >
+          No any ingredients found!
+        </p>
+      );
+    }
   } else {
     mama = ingredients.map((ingredient) => {
       const { _id, name } = ingredient;
       return (
         <div
           onClick={() => {
-            addFilterIngredient(ingredient, type);
+            fridge ? setName(name) : addFilterIngredient(ingredient, type);
             hide(true);
           }}
           key={_id}
@@ -42,7 +49,7 @@ const Dropdown = ({
     });
   }
   return (
-    <div className="suggestion-container">
+    <div style={{ ...rest }} className="suggestion-container">
       <div className="inner-suggestion">{mama} </div>
     </div>
   );
