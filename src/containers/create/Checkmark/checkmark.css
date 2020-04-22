@@ -1,6 +1,6 @@
 .nutrition-checkbox {
   position: absolute;
-  width: 20px;
+  width: 18px;
   left: 1px;
   top: 8px;
   height: 1.805rem;
@@ -8,7 +8,7 @@
 
 .checkbox-label {
   cursor: pointer;
-  display: inline-block;
+  display: flex;
   line-height: 1.2;
   position: relative;
   vertical-align: top;

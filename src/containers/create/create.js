@@ -22,7 +22,8 @@ const Create = () => {
     dairyFree: false,
   });
 
-  console.log(basicState, allergy, time);
+  console.log(allergy, time, basicState);
+
   const { glutenFree, vegan, vegetarian, dairyFree } = allergy;
 
   const { title, calories, carbs, protein, fat, instructions } = basicState;
@@ -191,7 +192,15 @@ const Create = () => {
                   label="60 min"
                   name="readyInMinutes"
                 />
+                <CheckBox other label="Other" setTime={setTime} />
               </div>
+            </section>
+          </div>
+          <div>
+            <section className="basic-info-block">
+              <h3>What ingredients do you wanna include?</h3>
+
+              <div className="form-group-wrap-2col"></div>
             </section>
           </div>
           <CustomButton type="submit">Submit</CustomButton>

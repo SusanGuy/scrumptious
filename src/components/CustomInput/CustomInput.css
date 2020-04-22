@@ -18,3 +18,16 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   text-align: center;
 }
+
+.custom-input::placeholder {
+  color: rgb(172, 163, 163);
+}
+
+.no-children {
+  width: 15%;
+  margin-left: 25px;
+}
+
+.ingro-children {
+  width: 50%;
+}
