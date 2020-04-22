@@ -26,6 +26,7 @@ const userError = (err) => {
 export const getUserIngredients = () => {
   return async (dispatch) => {
     try {
+      dispatch(startLoading());
       const { data } = await axios.get("/users/ingredients");
       dispatch(fridgeSuccess(data));
     } catch (err) {
@@ -47,15 +48,16 @@ const addFridgeSuccess = (fridge) => {
   };
 };
 
-export const addToFridge = (name) => {
+export const addToFridge = (name, alert = true) => {
   return async (dispatch) => {
     try {
       dispatch(startLoading());
       const { data } = await axios.post("/users/ingredients", { name });
       dispatch(addFridgeSuccess(data));
-      dispatch(
-        createAlert("Ingredient added to your fridge succesfully!", "success")
-      );
+      alert &&
+        dispatch(
+          createAlert("Ingredient added to your fridge succesfully!", "success")
+        );
     } catch (err) {
       dispatch(userError(err.response ? err.response.data : err.message));
       dispatch(
@@ -138,6 +140,7 @@ export const deleteRecipe = (id) => {
 export const getFavorites = () => {
   return async (dispatch) => {
     try {
+      dispatch(startLoading());
       const { data } = await axios.get("/recipes/favorites");
       dispatch(favoriteSuccess(data));
     } catch (err) {

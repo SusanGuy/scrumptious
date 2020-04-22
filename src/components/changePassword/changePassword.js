@@ -4,7 +4,7 @@ import CloseButton from "../../components/close-button/closeButton";
 import CustomInput from "../input/input";
 import { clearErrors, changePassword } from "../../store/actions/auth";
 import { connect } from "react-redux";
-import { hidePasswordModal } from "../../store/actions/ui";
+
 import CustomButton from "../CustomButton/customButton";
 import Spinner from "../Spinner/Spinner";
 
@@ -30,7 +30,7 @@ const ChangePassword = ({
       if (node.current.contains(e.target)) {
         return;
       }
-      hidePasswordModal();
+      hidePasswordModal(false);
     },
     [hidePasswordModal]
   );
@@ -73,7 +73,7 @@ const ChangePassword = ({
             passwordChange
             onClick={(e) => {
               e.preventDefault();
-              hidePasswordModal();
+              hidePasswordModal(false);
             }}
           />
         </div>
@@ -141,12 +141,10 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    hidden: state.password.hidden,
   };
 };
 
 export default connect(mapStateToProps, {
-  hidePasswordModal,
   clearErrors,
   changePassword,
 })(ChangePassword);

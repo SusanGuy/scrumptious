@@ -70,6 +70,26 @@ router.get("/ingredients", auth, async (req, res) => {
   }
 });
 
+router.get("/ingredients/:text", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user).populate({
+      path: "ingredients.ingredient",
+    });
+
+    const wantedIngredients = user.ingredients
+      .filter((ingro) =>
+        ingro.ingredient.name
+          .toLowerCase()
+          .includes(req.params.text.toLowerCase())
+      )
+      .filter((ingro, id) => id <= 20);
+
+    res.send(wantedIngredients);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 router.post("/ingredients", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user);

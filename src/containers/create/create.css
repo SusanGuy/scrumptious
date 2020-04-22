@@ -1,10 +1,8 @@
 .main-container {
-  bottom: 3rem;
-  left: 0;
   overflow-y: scroll;
-  position: fixed;
-  right: 0;
-  top: 5rem;
+  position: relative;
+
+  top: 3rem;
 }
 
 .main-wrap {
@@ -107,4 +105,8 @@
   height: 1.4em;
   left: 0;
   width: 1.4em;
+}
+
+.fridge-recommendations {
+  column-count: 2;
 }

@@ -4,12 +4,10 @@ import DropDownMenu from "../../dropdown-menu/DropDownMenu";
 const navigationItems = ({ isAuthenticated }) => {
   return (
     <nav>
-      <NavigationItem link="/guide" exact>
-        How it Works
+      <NavigationItem link="/new" exact>
+        Create a Recipe
       </NavigationItem>
-      <NavigationItem link="/about-us" exact>
-        About Us
-      </NavigationItem>
+
       {isAuthenticated && <DropDownMenu />}
     </nav>
   );

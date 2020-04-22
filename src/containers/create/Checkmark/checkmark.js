@@ -3,7 +3,8 @@ import "./checkmark.css";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 const Checkmark = ({
   label,
-  ingro,
+  ingredient,
+  ingredients,
   allergy,
   other,
   setTime,
@@ -14,30 +15,54 @@ const Checkmark = ({
   const [classes, setClasses] = useState(["tickmark"]);
 
   useEffect(() => {
-    if (time === undefined) {
-      return allergy
-        ? setClasses(["tickmark", "tickmark-clicked"])
-        : setClasses(["tickmark"]);
+    if (time === undefined && ingredient === undefined) {
+      if (allergy) {
+        setChecked(true);
+        setClasses(["tickmark", "tickmark-clicked"]);
+      } else {
+        setChecked(false);
+        setClasses(["tickmark"]);
+      }
+    } else if (ingredient) {
+      if (
+        ingredients.find((ingra) => {
+          return ingra.ingredient === ingredient.ingredient;
+        })
+      ) {
+        setChecked(true);
+        setClasses(["tickmark", "tickmark-clicked"]);
+      } else {
+        setChecked(false);
+        setClasses(["tickmark"]);
+      }
     } else {
-      return time.toString() === rest.value
-        ? setClasses(["tickmark", "tickmark-clicked"])
-        : setClasses(["tickmark"]);
+      if (time.toString() === rest.value) {
+        setChecked(true);
+        setClasses(["tickmark", "tickmark-clicked"]);
+      } else {
+        setChecked(false);
+        setClasses(["tickmark"]);
+      }
     }
-  }, [allergy, time, rest.value]);
+  }, [allergy, time, rest.value, ingredient, ingredients]);
+
+  const [checked, setChecked] = useState(false);
 
   return (
     <div className="edit-form-group">
       <input
         onChange={(e) => {
-          if (time && !e.target.checked && time.toString() !== e.target.value) {
-            e.target.checked = !e.target.checked;
+          if (ingredient) {
+            changed(e, ingredient);
+          } else {
+            !other && changed(e);
           }
-          !other && changed(e);
         }}
         className="nutrition-checkbox"
         id={label}
         {...rest}
         type="checkbox"
+        checked={checked}
       />
       <span className={classes.join(" ")}>
         {classes.includes("tickmark-clicked") && (
@@ -55,12 +80,6 @@ const Checkmark = ({
               }
               setTime(e.target.value === "" ? 0 : e.target.value);
             }}
-          />
-        )}
-        {ingro && (
-          <CustomInput
-            placeholder="Search for the ingredients in your fridge"
-            ingro
           />
         )}
       </label>

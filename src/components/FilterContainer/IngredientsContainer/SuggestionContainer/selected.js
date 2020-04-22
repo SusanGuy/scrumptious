@@ -11,7 +11,17 @@ const Selected = ({ ingredients, type, removeFilterIngredient }) => {
           <span key={_id} className="pill">
             <span className="delete-ingredient-suggested">
               <i
-                onClick={() => removeFilterIngredient(ingredient, type)}
+                onClick={() => {
+                  if (type) {
+                    removeFilterIngredient(ingredient, type);
+                  } else {
+                    const filteredIngredient = ingredients.filter((ingra) => {
+                      return ingra.ingredient !== ingredient.ingredient;
+                    });
+
+                    removeFilterIngredient(filteredIngredient);
+                  }
+                }}
                 className="fas fa-times"
               ></i>
               {name}

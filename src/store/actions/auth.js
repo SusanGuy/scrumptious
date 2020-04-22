@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 import { createAlert } from "./alert";
 import { hideModal } from "../../store/actions/recipeModal";
-import { hidePasswordModal } from "./ui";
+
 import { setAuthToken } from "../../utils";
 import { resetFilters } from "./filter";
 const userLoaded = (token, user) => {
@@ -36,7 +36,7 @@ export const changePassword = (oldPassword, new_password, confirm_password) => {
       const submitForm = { password: oldPassword, new_password };
       await axios.patch("/users/me/changePassword", submitForm);
       dispatch(signout());
-      dispatch(hidePasswordModal());
+
       dispatch(
         createAlert("Password changed succesfully! Login again", "success")
       );

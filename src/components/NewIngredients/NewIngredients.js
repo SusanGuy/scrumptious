@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./newIngredients.css";
+import { connect } from "react-redux";
+import { addToFridge } from "../../store/actions/user";
+
 import axios from "../../axios";
 import DropDownMenu from "../FilterContainer/IngredientsContainer/DropDownContainer/dropdown";
-const NewIngredients = ({ name, setName, addToFridge }) => {
+const NewIngredients = ({ ingro, addToFridge }) => {
   const [hidden, setHidden] = useState(false);
   const [ingredientState, setIngredientState] = useState({
     ingredients: [],
@@ -11,7 +14,7 @@ const NewIngredients = ({ name, setName, addToFridge }) => {
   });
 
   const { ingredients, loading } = ingredientState;
-
+  const [name, setName] = useState("");
   const getIngredients = async (name) => {
     try {
       const { data } = await axios.get(`/ingredients/${name}`);
@@ -28,6 +31,7 @@ const NewIngredients = ({ name, setName, addToFridge }) => {
       });
     }
   };
+
   const node = useRef();
   useEffect(() => {
     document.addEventListener("click", handleClick);
@@ -47,12 +51,14 @@ const NewIngredients = ({ name, setName, addToFridge }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addToFridge(name);
+
+    addToFridge(name, ingro ? false : true);
+
     setName("");
   };
 
   return (
-    <div ref={node} className="wrap">
+    <div ref={node} className={ingro ? ["wrap whatsup-ingro"] : ["wrap"]}>
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -68,7 +74,11 @@ const NewIngredients = ({ name, setName, addToFridge }) => {
             name="name"
             type="text"
             className="searchTerm"
-            placeholder="Search/Add your ingredients"
+            placeholder={
+              ingro
+                ? "Add more ingredients to your fridge"
+                : "Search/Add your ingredients"
+            }
             value={name}
             required
           />
@@ -81,7 +91,7 @@ const NewIngredients = ({ name, setName, addToFridge }) => {
       {hidden && (
         <DropDownMenu
           hide={setHidden}
-          width="72%"
+          width="100%"
           setName={setName}
           ingredients={ingredients}
           loading={loading}
@@ -92,4 +102,4 @@ const NewIngredients = ({ name, setName, addToFridge }) => {
   );
 };
 
-export default NewIngredients;
+export default connect(null, { addToFridge })(NewIngredients);

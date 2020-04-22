@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { IngredientsSearch } from "../../components/NewIngredients/NewIngredients";
+import IngredientsSearch from "../../components/NewIngredients/NewIngredients";
 import "./fridge.css";
-import {
-  getUserIngredients,
-  addToFridge,
-  deleteFromFridge,
-} from "../../store/actions/user";
+import { getUserIngredients, deleteFromFridge } from "../../store/actions/user";
 
 import Spinner from "../../components/Spinner/Spinner";
 import IngredientCard from "../../components/IngredientCards/IngredientCards";
@@ -15,7 +11,7 @@ import Aux from "../../hoc/Aux";
 
 const Fridge = ({
   getUserIngredients,
-  addToFridge,
+
   deleteFromFridge,
   userLoading,
   fridge,
@@ -24,8 +20,6 @@ const Fridge = ({
   useEffect(() => {
     getUserIngredients();
   }, [getUserIngredients]);
-
-  const [name, setName] = useState("");
 
   let card;
   if (userLoading) {
@@ -45,11 +39,7 @@ const Fridge = ({
 
   return (
     <Aux>
-      <IngredientsSearch
-        name={name}
-        setName={setName}
-        addToFridge={addToFridge}
-      />
+      <IngredientsSearch />
       <div className="cards">{card}</div>
     </Aux>
   );
@@ -66,5 +56,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   getUserIngredients,
   deleteFromFridge,
-  addToFridge,
 })(Fridge);

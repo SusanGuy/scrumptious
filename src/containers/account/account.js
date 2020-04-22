@@ -3,7 +3,7 @@ import CustomButton from "../../components/CustomButton/customButton";
 import CustomInput from "../../components/input/input";
 import Label from "../../components/label/label";
 import { connect } from "react-redux";
-import { showPasswordModal } from "../../store/actions/ui";
+
 import Aux from "../../hoc/Aux";
 import {
   uploadImage,
@@ -27,8 +27,6 @@ const Account = ({
   error,
   clearErrors,
   updateForm,
-  showPasswordModal,
-  hidden,
 }) => {
   const [formData, setformData] = useState({
     first_name: "",
@@ -45,6 +43,7 @@ const Account = ({
     });
   }, [user, clearErrors]);
   const { first_name, last_name, email } = formData;
+  const [hidden, setHidden] = useState(false);
 
   const handleChange = (e) => {
     if (error) {
@@ -67,7 +66,9 @@ const Account = ({
 
   return (
     <Aux>
-      {hidden && <PasswordModal />}
+      {hidden && (
+        <PasswordModal hidden={hidden} hidePasswordModal={setHidden} />
+      )}
       <div className="account-settings-container">
         <div className="account-settings-row">
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -130,7 +131,7 @@ const Account = ({
               <CustomActionButton
                 onClick={(e) => {
                   e.preventDefault();
-                  showPasswordModal();
+                  setHidden(true);
                 }}
               >
                 Change
@@ -161,7 +162,6 @@ const Account = ({
 
 const mapStateToProps = (state) => {
   return {
-    hidden: state.password.hidden,
     loading: state.auth.loading,
     user: state.auth.user,
     error: state.auth.error,
@@ -173,5 +173,4 @@ export default connect(mapStateToProps, {
   deleteImage,
   clearErrors,
   updateForm,
-  showPasswordModal,
 })(Account);

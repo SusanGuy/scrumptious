@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./create.css";
+import Spinner from "../../components/Spinner/Spinner";
+import { connect } from "react-redux";
+import { getUserIngredients } from "../../store/actions/user";
+import Selected from "../../components/FilterContainer/IngredientsContainer/SuggestionContainer/selected";
 import BasicInfo from "./BasicInfo/basic";
 import CheckBox from "./Checkmark/checkmark";
+import IngredientsContainer from "../../components/NewIngredients/NewIngredients";
 import CustomButton from "../../components/CustomButton/customButton";
-const Create = () => {
+const Create = ({ fridge, loading, getUserIngredients }) => {
   const [basicState, setBasicState] = useState({
     title: "",
     calories: "",
@@ -21,8 +26,6 @@ const Create = () => {
     vegetarian: false,
     dairyFree: false,
   });
-
-  console.log(allergy, time, basicState);
 
   const { glutenFree, vegan, vegetarian, dairyFree } = allergy;
 
@@ -45,6 +48,53 @@ const Create = () => {
   const changeTimeState = (e) => {
     return setTime(e.target.checked ? e.target.value : 0);
   };
+
+  useEffect(() => {
+    getUserIngredients();
+  }, [getUserIngredients]);
+
+  const [ingredients, setIngredients] = useState([]);
+
+  const changeIngredientState = (e, ingredient) => {
+    if (e.target.checked) {
+      setIngredients([...ingredients, ingredient]);
+    } else {
+      const filteredIngredient = ingredients.filter((ingra) => {
+        return ingra.ingredient !== ingredient.ingredient;
+      });
+
+      setIngredients(filteredIngredient);
+    }
+  };
+  let mama;
+  if (loading) {
+    mama = <Spinner margin="2px auto" width="5em" height="5em" />;
+  } else {
+    mama = (
+      <div className="fridge-recommendations">
+        {fridge.map(({ _id, amount, ingredient }) => {
+          return (
+            <CheckBox
+              ingredients={ingredients}
+              ingredient={{
+                amount,
+                _id: _id,
+                name: ingredient.name,
+                ingredient: ingredient._id,
+              }}
+              changed={changeIngredientState}
+              key={_id}
+              label={ingredient.name}
+              name={ingredient.name}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+
+  console.log(ingredients, allergy, time);
+
   return (
     <main role="main" className="main-container">
       <div className="main-wrap">
@@ -199,8 +249,17 @@ const Create = () => {
           <div>
             <section className="basic-info-block">
               <h3>What ingredients do you wanna include?</h3>
-
-              <div className="form-group-wrap-2col"></div>
+              <div className="basic-instructions">
+                Below are some ingredients from your fridge
+              </div>
+              <div className="form-group-wrap-2col">
+                {mama}
+                <IngredientsContainer ingro />
+                <Selected
+                  ingredients={ingredients}
+                  removeFilterIngredient={setIngredients}
+                />
+              </div>
             </section>
           </div>
           <CustomButton type="submit">Submit</CustomButton>
@@ -210,4 +269,11 @@ const Create = () => {
   );
 };
 
-export default Create;
+const mapStateToProps = (state) => {
+  return {
+    fridge: state.user.fridge,
+    loading: state.user.loading,
+  };
+};
+
+export default connect(mapStateToProps, { getUserIngredients })(Create);
