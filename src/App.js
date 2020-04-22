@@ -7,6 +7,7 @@ import Fridge from "../src/containers/Fridge/fridge";
 import Favorites from "./containers/Favorites/favorites";
 import ProfileCard from "./containers/Profile-Card/ProfileCard";
 import { loadUser } from "./store/actions/auth";
+import CreateRecipe from "./containers/create/create";
 import { connect } from "react-redux";
 import Logout from "./components/logout/logout";
 import "./App.css";
@@ -29,6 +30,7 @@ const App = ({ loadUser, message, type, hidden }) => {
       <Navigation />
       {!hidden && <Alert message={message} type={type} />}
       <Switch>
+        <PrivateRoute exact path="/new" component={CreateRecipe} />
         <PrivateRoute exact path="/my-profile" component={ProfileCard} />
         <PrivateRoute
           exact

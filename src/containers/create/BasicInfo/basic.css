@@ -1,0 +1,60 @@
+.edit-form-group input[type="text"] {
+  background: none;
+  line-height: 1.9;
+  transition: all 0.28s ease;
+  box-shadow: none;
+  display: block;
+  width: 100%;
+  border-width: 0;
+  resize: none;
+  border-color: transparent;
+  padding: 0.11875rem 0.11875rem 0.059375rem;
+  font-size: 16px !important;
+  height: 1.805rem;
+}
+
+.edit-form-group textarea {
+  background: none;
+  line-height: 1.9;
+  transition: all 0.28s ease;
+  box-shadow: none;
+  display: block;
+  width: 100% !important;
+  border-width: 0;
+  border-color: transparent;
+  padding: 0.11875rem 0.11875rem 0.059375rem;
+  font-size: 16px !important;
+  height: 8.805rem !important;
+}
+
+.control-label {
+  position: absolute;
+  top: 1.1875rem;
+  pointer-events: none;
+  padding-left: 0.11875rem;
+  z-index: 1;
+  color: #888;
+  font-size: 0.95rem;
+  font-weight: normal;
+  transition: all 0.28s ease;
+}
+
+.label-change {
+  top: 0.1875rem;
+  color: #659dbd;
+}
+
+.control-label span {
+  vertical-align: baseline;
+}
+
+.bar {
+  position: relative;
+  border-bottom: 1px solid #888;
+  display: block;
+  transition: all 0.28s ease;
+}
+
+.bar-change {
+  border-bottom: 2px solid #659dbd;
+}

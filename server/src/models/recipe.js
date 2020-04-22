@@ -3,88 +3,88 @@ const mongoose = require("mongoose");
 const recipeSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
-    default: null
+    default: null,
   },
   count: {
     type: Number,
-    default: 0
+    default: 0,
   },
 
   vegetarian: {
     type: Boolean,
-    default: false
+    default: false,
   },
   vegan: {
     type: Boolean,
-    default: false
+    default: false,
   },
   glutenFree: {
     type: Boolean,
-    default: false
+    default: false,
   },
   dairyFree: {
     type: Boolean,
-    default: false
+    default: false,
   },
   title: {
     type: String,
     required: true,
     unqiue: true,
-    trim: true
+    trim: true,
   },
   instructions: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   readyInMinutes: {
     type: Number,
-    required: true
+    required: true,
   },
   image: {
-    type: String
+    type: String,
   },
   cost: {
     type: Number,
-    required: true
+    required: true,
   },
   nutrients: {
     calories: {
-      type: String
+      type: String,
     },
     carbs: {
-      type: String
+      type: String,
     },
 
     protein: {
-      type: String
+      type: String,
     },
     fat: {
-      type: String
-    }
+      type: String,
+    },
   },
 
   ingredients: [
     {
       ingredient: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "ingredient"
+        ref: "ingredient",
       },
       amount: {
         unit: {
           type: String,
-          default: ""
+          default: "",
         },
         value: {
           type: Number,
-          default: 0
-        }
-      }
-    }
-  ]
+          default: 0,
+        },
+      },
+    },
+  ],
 });
 
-recipeSchema.pre("save", async function(next) {
+recipeSchema.pre("save", async function (next) {
   const recipe = this;
 
   if (recipe.isModified("instructions")) {
