@@ -26,7 +26,7 @@ const Checkmark = ({
     } else if (ingredient) {
       if (
         ingredients.find((ingra) => {
-          return ingra.ingredient === ingredient.ingredient;
+          return ingra._id === ingredient._id;
         })
       ) {
         setChecked(true);
@@ -71,17 +71,19 @@ const Checkmark = ({
       </span>
 
       <label className="checkbox-label" htmlFor={label}>
-        <span>{label}</span>
-        {other && (
-          <CustomInput
-            onChange={(e) => {
-              if (time !== 0) {
-                setTime(0);
-              }
-              setTime(e.target.value === "" ? 0 : e.target.value);
-            }}
-          />
-        )}
+        <div style={{ display: "flex" }}>
+          <span>{label}</span>
+          {other && (
+            <CustomInput
+              onChange={(e) => {
+                if (time !== 0) {
+                  setTime(0);
+                }
+                setTime(e.target.value === "" ? 0 : e.target.value);
+              }}
+            />
+          )}
+        </div>
       </label>
     </div>
   );

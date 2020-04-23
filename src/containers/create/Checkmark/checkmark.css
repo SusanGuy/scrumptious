@@ -8,14 +8,19 @@
 
 .checkbox-label {
   cursor: pointer;
+  display: flex;
   line-height: 1.2;
   position: relative;
-  width: 5px;
+  vertical-align: top;
   padding-left: 2em;
 }
 
 .checkbox-label span {
   line-height: 1.2;
+}
+
+.checkbox-label input {
+  width: 200px;
 }
 
 .tickmark {
