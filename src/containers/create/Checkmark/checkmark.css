@@ -8,10 +8,9 @@
 
 .checkbox-label {
   cursor: pointer;
-  display: flex;
   line-height: 1.2;
   position: relative;
-  vertical-align: top;
+  width: 5px;
   padding-left: 2em;
 }
 

@@ -26,8 +26,7 @@ const Ingredient = ({
             ingredient={{
               amount,
               _id: _id,
-              name: ingredient.name,
-              ingredient: ingredient._id,
+              ingredient: { _id: ingredient._id, name: ingredient.name },
             }}
             changed={changeIngredientState}
             key={_id}

@@ -143,7 +143,7 @@ const Create = ({
   if (loading) {
     return <Spinner />;
   }
-
+  console.log(ingredients);
   return (
     <main role="main" className="main-container">
       <div className="main-wrap">
@@ -322,7 +322,6 @@ const Create = ({
                 />
                 <IngredientsContainer ingro />
                 <Selected
-                  id={id}
                   ingredients={ingredients}
                   setIngredients={setIngredients}
                 />
