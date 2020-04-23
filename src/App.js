@@ -31,6 +31,7 @@ const App = ({ loadUser, message, type, hidden }) => {
       {!hidden && <Alert message={message} type={type} />}
       <Switch>
         <PrivateRoute exact path="/new" component={CreateRecipe} />
+        <PrivateRoute exact path="/recipes/:id" component={CreateRecipe} />
         <PrivateRoute exact path="/my-profile" component={ProfileCard} />
         <PrivateRoute
           exact

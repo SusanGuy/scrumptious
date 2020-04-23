@@ -20,6 +20,7 @@ const UserCardBody = ({ favorites, recipes, error }) => {
         <UserCard
           favorite
           id={id}
+          link={_id}
           key={_id}
           image={image}
           title={title}

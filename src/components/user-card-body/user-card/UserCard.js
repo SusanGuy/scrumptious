@@ -37,7 +37,7 @@ const UserCard = (props) => {
                 {moment(props.created).fromNow()}
                 <ActionButton
                   clicked={() => {
-                    return props.history.push(`/recipes/${props.id}`);
+                    return props.history.push(`/recipes/${props.link}`);
                   }}
                   edit
                 />

@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import "./basic.css";
-const Basic = ({ textarea, changed, label, ...rest }) => {
+const Basic = ({ textarea, changed, label, id, ...rest }) => {
   const [classes, setClasses] = useState({
-    labelClasses: ["control-label"],
     barClasses: ["bar"],
   });
 
-  const { labelClasses, barClasses } = classes;
+  const { barClasses } = classes;
   const value = rest.value;
 
   const handleClick = useCallback(
@@ -14,18 +13,18 @@ const Basic = ({ textarea, changed, label, ...rest }) => {
       if (node.current.contains(e.target)) {
         return;
       }
-      labelClasses.includes("label-change") && value === ""
+      value === ""
         ? setClasses({
-            labelClasses: ["control-label"],
             barClasses: ["bar"],
           })
         : setClasses({
-            labelClasses: [...labelClasses],
             barClasses: ["bar"],
           });
     },
-    [labelClasses, value]
+    [value]
   );
+
+  const node = useRef();
 
   useEffect(() => {
     document.addEventListener("click", handleClick);
@@ -33,7 +32,6 @@ const Basic = ({ textarea, changed, label, ...rest }) => {
       document.removeEventListener("click", handleClick);
     };
   }, [handleClick]);
-  const node = useRef();
 
   return (
     <div className="edit-form-group">
@@ -41,10 +39,8 @@ const Basic = ({ textarea, changed, label, ...rest }) => {
         <textarea
           ref={node}
           onClick={() =>
-            !labelClasses.includes("label-change") &&
             !barClasses.includes("bar-change") &&
             setClasses({
-              labelClasses: [...labelClasses, "label-change"],
               barClasses: [...barClasses, "bar-change"],
             })
           }
@@ -53,15 +49,14 @@ const Basic = ({ textarea, changed, label, ...rest }) => {
           }}
           id={label}
           {...rest}
+          className="basic-info-input basic-textarea"
         />
       ) : (
         <input
           ref={node}
           onClick={() =>
-            !labelClasses.includes("label-change") &&
             !barClasses.includes("bar-change") &&
             setClasses({
-              labelClasses: [...labelClasses, "label-change"],
               barClasses: [...barClasses, "bar-change"],
             })
           }
@@ -69,10 +64,11 @@ const Basic = ({ textarea, changed, label, ...rest }) => {
             changed(e);
           }}
           id={label}
+          className="basic-info-input"
           {...rest}
         />
       )}
-      <label className={labelClasses.join(" ")} htmlFor={label}>
+      <label className="control-label" htmlFor={label}>
         <span>{label}</span>
       </label>
       <i className={barClasses.join(" ")}></i>

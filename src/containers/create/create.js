@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./create.css";
 import Spinner from "../../components/Spinner/Spinner";
-import { connect } from "react-redux";
-import { getUserIngredients } from "../../store/actions/user";
+import axios from "../../axios";
+import IngredientList from "./Ingredient/ingredient";
 import Selected from "../../components/FilterContainer/IngredientsContainer/SuggestionContainer/selected";
 import BasicInfo from "./BasicInfo/basic";
 import CheckBox from "./Checkmark/checkmark";
 import IngredientsContainer from "../../components/NewIngredients/NewIngredients";
 import CustomButton from "../../components/CustomButton/customButton";
-const Create = ({ fridge, loading, getUserIngredients }) => {
+const Create = ({
+  match: {
+    params: { id },
+  },
+}) => {
   const [basicState, setBasicState] = useState({
     title: "",
     calories: "",
@@ -16,6 +20,7 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
     protein: "",
     fat: "",
     instructions: "",
+    cost: "",
   });
 
   const [time, setTime] = useState(0);
@@ -29,7 +34,15 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
 
   const { glutenFree, vegan, vegetarian, dairyFree } = allergy;
 
-  const { title, calories, carbs, protein, fat, instructions } = basicState;
+  const {
+    title,
+    cost,
+    calories,
+    carbs,
+    protein,
+    fat,
+    instructions,
+  } = basicState;
 
   const changeBasicState = (e) => {
     return setBasicState({
@@ -48,12 +61,72 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
   const changeTimeState = (e) => {
     return setTime(e.target.checked ? e.target.value : 0);
   };
+  const [ingredients, setIngredients] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getUserIngredients();
-  }, [getUserIngredients]);
-
-  const [ingredients, setIngredients] = useState([]);
+    const getRecipeData = async (id) => {
+      try {
+        setLoading(true);
+        const { data } = await axios.get(`/recipes/${id}`);
+        setLoading(false);
+        const {
+          title,
+          cost,
+          instructions,
+          ingredients,
+          readyInMinutes,
+          nutrients: { calories, carbs, protein, fat },
+          glutenFree,
+          dairyFree,
+          vegan,
+          vegetarian,
+        } = data;
+        setBasicState({
+          title,
+          cost,
+          calories,
+          carbs: carbs.replace("g", ""),
+          protein: protein.replace("g", ""),
+          fat: fat.replace("g", ""),
+          instructions,
+        });
+        setAllergy({
+          glutenFree,
+          vegan,
+          vegetarian,
+          dairyFree,
+        });
+        setTime(readyInMinutes);
+        setIngredients(ingredients);
+      } catch (error) {
+        setLoading(false);
+        console.log(error.response.data);
+      }
+    };
+    if (id) {
+      getRecipeData(id);
+    } else {
+      setBasicState({
+        title: "",
+        instructions: "",
+        cost: "",
+        carbs: "",
+        calories: "",
+        protein: "",
+        fat: "",
+      });
+      setAllergy({
+        glutenFree: false,
+        dairyFree: false,
+        vegan: false,
+        vegetarian: false,
+      });
+      setTime(0);
+      setIngredients([]);
+    }
+  }, [id]);
 
   const changeIngredientState = (e, ingredient) => {
     if (e.target.checked) {
@@ -66,34 +139,10 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
       setIngredients(filteredIngredient);
     }
   };
-  let mama;
-  if (loading) {
-    mama = <Spinner margin="2px auto" width="5em" height="5em" />;
-  } else {
-    mama = (
-      <div className="fridge-recommendations">
-        {fridge.map(({ _id, amount, ingredient }) => {
-          return (
-            <CheckBox
-              ingredients={ingredients}
-              ingredient={{
-                amount,
-                _id: _id,
-                name: ingredient.name,
-                ingredient: ingredient._id,
-              }}
-              changed={changeIngredientState}
-              key={_id}
-              label={ingredient.name}
-              name={ingredient.name}
-            />
-          );
-        })}
-      </div>
-    );
-  }
 
-  console.log(ingredients, allergy, time);
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <main role="main" className="main-container">
@@ -121,6 +170,16 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
                   label="Recipe Name"
                   changed={changeBasicState}
                   value={title}
+                  id={id}
+                />
+                <BasicInfo
+                  type="text"
+                  required
+                  name="cost"
+                  label="Cost (in cents)"
+                  changed={changeBasicState}
+                  value={cost}
+                  id={id}
                 />
                 <BasicInfo
                   type="text"
@@ -129,6 +188,7 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
                   label="Calories"
                   changed={changeBasicState}
                   value={calories}
+                  id={id}
                 />
                 <BasicInfo
                   type="text"
@@ -137,6 +197,7 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
                   label="Carbs(in g)"
                   changed={changeBasicState}
                   value={carbs}
+                  id={id}
                 />
                 <BasicInfo
                   type="text"
@@ -145,6 +206,7 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
                   label="Protein(in g)"
                   changed={changeBasicState}
                   value={protein}
+                  id={id}
                 />
                 <BasicInfo
                   type="text"
@@ -153,6 +215,7 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
                   label="Fat(in g)"
                   changed={changeBasicState}
                   value={fat}
+                  id={id}
                 />
                 <BasicInfo
                   textarea
@@ -253,11 +316,15 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
                 Below are some ingredients from your fridge
               </div>
               <div className="form-group-wrap-2col">
-                {mama}
+                <IngredientList
+                  ingredients={ingredients}
+                  changeIngredientState={changeIngredientState}
+                />
                 <IngredientsContainer ingro />
                 <Selected
+                  id={id}
                   ingredients={ingredients}
-                  removeFilterIngredient={setIngredients}
+                  setIngredients={setIngredients}
                 />
               </div>
             </section>
@@ -269,11 +336,4 @@ const Create = ({ fridge, loading, getUserIngredients }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    fridge: state.user.fridge,
-    loading: state.user.loading,
-  };
-};
-
-export default connect(mapStateToProps, { getUserIngredients })(Create);
+export default Create;
