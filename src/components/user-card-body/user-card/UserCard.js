@@ -14,7 +14,7 @@ const UserCard = (props) => {
         {props.new ? (
           <div className="new-campaign-tile">
             <div className="new-campaign-tile-body">
-              <Link className="new-campaign-link" to="/recipes">
+              <Link className="new-campaign-link" to="/new">
                 <div className="new-campaign-logo"></div>
                 Create your own recipe
               </Link>
@@ -24,11 +24,25 @@ const UserCard = (props) => {
           <Aux>
             <div className="user-card-image-wrapper">
               <div className="user-card-image-wrapper-row">
-                <img alt="" src={props.image} />
+                <img
+                  alt=""
+                  src={
+                    props.image.includes("spoonacular")
+                      ? props.image
+                      : `http://localhost:5000${props.image}`
+                  }
+                />
               </div>
             </div>
             <div className="main-image-container">
-              <img alt="" src={props.image} />
+              <img
+                alt=""
+                src={
+                  props.image.includes("spoonacular")
+                    ? props.image
+                    : `http://localhost:5000${props.image}`
+                }
+              />
             </div>
             <div className="campaign-action-tile-content">
               <div className="campaign-action-tile-title">{props.title}</div>

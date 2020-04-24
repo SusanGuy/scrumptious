@@ -15,10 +15,18 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case actionTypes.FAVORITES_SUCCESS:
       return {
         ...state,
         favorites: action.favorites,
+        error: {},
+        loading: false,
+      };
+    case actionTypes.USER_RECIPES_SUCCESS:
+      return {
+        ...state,
+        userRecipes: action.recipes,
         error: {},
         loading: false,
       };
@@ -47,11 +55,14 @@ const userReducer = (state = initialState, action) => {
         favorites: state.favorites.concat(action.recipe),
       };
 
-    case actionTypes.DELETE_FAVORITE_SUCCESS:
+    case actionTypes.DELETE_RECIPE_SUCCESS:
       return {
         ...state,
         error: {},
         loading: false,
+        userRecipes: state.userRecipes.filter(
+          (recipe) => recipe._id !== action.recipe._id
+        ),
         favorites: state.favorites.filter(
           (favorite) => favorite._id !== action.recipe._id
         ),
@@ -63,13 +74,6 @@ const userReducer = (state = initialState, action) => {
         error: {},
         loading: false,
         fridge: state.fridge.filter((fridg) => fridg._id !== action.fridge._id),
-      };
-    case actionTypes.USER_RECIPES_SUCCESS:
-      return {
-        ...state,
-        userRecipes: action.userRecipes,
-        error: {},
-        loading: false,
       };
 
     case actionTypes.USER_ERROR:

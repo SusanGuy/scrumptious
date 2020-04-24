@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./create.css";
+import { connect } from "react-redux";
+import { createAlert } from "../../store/actions/alert";
+import { checkVal, checkInt } from "../../regex";
 import UploadImage from "./image/image";
 import Aux from "../../hoc/Aux";
 import Spinner from "../../components/Spinner/Spinner";
@@ -11,6 +14,8 @@ import CheckBox from "./Checkmark/checkmark";
 import IngredientsContainer from "../../components/NewIngredients/NewIngredients";
 import CustomButton from "../../components/CustomButton/customButton";
 const Create = ({
+  history,
+  createAlert,
   match: {
     params: { id },
   },
@@ -47,6 +52,31 @@ const Create = ({
   } = basicState;
 
   const changeBasicState = (e) => {
+    if (
+      (e.target.name === "carbs" ||
+        e.target.name === "cost" ||
+        e.target.name === "protein" ||
+        e.target.name === "fat") &&
+      e.target.value !== ""
+    ) {
+      return (
+        checkVal(e.target.value) &&
+        setBasicState({
+          ...basicState,
+          [e.target.name]: e.target.value + "",
+        })
+      );
+    }
+
+    if (e.target.name === "calories" && e.target.value !== "") {
+      return (
+        checkInt(e.target.value) &&
+        setBasicState({
+          ...basicState,
+          [e.target.name]: e.target.value + "",
+        })
+      );
+    }
     return setBasicState({
       ...basicState,
       [e.target.name]: e.target.value + "",
@@ -152,11 +182,81 @@ const Create = ({
     return <Spinner />;
   }
 
+  const checkErrors = () => {
+    return (
+      title !== "" &&
+      cost !== "" &&
+      cost !== 0 &&
+      calories !== "" &&
+      calories !== 0 &&
+      carbs !== "" &&
+      carbs !== 0 &&
+      fat !== "" &&
+      fat !== 0 &&
+      protein !== "" &&
+      protein !== 0 &&
+      time !== 0 &&
+      instructions !== ""
+    );
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (!checkErrors()) {
+      return createAlert("Please fill all the required fields!", "failure");
+    }
+
+    if (ingredients.length === 0) {
+      return createAlert("Your recipe must have ingredients", "failure");
+    }
+    if (image === "") {
+      return createAlert("You must upload a recipe image", "failure");
+    }
+    try {
+      const body = {
+        title,
+        cost: parseInt(cost),
+        glutenFree,
+        vegan,
+        vegetarian,
+        dairyFree,
+        readyInMinutes: parseInt(time),
+        instructions: instructions.includes(".")
+          ? instructions
+          : instructions + ".",
+
+        nutrients: {
+          calories,
+          carbs: carbs + "g",
+          protein: protein + "g",
+          fat: fat + "g",
+        },
+        ingredients: ingredients.map((ingra) => {
+          return { amount: ingra.amount, ingredient: ingra.ingredient._id };
+        }),
+      };
+
+      const {
+        data: { _id },
+      } = await axios.post("/recipes", { ...body });
+      const fd = new FormData();
+      fd.append("upload", image, image.name);
+      await axios.post(`/recipes/image/${_id}`, fd);
+      history.push("/my-recipes");
+      createAlert("Recipe created succesfully", "success");
+    } catch (err) {
+      createAlert(
+        err.response ? err.response.data.errMessage : err.message,
+        "failure"
+      );
+    }
+  };
+
   return (
     <Aux>
       <main role="main" className="main-container">
         <div className="main-wrap">
-          <div>
+          <form onSubmit={(e) => handleFormSubmit(e)}>
             <h1 className="main-header-title">
               Welcome
               <br />
@@ -174,7 +274,6 @@ const Create = ({
                 <div className="family-member">
                   <BasicInfo
                     type="text"
-                    required
                     name="title"
                     label="Recipe Name"
                     changed={changeBasicState}
@@ -183,7 +282,6 @@ const Create = ({
                   />
                   <BasicInfo
                     type="text"
-                    required
                     name="cost"
                     label="Cost (in cents)"
                     changed={changeBasicState}
@@ -192,7 +290,6 @@ const Create = ({
                   />
                   <BasicInfo
                     type="text"
-                    required
                     name="calories"
                     label="Calories"
                     changed={changeBasicState}
@@ -201,7 +298,6 @@ const Create = ({
                   />
                   <BasicInfo
                     type="text"
-                    required
                     name="carbs"
                     label="Carbs(in g)"
                     changed={changeBasicState}
@@ -210,7 +306,6 @@ const Create = ({
                   />
                   <BasicInfo
                     type="text"
-                    required
                     name="protein"
                     label="Protein(in g)"
                     changed={changeBasicState}
@@ -219,7 +314,6 @@ const Create = ({
                   />
                   <BasicInfo
                     type="text"
-                    required
                     name="fat"
                     label="Fat(in g)"
                     changed={changeBasicState}
@@ -229,7 +323,6 @@ const Create = ({
                   <BasicInfo
                     textarea
                     type="text"
-                    required
                     name="instructions"
                     label="Instructions (Enter steps seperated by period)"
                     changed={changeBasicState}
@@ -314,7 +407,7 @@ const Create = ({
                     label="60 min"
                     name="readyInMinutes"
                   />
-                  <CheckBox other label="Other" setTime={setTime} />
+                  <CheckBox time={time} other label="Other" setTime={setTime} />
                 </div>
               </section>
             </div>
@@ -344,11 +437,11 @@ const Create = ({
               setImage={setImage}
             />
             <CustomButton type="submit">Submit</CustomButton>
-          </div>
+          </form>
         </div>
       </main>
     </Aux>
   );
 };
 
-export default Create;
+export default connect(null, { createAlert })(Create);

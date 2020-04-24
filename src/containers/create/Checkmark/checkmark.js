@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./checkmark.css";
+import { checkInt } from "../../../regex";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 const Checkmark = ({
   label,
@@ -75,11 +76,19 @@ const Checkmark = ({
           <span>{label}</span>
           {other && (
             <CustomInput
+              value={time === 0 ? "" : time}
               onChange={(e) => {
+                console.log(e.target.value);
                 if (time !== 0) {
                   setTime(0);
                 }
-                setTime(e.target.value === "" ? 0 : e.target.value);
+
+                if (e.target.value === "") {
+                  setTime(0);
+                } else
+                  checkInt(e.target.value)
+                    ? setTime(e.target.value)
+                    : setTime(time);
               }}
             />
           )}

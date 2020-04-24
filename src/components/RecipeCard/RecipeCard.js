@@ -33,7 +33,12 @@ const RecipeCard = ({
         className="recipe-card"
       >
         <div className="recipe-image">
-          <img alt="recipe" src={src} />
+          <img
+            alt="recipe"
+            src={
+              src.includes("spoonacular") ? src : `http://localhost:5000${src}`
+            }
+          />
 
           <div className="recipe-name">
             <h3>{title}</h3>

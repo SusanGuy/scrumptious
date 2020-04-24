@@ -9,6 +9,13 @@ const favoriteSuccess = (favorites) => {
   };
 };
 
+const recipeSuccess = (recipes) => {
+  return {
+    type: actionTypes.USER_RECIPES_SUCCESS,
+    recipes,
+  };
+};
+
 const fridgeSuccess = (fridge) => {
   return {
     type: actionTypes.FRIDGE_SUCCESS,
@@ -50,6 +57,9 @@ const addFridgeSuccess = (fridge) => {
 
 export const addToFridge = (name, alert = true) => {
   return async (dispatch) => {
+    if (name === "") {
+      return dispatch(createAlert("Ingredient name is required!", "failure"));
+    }
     try {
       dispatch(startLoading());
       const { data } = await axios.post("/users/ingredients", { name });
@@ -95,9 +105,9 @@ const deleteFridgeSuccess = (fridge) => {
   };
 };
 
-const deleteFavoriteSuccess = (recipe) => {
+const deleteRecipeSuccess = (recipe) => {
   return {
-    type: actionTypes.DELETE_FAVORITE_SUCCESS,
+    type: actionTypes.DELETE_RECIPE_SUCCESS,
     recipe,
   };
 };
@@ -128,11 +138,23 @@ export const deleteRecipe = (id) => {
     try {
       dispatch(startLoading());
       const { data } = await axios.delete(`/recipes/${id}`);
-      dispatch(deleteFavoriteSuccess(data));
+      dispatch(deleteRecipeSuccess(data));
       dispatch(createAlert("Recipe removed succesfully!", "success"));
     } catch (err) {
       dispatch(userError(err.response ? err.response.data : err.message));
       dispatch(createAlert("Failed to remove the recipe!", "failure"));
+    }
+  };
+};
+
+export const getRecipes = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(startLoading());
+      const { data } = await axios.get("/recipes/me");
+      dispatch(recipeSuccess(data));
+    } catch (err) {
+      dispatch(userError(err.response ? err.response.data : err.message));
     }
   };
 };

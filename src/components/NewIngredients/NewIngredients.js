@@ -49,9 +49,7 @@ const NewIngredients = ({ ingro, addToFridge }) => {
     setHidden(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     addToFridge(name, ingro ? false : true);
 
     setName("");
@@ -59,35 +57,29 @@ const NewIngredients = ({ ingro, addToFridge }) => {
 
   return (
     <div ref={node} className={ingro ? ["wrap whatsup-ingro"] : ["wrap"]}>
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-      >
-        <div className="search">
-          <input
-            onChange={(e) => {
-              setHidden(true);
-              setName(e.target.value);
-              getIngredients(e.target.value);
-            }}
-            name="name"
-            type="text"
-            className="searchTerm"
-            placeholder={
-              ingro
-                ? "Add more ingredients to your fridge"
-                : "Search/Add your ingredients"
-            }
-            value={name}
-            required
-          />
+      <div className="search">
+        <input
+          onChange={(e) => {
+            setHidden(true);
+            setName(e.target.value);
+            getIngredients(e.target.value);
+          }}
+          name="name"
+          type="text"
+          className="searchTerm"
+          placeholder={
+            ingro
+              ? "Add more ingredients to your fridge"
+              : "Search/Add your ingredients"
+          }
+          value={name}
+        />
 
-          <button type="submit" className="searchButton">
-            <i className="fas fa-arrow-up"></i>
-          </button>
+        <div className="searchButton">
+          <i onClick={() => handleSubmit()} className="fas fa-arrow-up" />
         </div>
-      </form>
+      </div>
+
       {hidden && (
         <DropDownMenu
           hide={setHidden}

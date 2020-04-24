@@ -90,6 +90,10 @@ recipeSchema.pre("save", async function (next) {
   if (recipe.isModified("instructions")) {
     let mama = recipe.instructions;
 
+    if (mama.includes("\n")) {
+      mama = mama.replace(/\n/g, "");
+    }
+
     if (mama.includes("<ol>")) {
       mama = mama.replace(/<ol>/g, "");
     }

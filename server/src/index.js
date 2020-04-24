@@ -12,6 +12,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
+app.use("/recipes", express.static("src/assets/recipes"));
 app.use("/avatars", express.static("src/assets/avatars"));
 app.use(express.json());
 

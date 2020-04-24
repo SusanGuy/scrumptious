@@ -17,12 +17,19 @@ const Alert = ({ message, type, removeAlert }) => {
   );
 
   useEffect(() => {
+    if (message) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
     document.addEventListener("click", handleClick);
 
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, [handleClick]);
+  }, [handleClick, message]);
 
   const classes = ["custom-alert"];
   if (type === "success") {

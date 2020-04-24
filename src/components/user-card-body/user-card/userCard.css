@@ -74,7 +74,7 @@
 }
 
 .new-campaign-tile-body {
-  border: 1px dashed #00b964;
+  border: 1px dashed #659dbd;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -86,10 +86,14 @@
 
 .new-campaign-link {
   font-weight: 400;
-  text-decoration: underline;
+  text-decoration: none;
   color: #333;
   line-height: inherit;
   cursor: pointer;
+}
+.new-campaign-link:hover,
+:visited {
+  color: #659dbd;
 }
 
 .new-campaign-logo {
