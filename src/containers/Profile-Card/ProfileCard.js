@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import "./ProfileCard.scss";
 import { connect } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
-const ProfileCard = ({ history, user, favorites, loading }) => {
+const ProfileCard = ({
+  history,
+  fridge,
+  userRecipes,
+  user,
+  favorites,
+  loading,
+}) => {
   if (loading || !user) {
     return <Spinner />;
   }
@@ -46,14 +53,14 @@ const ProfileCard = ({ history, user, favorites, loading }) => {
             onClick={() => history.push("/my-recipes")}
             className="box box2 hvr-underline-from-right"
           >
-            <span className="value">1387</span>
+            <span className="value">{userRecipes.length}</span>
             <span className="parameter">Recipes</span>
           </div>
           <div
             onClick={() => history.push("/my-fridge")}
             className="box box3 hvr-underline-from-right"
           >
-            <span className="value">146</span>
+            <span className="value">{fridge.length}</span>
             <span className="parameter">Ingredients</span>
           </div>
         </div>
@@ -65,6 +72,8 @@ const ProfileCard = ({ history, user, favorites, loading }) => {
 const mapStateToProps = (state) => {
   return {
     favorites: state.user.favorites,
+    userRecipes: state.user.userRecipes,
+    fridge: state.user.fridge,
     user: state.auth.user,
     loading: state.auth.loading,
   };

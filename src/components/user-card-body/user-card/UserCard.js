@@ -27,7 +27,7 @@ const UserCard = (props) => {
                 <img
                   alt=""
                   src={
-                    props.image.includes("spoonacular")
+                    props.image && props.image.includes("spoonacular")
                       ? props.image
                       : `http://localhost:5000${props.image}`
                   }
@@ -38,7 +38,7 @@ const UserCard = (props) => {
               <img
                 alt=""
                 src={
-                  props.image.includes("spoonacular")
+                  props.image && props.image.includes("spoonacular")
                     ? props.image
                     : `http://localhost:5000${props.image}`
                 }

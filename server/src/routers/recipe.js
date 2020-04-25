@@ -7,12 +7,10 @@ const fs = require("fs");
 const UserRecipe = require("../models/userRecipe");
 router.get("/", async (req, res) => {
   try {
-    const recipes = await Recipe.find({ creator: null })
-      .populate({
-        path: "ingredients.ingredient",
-        select: "name price",
-      })
-      .select("-creator");
+    const recipes = await Recipe.find().populate({
+      path: "ingredients.ingredient",
+      select: "name price",
+    });
 
     res.send(recipes);
   } catch (err) {
@@ -67,26 +65,48 @@ const upload = multer({
 
 router.post("/", auth, async (req, res) => {
   try {
-    const { title } = req.body;
-    const recipe = await Recipe.findOne({
-      title,
-    });
-    if (recipe) {
-      return res.status(400).send({
-        errMessage: "Recipe already exists with that name!",
+    const { id, ...rest } = req.body;
+    const editRecipe = await Recipe.findById(id);
+    if (
+      editRecipe &&
+      editRecipe.creator &&
+      editRecipe.creator.toString() === req.user._id.toString()
+    ) {
+      const editBody = { ...rest };
+      Object.keys(editBody).forEach((key) => (editRecipe[key] = editBody[key]));
+      const anotherRecipe = await editRecipe.save();
+      const userRecipe = await UserRecipe.findOne({ recipe: id });
+      userRecipe.recipe = anotherRecipe;
+      await userRecipe.save();
+      return res.send(anotherRecipe);
+    } else {
+      const { title } = req.body;
+      const recipe = await Recipe.findOne({
+        title,
       });
-    }
+      if (recipe) {
+        return res.status(400).send({
+          errMessage: "Recipe already exists with that name!",
+        });
+      }
 
-    let newRecipe = new Recipe({ ...req.body, creator: req.user });
-    newRecipe = await newRecipe.save();
-    const userRecipe = await new UserRecipe({
-      user: req.user,
-      recipe: newRecipe,
-    });
-    await userRecipe.save();
-    res.send(newRecipe);
+      let newRecipe = new Recipe({ ...req.body, creator: req.user });
+      newRecipe = await newRecipe.save();
+      const userRecipe = await new UserRecipe({
+        user: req.user,
+        recipe: newRecipe,
+      });
+      await userRecipe.save();
+      res.send(newRecipe);
+    }
   } catch (err) {
-    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+router.patch("/", auth, async (req, res) => {
+  try {
+  } catch (err) {
     res.status(400).send(err);
   }
 });
@@ -102,7 +122,7 @@ router.post(
         errMessage: "No such recipe found",
       });
     }
-    if (recipe.image) {
+    if (recipe.image && !recipe.image.includes("spoonacular")) {
       fs.unlink(`src/assets/${recipe.image}`, (err) => {
         if (err) throw err;
       });
@@ -132,14 +152,12 @@ router.get("/favorites", auth, async (req, res) => {
         errMessage: "No favorites added yet!",
       });
     }
-    res.send(recipes.filter(({ recipe: { creator } }) => creator === null));
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
-
-router.post("/", auth, async (req, res) => {
-  try {
+    res.send(
+      recipes.filter(
+        ({ recipe: { creator } }) =>
+          creator === null || creator.toString() !== req.user._id.toString()
+      )
+    );
   } catch (err) {
     res.status(400).send(err);
   }
@@ -210,11 +228,20 @@ router.delete("/:id", auth, async (req, res) => {
     const recipe = await Recipe.findById(userRecipe.recipe);
     recipe.count -= 1;
     await recipe.save();
-    if (recipe.creator !== null) {
+    if (
+      recipe.creator &&
+      recipe.creator.toString() === req.user._id.toString()
+    ) {
+      if (!recipe.image.includes("spoonacular")) {
+        fs.unlink(`src/assets/${recipe.image}`, (err) => {
+          if (err) throw err;
+        });
+      }
       await Recipe.findByIdAndDelete(recipe._id);
     }
     res.send(userRecipe);
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 });

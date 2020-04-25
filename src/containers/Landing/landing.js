@@ -148,6 +148,7 @@ const Landing = ({
             {loadedRecipes.map(
               ({
                 _id,
+                creator,
                 title,
                 readyInMinutes,
                 image,
@@ -169,6 +170,7 @@ const Landing = ({
                     time={readyInMinutes}
                     src={image}
                     people={count}
+                    creator={creator}
                     calories={calories}
                     nutrients={nutrient}
                     instructions={instructions}

@@ -14,6 +14,7 @@ const Favorites = ({ getFavorites, favorites, loading, error }) => {
   if (error.errMessage) {
     return <UserCardBody error={error.errMessage} />;
   }
+
   if (favorites.length === 0) {
     return <UserCardBody error="No favorites added yet!" />;
   }

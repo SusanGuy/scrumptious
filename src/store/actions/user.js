@@ -119,10 +119,12 @@ export const addToCart = (id, history) => {
       const { data } = await axios.post(`/recipes/${id}`);
       dispatch(addFavoriteSuccess(data));
       dispatch(hideModal());
-      history.push("/my-favorites");
+
       dispatch(
         createAlert("Reciped added to your favorites succesfully!", "success")
       );
+
+      history.push("/my-favorites");
     } catch (err) {
       dispatch(userError(err.response ? err.response.data : err.message));
       dispatch(hideModal());

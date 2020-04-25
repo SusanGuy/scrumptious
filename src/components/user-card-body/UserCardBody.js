@@ -21,10 +21,9 @@ const UserCardBody = ({ favorites, recipes, error }) => {
     cards = favorites.map(
       ({ _id: id, recipe: { title, image, _id }, createdAt }) => (
         <UserCard
-          favorite
+          key={id}
           id={id}
           link={_id}
-          key={_id}
           image={image}
           title={title}
           created={createdAt}

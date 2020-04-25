@@ -5,14 +5,22 @@ import { removeFilterIngredient } from "../../../../store/actions/filter";
 const Selected = ({
   ingredients,
   type,
-
+  ingro,
   removeFilterIngredient,
   setIngredients,
 }) => {
   return (
     <div className="chosen-ingredient-exclusions">
-      {ingredients.map(({ ingredient }) => {
-        const { _id, name } = ingredient;
+      {ingredients.map((ingredient) => {
+        let _id = ingredient._id;
+        let name;
+        if (ingro) {
+          _id = ingredient.ingredient._id;
+          name = ingredient.ingredient.name;
+        } else {
+          _id = ingredient._id;
+          name = ingredient.name;
+        }
 
         return (
           <span key={_id} className="pill">
@@ -23,7 +31,7 @@ const Selected = ({
                     removeFilterIngredient(ingredient, type);
                   } else {
                     const filteredIngredient = ingredients.filter((ingra) => {
-                      return ingra.ingredient._id !== _id;
+                      return ingra.ingredient._id.toString() !== _id.toString();
                     });
 
                     setIngredients(filteredIngredient);

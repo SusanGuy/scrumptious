@@ -4,3 +4,10 @@ div.cards {
   max-width: 1200px;
   text-align: center;
 }
+
+.fridge-title {
+  font-weight: bolder;
+  text-decoration: underline;
+  font-size: 28px;
+  margin-bottom: 50px;
+}

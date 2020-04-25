@@ -6,13 +6,13 @@ import AuthButton from "../authButton/authButton";
 import { hideModal } from "../../store/actions/recipeModal";
 import { addToCart } from "../../store/actions/user";
 import { connect } from "react-redux";
-
+import uuid from "react-uuid";
 const RecipeModal = ({
   hidden,
   hideModal,
-  isAuthenticated,
   history,
   addToCart,
+  userId,
   recipe: {
     title,
     time,
@@ -22,6 +22,7 @@ const RecipeModal = ({
     nutrients,
     calories,
     cost,
+    id,
     ...rest
   },
 }) => {
@@ -48,21 +49,25 @@ const RecipeModal = ({
   const node = useRef();
   let track = 0;
 
+  let action = null;
+  if (userId) {
+    if (
+      rest.creator === null ||
+      rest.creator.toString() !== userId.toString()
+    ) {
+      action = (
+        <AuthButton onClick={() => addToCart(id, history)} save>
+          Add to Favorites
+        </AuthButton>
+      );
+    }
+  }
+
   return (
     <div className="full-bk clear">
       <div ref={node} className="widget-frame">
-        <div className="actions">
-          <AuthButton
-            onClick={() =>
-              isAuthenticated
-                ? addToCart(rest.id, history)
-                : history.push("/auth")
-            }
-            save
-          >
-            {isAuthenticated ? "Add to Favorites" : "Login to Save"}
-          </AuthButton>
-        </div>
+        <div className="actions">{action}</div>
+
         <div
           className="img-bk active"
           data-img="step0"
@@ -115,7 +120,7 @@ const RecipeModal = ({
             } else {
               track++;
               return (
-                <section key={instruction} className="steps">
+                <section key={uuid()} className="steps">
                   <h3>Step {track}</h3>
                   <p>{instruction}</p>
                 </section>
@@ -131,7 +136,8 @@ const RecipeModal = ({
 const mapStateToProps = (state) => {
   return {
     hidden: state.modal.hidden,
-    isAuthenticated: state.auth.token !== null,
+
+    userId: state.auth.user && state.auth.user._id,
   };
 };
 

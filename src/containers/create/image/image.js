@@ -7,7 +7,7 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
   const [imageDiv, setImageDiv] = useState(["uploaded_file_view"]);
 
   useEffect(() => {
-    if (image.includes("spoonacular") && id) {
+    if (image && id) {
       setOuterButton(["button_outer", "file_uploading", "file_uploaded"]);
       setImageDiv(["uploaded_file_view", "show"]);
     }
@@ -16,6 +16,13 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
       setOuterButton(["button_outer"]);
     }
   }, [image, id]);
+
+  let uploadImage;
+  if (image.includes("blob") || image.includes("spoonacular")) {
+    uploadImage = image;
+  } else {
+    uploadImage = "http://localhost:5000" + image;
+  }
 
   const imageChangeHandler = (e) => {
     const check = ["gif", "png", "jpg", "jpeg"];
@@ -68,7 +75,7 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
           <span onClick={() => removeImageHandler()} className="file_remove">
             X
           </span>
-          {image && <img src={image} alt="Recipe" />}
+          {image && <img src={uploadImage} alt="Recipe" />}
         </div>
       </div>
     </section>

@@ -40,7 +40,10 @@ const Fridge = ({
   return (
     <Aux>
       <IngredientsSearch />
-      <div className="cards">{card}</div>
+      <div className="cards">
+        <h2 className="fridge-title">Ingredients in my fridge</h2>
+        {card}
+      </div>
     </Aux>
   );
 };

@@ -209,7 +209,7 @@ const Create = ({
     if (ingredients.length === 0) {
       return createAlert("Your recipe must have ingredients", "failure");
     }
-    if (image === "") {
+    if (image === "" && imageSrc === "") {
       return createAlert("You must upload a recipe image", "failure");
     }
     try {
@@ -236,14 +236,27 @@ const Create = ({
         }),
       };
 
+      if (id) {
+        if (imageSrc.includes("spoonacular")) {
+          body.image = imageSrc;
+        }
+        body.id = id;
+      }
+
       const {
         data: { _id },
       } = await axios.post("/recipes", { ...body });
-      const fd = new FormData();
-      fd.append("upload", image, image.name);
-      await axios.post(`/recipes/image/${_id}`, fd);
+      if (image) {
+        const fd = new FormData();
+        fd.append("upload", image, image.name);
+        await axios.post(`/recipes/image/${_id}`, fd);
+      }
       history.push("/my-recipes");
-      createAlert("Recipe created succesfully", "success");
+      createAlert(
+        `Recipe
+      ${id ? "edited" : "created"} succesfully`,
+        "success"
+      );
     } catch (err) {
       createAlert(
         err.response ? err.response.data.errMessage : err.message,
@@ -424,6 +437,7 @@ const Create = ({
                   />
                   <IngredientsContainer ingro />
                   <Selected
+                    ingro
                     ingredients={ingredients}
                     setIngredients={setIngredients}
                   />
