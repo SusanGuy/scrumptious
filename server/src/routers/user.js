@@ -3,6 +3,7 @@ const multer = require("multer");
 const User = require("../models/user");
 const Ingredient = require("../models/ingredient");
 const Recipe = require("../models/recipe");
+const UserRecipe = require("../models/userRecipe");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 const fs = require("fs");
@@ -378,9 +379,15 @@ router.get("/:id/avatar", async (req, res) => {
 
 router.delete("/me", auth, async (req, res) => {
   try {
-    await await req.user.remove();
-
-    res.send(req.user);
+    await Recipe.deleteMany({ creator: req.user });
+    await UserRecipe.deleteMany({ user: req.user });
+    if (req.user.avatar) {
+      fs.unlink(`src/assets/${req.user.avatar}`, (err) => {
+        if (err) throw err;
+      });
+    }
+    await req.user.remove();
+    res.send();
   } catch (e) {
     res.status(500).send();
   }
