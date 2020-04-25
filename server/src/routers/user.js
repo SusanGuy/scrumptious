@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const User = require("../models/user");
 const Ingredient = require("../models/ingredient");
+const Recipe = require("../models/recipe");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 const fs = require("fs");
@@ -228,7 +229,7 @@ router.get("/me", auth, async (req, res) => {
 });
 router.patch("/me", [auth], async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["email", "password"];
+  const allowedUpdates = ["name", "email"];
   const isValidOperators = updates.every((item) => {
     return allowedUpdates.includes(item);
   });
@@ -256,20 +257,6 @@ router.patch("/me", [auth], async (req, res) => {
               break;
             default:
               validationErrors.emailError = "Email is required";
-          }
-        }
-        if (err.errors.password) {
-          switch (err.errors.password.kind) {
-            case "minlength":
-              validationErrors.passwordError =
-                "Password must be 6 characters long";
-              break;
-            case "required":
-              validationErrors.passwordError = "Password is required";
-              break;
-            default:
-              validationErrors.passwordError =
-                "Cannot contain the word password";
           }
         }
       } else {
@@ -391,8 +378,8 @@ router.get("/:id/avatar", async (req, res) => {
 
 router.delete("/me", auth, async (req, res) => {
   try {
-    await req.user.remove();
-    sendCancelationEmail(req.user.email, req.user.name);
+    await await req.user.remove();
+
     res.send(req.user);
   } catch (e) {
     res.status(500).send();

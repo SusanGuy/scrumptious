@@ -73,9 +73,18 @@ router.post("/", auth, async (req, res) => {
       editRecipe.creator.toString() === req.user._id.toString()
     ) {
       const editBody = { ...rest };
+      const findRecipe = await Recipe.findOne({ title: editBody.title });
+
+      if (findRecipe && findRecipe._id.toString() !== id.toString()) {
+        return res.status(400).send({
+          errMessage:
+            "Recipe already exists with that name.Use a different name!",
+        });
+      }
       Object.keys(editBody).forEach((key) => (editRecipe[key] = editBody[key]));
       const anotherRecipe = await editRecipe.save();
       const userRecipe = await UserRecipe.findOne({ recipe: id });
+
       userRecipe.recipe = anotherRecipe;
       await userRecipe.save();
       return res.send(anotherRecipe);
@@ -86,7 +95,8 @@ router.post("/", auth, async (req, res) => {
       });
       if (recipe) {
         return res.status(400).send({
-          errMessage: "Recipe already exists with that name!",
+          errMessage:
+            "Recipe already exists with that name.Use a different name!",
         });
       }
 
@@ -99,13 +109,6 @@ router.post("/", auth, async (req, res) => {
       await userRecipe.save();
       res.send(newRecipe);
     }
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
-
-router.patch("/", auth, async (req, res) => {
-  try {
   } catch (err) {
     res.status(400).send(err);
   }
@@ -133,7 +136,9 @@ router.post(
     await recipe.save();
     res.send();
   },
-  (err, req, res, next) => {
+  async (err, req, res, next) => {
+    await Recipe.findByIdAndDelete(req.params.id);
+    await UserRecipe.deleteOne({ recipe: req.params.id });
     res.status(400).send({
       errMessage: err.message ? err.message : err,
     });
@@ -232,7 +237,7 @@ router.delete("/:id", auth, async (req, res) => {
       recipe.creator &&
       recipe.creator.toString() === req.user._id.toString()
     ) {
-      if (!recipe.image.includes("spoonacular")) {
+      if (recipe.image && !recipe.image.includes("spoonacular")) {
         fs.unlink(`src/assets/${recipe.image}`, (err) => {
           if (err) throw err;
         });
@@ -241,7 +246,6 @@ router.delete("/:id", auth, async (req, res) => {
     }
     res.send(userRecipe);
   } catch (err) {
-    console.log(err);
     res.status(400).send(err);
   }
 });
