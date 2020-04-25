@@ -7,13 +7,13 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
   const [imageDiv, setImageDiv] = useState(["uploaded_file_view"]);
 
   useEffect(() => {
-    if (image && id) {
-      setOuterButton(["button_outer", "file_uploading", "file_uploaded"]);
-      setImageDiv(["uploaded_file_view", "show"]);
-    }
     if (image === "") {
       setImageDiv(["uploaded_file_view"]);
       setOuterButton(["button_outer"]);
+    }
+    if (image && id) {
+      setOuterButton(["button_outer", "file_uploading", "file_uploaded"]);
+      setImageDiv(["uploaded_file_view", "show"]);
     }
   }, [image, id]);
 
@@ -40,9 +40,9 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
       setTimeout(function () {
         setImageDiv([...imageDiv, "show"]);
       }, 3500);
+      setImage(e.target.files[0]);
+      setImageSrc(URL.createObjectURL(e.target.files[0]));
     }
-    setImage(e.target.files[0]);
-    setImageSrc(URL.createObjectURL(e.target.files[0]));
   };
 
   const removeImageHandler = () => {
