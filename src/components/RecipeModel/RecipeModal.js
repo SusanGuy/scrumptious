@@ -25,6 +25,7 @@ const RecipeModal = ({
     cost,
     id,
     feedbacks,
+    creator,
     ...rest
   },
 }) => {
@@ -53,10 +54,7 @@ const RecipeModal = ({
 
   let action = null;
   if (userId) {
-    if (
-      rest.creator === null ||
-      rest.creator.toString() !== userId.toString()
-    ) {
+    if (creator === null || creator.toString() !== userId.toString()) {
       action = (
         <AuthButton onClick={() => addToCart(id, history)} save>
           Add to Favorites
@@ -93,7 +91,7 @@ const RecipeModal = ({
               <i className="fas fa-dollar-sign"></i>
               <span> {(cost / 100).toFixed(2)}</span>
             </h5>
-            <StarRating />
+            <StarRating feedbacks={feedbacks} />
           </section>
 
           <ModalCard ingredients={ingredients}>Ingredients</ModalCard>

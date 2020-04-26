@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 import { createAlert } from "./alert";
 import { hideModal } from "../../store/actions/recipeModal";
-
+import { clearUser } from "./user";
 import { setAuthToken } from "../../utils";
 import { resetFilters } from "./filter";
 const userLoaded = (token, user) => {
@@ -36,7 +36,6 @@ export const changePassword = (oldPassword, new_password, confirm_password) => {
       const submitForm = { password: oldPassword, new_password };
       await axios.patch("/users/me/changePassword", submitForm);
       dispatch(signout());
-
       dispatch(
         createAlert("Password changed succesfully! Login again", "success")
       );
@@ -53,8 +52,7 @@ export const deleteAccount = () => {
 
       await axios.delete("/users/me");
       dispatch(signout());
-
-      dispatch(createAlert("User deleted Succesfully!"));
+      dispatch(createAlert("User deleted Succesfully!", "success"));
     } catch (err) {
       dispatch(authFail(err.response ? err.response.data : err.message));
     }
@@ -189,8 +187,16 @@ const authFail = (error) => {
   };
 };
 
-export const signout = () => {
+const logout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT,
+  };
+};
+
+export const signout = () => {
+  return (dispatch) => {
+    dispatch(logout());
+    dispatch(clearUser());
+    dispatch(resetFilters());
   };
 };

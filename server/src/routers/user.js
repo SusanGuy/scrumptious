@@ -375,7 +375,10 @@ router.get("/:id/avatar", async (req, res) => {
 
 router.delete("/me", auth, async (req, res) => {
   try {
-    await Recipe.deleteMany({ creator: req.user });
+    const recipes = await Recipe.find({ creator: req.user });
+    for (let i = 0; i < recipes.length; i++) {
+      await recipes[i].remove();
+    }
     await UserRecipe.deleteMany({ user: req.user });
     await req.user.remove();
     res.send();

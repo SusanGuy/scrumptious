@@ -161,6 +161,7 @@ const Landing = ({
                 vegan,
                 glutenFree,
                 dairyFree,
+                feedbacks,
               }) => {
                 return (
                   <RecipeCard
@@ -174,6 +175,7 @@ const Landing = ({
                     calories={calories}
                     nutrients={nutrient}
                     instructions={instructions}
+                    feedbacks={feedbacks}
                     ingredients={ingredients}
                     vegetarian={vegetarian}
                     vegan={vegan}

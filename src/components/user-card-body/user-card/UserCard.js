@@ -61,14 +61,16 @@ const UserCard = (props) => {
                   clicked={() => props.deleteRecipe(props.id)}
                   remove
                 />
-                <ActionButton
-                  clicked={() => {
-                    props.setHidden(false);
-                    props.setId(props.link);
-                    props.setFeedbacks(props.feedbacks);
-                  }}
-                  rate
-                />
+                {!props.recipes && (
+                  <ActionButton
+                    clicked={() => {
+                      props.setHidden(false);
+                      props.setId(props.link);
+                      props.setFeedbacks(props.feedbacks);
+                    }}
+                    rate
+                  />
+                )}
               </div>
             </div>
           </Aux>

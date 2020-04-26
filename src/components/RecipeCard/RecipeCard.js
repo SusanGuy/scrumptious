@@ -13,6 +13,7 @@ const RecipeCard = ({
   nutrients,
   ingredients,
   instructions,
+  feedbacks,
   ...rest
 }) => {
   return (
@@ -27,6 +28,7 @@ const RecipeCard = ({
             ingredients,
             nutrients,
             instructions,
+            feedbacks,
             ...rest,
           })
         }

@@ -2,15 +2,12 @@ import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signout } from "../../store/actions/auth";
-import { resetFilters } from "../../store/actions/filter";
-import { clearUser } from "../../store/actions/user";
-const Logout = ({ signout, resetFilters, clearUser }) => {
+
+const Logout = ({ signout }) => {
   useEffect(() => {
     signout();
-    resetFilters();
-    clearUser();
-  }, [signout, resetFilters, clearUser]);
+  }, [signout]);
   return <Redirect to="/auth" />;
 };
 
-export default connect(null, { signout, resetFilters, clearUser })(Logout);
+export default connect(null, { signout })(Logout);
