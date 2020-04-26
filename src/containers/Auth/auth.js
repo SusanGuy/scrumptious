@@ -90,9 +90,6 @@ const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
                 "Sign in"
               )}
             </CustomButton>
-            <CustomButton facebook>
-              Continue with <span>facebook</span>
-            </CustomButton>
           </form>
         </div>
         <div className="sub-cont">
@@ -164,9 +161,6 @@ const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
                 ) : (
                   "Sign Up"
                 )}
-              </CustomButton>
-              <CustomButton facebook>
-                Join with <span>facebook</span>
               </CustomButton>
             </form>
           </div>

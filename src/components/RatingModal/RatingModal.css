@@ -1,0 +1,93 @@
+.globalContainer {
+  background: rgba(10, 10, 10, 0.75);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 110;
+  right: 0;
+  top: 0;
+}
+.globalContainer .container {
+  position: relative;
+  margin-top: 300px;
+  width: 500px;
+  height: 320px;
+  background: #fff;
+  text-align: center;
+  padding: 50px 20px;
+  border-radius: 10px;
+  color: #444;
+  box-shadow: 0px 2px 8px 3px rgba(0, 0, 0, 0.1);
+}
+.exact-button {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+.globalContainer .container h1 {
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+.rating-message {
+  justify-content: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rating-message button {
+  margin: 10px 0 10px 0;
+}
+.globalContainer .container p {
+  color: #666;
+  font-weight: 400;
+  padding: 0px 20px;
+  margin-bottom: 30px;
+}
+.globalContainer .container ::selection {
+  background-color: #fda085;
+  color: #fff;
+}
+.globalContainer .container form {
+  direction: rtl;
+  display: block;
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.globalContainer .container input {
+  display: none;
+}
+.globalContainer .container label {
+  position: relative;
+}
+.globalContainer .container label span {
+  display: none;
+  position: absolute;
+  color: white;
+  top: 100%;
+  left: 50%;
+  font-size: 12px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+.globalContainer .container .starItem:checked + label,
+.globalContainer .container .starItem:checked ~ label {
+  color: #f6d365;
+}
+.globalContainer .container .starItem:checked + label:hover span {
+  display: block;
+}
+.globalContainer .container label {
+  color: #ddd;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 42px;
+  transition: color 0.3s ease;
+}

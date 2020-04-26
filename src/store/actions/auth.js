@@ -46,6 +46,21 @@ export const changePassword = (oldPassword, new_password, confirm_password) => {
   };
 };
 
+export const deleteAccount = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(authStart());
+
+      await axios.delete("/users/me");
+      dispatch(signout());
+
+      dispatch(createAlert("User deleted Succesfully!"));
+    } catch (err) {
+      dispatch(authFail(err.response ? err.response.data : err.message));
+    }
+  };
+};
+
 export const deleteImage = () => {
   return async (dispatch) => {
     try {
@@ -59,17 +74,16 @@ export const deleteImage = () => {
   };
 };
 
-export const updateForm = (email) => {
+export const updateForm = (submitForm) => {
   return async (dispatch) => {
     try {
       dispatch(authStart());
 
-      const submitForm = { email };
-
       await axios.patch("/users/me", submitForm);
-      dispatch(createAlert("Your profile has been updated!", "success"));
       dispatch(loadUser());
+      dispatch(createAlert("Your profile has been updated!", "success"));
     } catch (err) {
+      dispatch(createAlert(err.response.data.authError, "failure"));
       dispatch(authFail(err.response ? err.response.data : err.message));
     }
   };

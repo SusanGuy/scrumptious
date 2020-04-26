@@ -1,12 +1,16 @@
 import React from "react";
 import "./customButton.css";
-const customButton = ({ children, width, ...rest }) => {
+const customButton = ({ children, width, rating, ...rest }) => {
   const classes = ["main-button"];
   if (rest.type === "submit") {
     classes.push("submit");
   }
   if (rest.facebook) {
     classes.push("fb-btn");
+  }
+
+  if (rating) {
+    classes.push("rating-stars");
   }
 
   return (

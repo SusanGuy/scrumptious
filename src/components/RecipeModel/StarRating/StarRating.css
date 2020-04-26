@@ -1,0 +1,43 @@
+.rating-disabled {
+  opacity: 0.8;
+  pointer-events: none;
+
+  direction: rtl;
+  font-size: 0;
+  border: none;
+  margin: 20px;
+  padding: 0.35em 0.625em 0.75em;
+}
+.rating {
+  display: inline-block;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 0;
+  border: none;
+}
+
+.rating-disabled input {
+  display: none;
+  cursor: not-allowed;
+  margin: 4px 0 0;
+  line-height: normal;
+  overflow: visible;
+}
+
+.rating-disabled label {
+  color: #ccc;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.rating-disabled input:checked ~ label {
+  color: #659dbd;
+}
+
+.rating-disabled label i {
+  margin: 0 0.375rem 0 0;
+  font-size: 1rem;
+  cursor: pointer;
+}

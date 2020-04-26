@@ -10,6 +10,7 @@ import {
   deleteImage,
   clearErrors,
   updateForm,
+  deleteAccount,
 } from "../../store/actions/auth";
 import Image from "../../components/ppImage/ppImage";
 import CustomActionButton from "../../components/custom-action-button/actionButton";
@@ -27,6 +28,7 @@ const Account = ({
   error,
   clearErrors,
   updateForm,
+  deleteAccount,
 }) => {
   const [formData, setformData] = useState({
     first_name: "",
@@ -57,7 +59,7 @@ const Account = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateForm(email);
+    updateForm({ name: first_name + " " + last_name, email });
   };
 
   if ((loading || !user) && !hidden) {
@@ -76,7 +78,6 @@ const Account = ({
               first_name={first_name}
               last_name={last_name}
               onChange={(e) => handleChange(e)}
-              disabled
             />
             <Label>Photo</Label>
             <div className="account-settings-photo">
@@ -145,7 +146,9 @@ const Account = ({
                 account.
               </div>
               <div className="delete-account-button">
-                <CustomActionButton remove>Delete Account</CustomActionButton>
+                <CustomActionButton onClick={() => deleteAccount()} remove>
+                  Delete Account
+                </CustomActionButton>
               </div>
             </div>
             <div className="save-changes-button">
@@ -173,4 +176,5 @@ export default connect(mapStateToProps, {
   deleteImage,
   clearErrors,
   updateForm,
+  deleteAccount,
 })(Account);

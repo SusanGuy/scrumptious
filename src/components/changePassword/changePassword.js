@@ -4,7 +4,6 @@ import CloseButton from "../../components/close-button/closeButton";
 import CustomInput from "../input/input";
 import { clearErrors, changePassword } from "../../store/actions/auth";
 import { connect } from "react-redux";
-
 import CustomButton from "../CustomButton/customButton";
 import Spinner from "../Spinner/Spinner";
 
@@ -60,7 +59,6 @@ const ChangePassword = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     changePassword(current_password, new_password, confirm_new_password);
   };
 

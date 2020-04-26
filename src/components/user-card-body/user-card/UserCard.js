@@ -49,6 +49,8 @@ const UserCard = (props) => {
               <div className="campaign-action-tile-info">
                 {props.recipes ? "Created " : "Added "}
                 {moment(props.created).fromNow()}
+              </div>
+              <div className="action-buttons-user">
                 <ActionButton
                   clicked={() => {
                     return props.history.push(`/recipes/${props.link}`);
@@ -58,6 +60,14 @@ const UserCard = (props) => {
                 <ActionButton
                   clicked={() => props.deleteRecipe(props.id)}
                   remove
+                />
+                <ActionButton
+                  clicked={() => {
+                    props.setHidden(false);
+                    props.setId(props.link);
+                    props.setFeedbacks(props.feedbacks);
+                  }}
+                  rate
                 />
               </div>
             </div>

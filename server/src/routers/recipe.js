@@ -114,6 +114,61 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+router.post("/rate/:id", auth, async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+
+    if (!recipe) {
+      return res.status(400).send({
+        errMessage: "No such recipe found",
+      });
+    }
+
+    const { rating } = req.body;
+    if (
+      recipe.feedbacks.length > 0 &&
+      recipe.feedbacks.find((recipe) => {
+        return recipe.user.toString() === req.user._id.toString();
+      })
+    ) {
+      recipe.feedbacks = recipe.feedbacks.filter(
+        (recipe) => recipe.user.toString() !== req.user._id.toString()
+      );
+      await recipe.save();
+    }
+    const feedback = {
+      rating,
+      user: req.user,
+    };
+
+    recipe.feedbacks.push(feedback);
+
+    await recipe.save();
+    res.send();
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.delete("/rate/:id/:ratingId", auth, async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+
+    if (!recipe) {
+      return res.status(400).send({
+        errMessage: "No such recipe found",
+      });
+    }
+    recipe.feedbacks = recipe.feedbacks.filter(
+      (recipe) => recipe._id.toString() !== req.params.ratingId.toString()
+    );
+    await recipe.save();
+    res.send();
+  } catch (error) {
+    res.status(400).send(err);
+  }
+});
+
 router.post(
   "/image/:id",
   upload.single("upload"),

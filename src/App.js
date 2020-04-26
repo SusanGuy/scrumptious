@@ -17,6 +17,7 @@ import { setAuthToken } from "./utils";
 import PrivateRoute from "./components/routing/privateRoute";
 import Navigation from "./components/Navigation/Navigation";
 import UserRecipes from "./containers/Recipes/recipes";
+import NotFound from "./components/404/NotFound";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -42,8 +43,9 @@ const App = ({ loadUser, message, type, hidden }) => {
         <PrivateRoute exact path="/my-favorites" component={Favorites} />
         <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
         <PrivateRoute exact path="/logout" component={Logout} />
-        <Route path="/auth" component={Auth} />
-        <Route to="/" exact component={Landing} />
+        <Route path="/auth" exact component={Auth} />
+        <Route path="/" exact component={Landing} />
+        <Route component={NotFound} />
       </Switch>
     </Aux>
   );

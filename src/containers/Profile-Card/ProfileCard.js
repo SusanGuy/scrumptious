@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ProfileCard.scss";
+import {
+  getFavorites,
+  getRecipes,
+  getUserIngredients,
+} from "../../store/actions/user";
 import { connect } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
 const ProfileCard = ({
@@ -10,7 +15,15 @@ const ProfileCard = ({
   user,
   favorites,
   loading,
+  getFavorites,
+  getRecipes,
+  getUserIngredients,
 }) => {
+  useEffect(() => {
+    getRecipes();
+    getFavorites();
+    getUserIngredients();
+  }, [getFavorites, getRecipes, getUserIngredients]);
   if (loading || !user) {
     return <Spinner />;
   }
@@ -79,4 +92,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ProfileCard);
+export default connect(mapStateToProps, {
+  getFavorites,
+  getRecipes,
+  getUserIngredients,
+})(ProfileCard);

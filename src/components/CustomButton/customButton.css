@@ -19,6 +19,11 @@
   background: #c58e40;
   text-transform: uppercase;
 }
+
+.rating-stars {
+  margin-top: 20px;
+}
+
 .fb-btn {
   background: #3b579d;
 }

@@ -6,6 +6,7 @@ import AuthButton from "../authButton/authButton";
 import { hideModal } from "../../store/actions/recipeModal";
 import { addToCart } from "../../store/actions/user";
 import { connect } from "react-redux";
+import StarRating from "./StarRating/StarRating";
 import uuid from "react-uuid";
 const RecipeModal = ({
   hidden,
@@ -23,6 +24,7 @@ const RecipeModal = ({
     calories,
     cost,
     id,
+    feedbacks,
     ...rest
   },
 }) => {
@@ -91,12 +93,7 @@ const RecipeModal = ({
               <i className="fas fa-dollar-sign"></i>
               <span> {(cost / 100).toFixed(2)}</span>
             </h5>
-            <img
-              className="stars"
-              src="https://static.tumblr.com/e1u6zhi/7gDndrvtx/star-star-star-star-star.png"
-              height="16px"
-              alt="reviews"
-            />
+            <StarRating />
           </section>
 
           <ModalCard ingredients={ingredients}>Ingredients</ModalCard>

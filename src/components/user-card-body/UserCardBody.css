@@ -1,14 +1,13 @@
 .user-card-container {
   margin-top: 2rem !important;
-}
-
-.user-card-row {
-  max-width: 60rem;
-  margin-right: auto;
-  margin-left: auto;
-  flex-wrap: wrap !important;
+  margin-left: 10rem;
+  margin-right: 10rem;
 }
 
 .user-card-body {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 0;
 }

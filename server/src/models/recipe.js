@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const recipeSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
     default: null,
   },
   count: {
@@ -22,6 +23,7 @@ const recipeSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
   dairyFree: {
     type: Boolean,
     default: false,
@@ -63,6 +65,17 @@ const recipeSchema = new mongoose.Schema({
       type: String,
     },
   },
+  feedbacks: [
+    {
+      rating: {
+        type: Number,
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    },
+  ],
 
   ingredients: [
     {

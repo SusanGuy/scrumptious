@@ -2,7 +2,6 @@
   float: left;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  height: 215px;
   width: 33.33333%;
   margin-bottom: 1rem !important;
 }
@@ -10,7 +9,6 @@
 .user-card-inner {
   background-color: #fff;
   box-shadow: 0 0.375rem 0.75rem 0 rgba(0, 0, 0, 0.1);
-  height: 100%;
   margin: 0 1rem 1rem;
   overflow: hidden;
   position: relative;
@@ -68,6 +66,11 @@
   color: #666;
 }
 
+.action-buttons-user {
+  display: flex;
+  margin-top: 20px;
+}
+
 .new-campaign-tile {
   height: 100%;
   padding: 0.5rem;
@@ -104,37 +107,4 @@
   height: 62px;
   margin-bottom: 1rem !important;
   width: 66px;
-}
-
-.view-recipe-delete-recipe {
-  margin-top: 10px;
-}
-
-.view-favorite-recipe {
-  color: rgb(116, 156, 156);
-  cursor: pointer;
-}
-
-.view-favorite-recipe:hover {
-  color: rgb(69, 100, 100);
-}
-
-.view-favorite-recipe i {
-  color: rgb(127, 133, 133);
-  margin-right: 2px;
-}
-
-.delete-favorite-recipe {
-  margin-left: 10px;
-  cursor: pointer;
-  color: #ec755d;
-}
-
-.delete-favorite-recipe:hover {
-  color: #b8442d;
-}
-
-.delete-favorite-recipe i {
-  color: #f8beb3;
-  margin-right: 2px;
 }
