@@ -61,11 +61,7 @@ router.get("/ingredients", auth, async (req, res) => {
       path: "ingredients.ingredient",
       select: "name",
     });
-    if (fridgeData.ingredients.length === 0) {
-      return res.status(400).send({
-        errMessage: "No any ingredients added to your fridge yet!",
-      });
-    }
+
     res.send(fridgeData.ingredients);
   } catch (err) {
     res.status(400).send(err);
@@ -381,11 +377,6 @@ router.delete("/me", auth, async (req, res) => {
   try {
     await Recipe.deleteMany({ creator: req.user });
     await UserRecipe.deleteMany({ user: req.user });
-    if (req.user.avatar) {
-      fs.unlink(`src/assets/${req.user.avatar}`, (err) => {
-        if (err) throw err;
-      });
-    }
     await req.user.remove();
     res.send();
   } catch (e) {

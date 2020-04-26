@@ -30,11 +30,6 @@ router.get("/me", auth, async (req, res) => {
       return creator && creator.toString() === req.user._id.toString();
     });
 
-    if (recipes.length === 0) {
-      return res.status(401).send({
-        errMessage: "No recipes added yet!",
-      });
-    }
     res.send(recipes);
   } catch (err) {
     res.status(400).send(err);
@@ -192,8 +187,9 @@ router.post(
     res.send();
   },
   async (err, req, res, next) => {
-    await Recipe.findByIdAndDelete(req.params.id);
-    await UserRecipe.deleteOne({ recipe: req.params.id });
+    const recipe = await Recipe.findById(req.params.id);
+    await recipe.remove();
+
     res.status(400).send({
       errMessage: err.message ? err.message : err,
     });
@@ -207,11 +203,7 @@ router.get("/favorites", auth, async (req, res) => {
     })
       .populate("recipe")
       .select("-user");
-    if (recipes.length === 0) {
-      return res.status(401).send({
-        errMessage: "No favorites added yet!",
-      });
-    }
+
     res.send(
       recipes.filter(
         ({ recipe: { creator } }) =>
@@ -292,12 +284,7 @@ router.delete("/:id", auth, async (req, res) => {
       recipe.creator &&
       recipe.creator.toString() === req.user._id.toString()
     ) {
-      if (recipe.image && !recipe.image.includes("spoonacular")) {
-        fs.unlink(`src/assets/${recipe.image}`, (err) => {
-          if (err) throw err;
-        });
-      }
-      await Recipe.findByIdAndDelete(recipe._id);
+      await recipe.remove();
     }
     res.send(userRecipe);
   } catch (err) {

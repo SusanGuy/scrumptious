@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const fs = require("fs");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -109,6 +109,11 @@ userSchema.pre("save", async function (next) {
 
 userSchema.pre("remove", async function (next) {
   const user = this;
+  if (user.avatar) {
+    fs.unlink(`src/assets/${user.avatar}`, (err) => {
+      if (err) throw err;
+    });
+  }
   next();
 });
 

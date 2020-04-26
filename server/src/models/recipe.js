@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+const fs = require("fs");
+const UserRecipe = require("./userRecipe");
 const recipeSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
@@ -97,7 +98,21 @@ const recipeSchema = new mongoose.Schema({
   ],
 });
 
-recipeSchema.pre("save", async function (next) {
+recipeSchema.pre("remove", async function (next) {
+  const recipe = this;
+
+  if (recipe.image && !recipe.image.includes("spoonacular")) {
+    fs.unlink(`src/assets/${recipe.image}`, (err) => {
+      if (err) throw err;
+    });
+  }
+  await UserRecipe.deleteMany({
+    recipe: recipe,
+  });
+  next();
+});
+
+recipeSchema.pre("save", function (next) {
   const recipe = this;
 
   if (recipe.isModified("instructions")) {
