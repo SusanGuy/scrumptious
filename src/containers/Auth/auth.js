@@ -56,7 +56,7 @@ const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
       </p>
       <div className={classes.join(" ")}>
         <div className="form sign-in-box">
-          <h2>Welcome back,</h2>
+          <h2>Welcome back</h2>
           <form onSubmit={(e) => handleLoginSubmit(e)}>
             <CustomInput
               onChange={(e) => handleFormChange(e)}

@@ -7,12 +7,12 @@
   border: 0;
   font-size: 14px;
   background: none;
-  color: #333;
+  color: #fff;
   text-decoration: underline;
   outline: 0;
   cursor: pointer;
 }
 
 .delete {
-  color: #c54646;
+  color: #b87c7c;
 }

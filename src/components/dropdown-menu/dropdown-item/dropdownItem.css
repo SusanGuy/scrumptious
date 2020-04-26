@@ -4,7 +4,7 @@
 }
 
 .dropdown-item a {
-  color: #6f7074 !important;
+  color: #fff !important;
   font-size: 12px;
   font-weight: 400;
   text-transform: none;
@@ -15,6 +15,6 @@
 }
 
 .dropdown-item a:hover {
-  background-color: rgba(101, 157, 189, 1);
+  background-color: #2d545e;
   color: white !important;
 }

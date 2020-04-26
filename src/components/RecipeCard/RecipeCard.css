@@ -1,5 +1,5 @@
 .recipe-card {
-  background: #f1f1f1;
+  background: #2d545e;
   max-width: 280px;
   height: 300px;
   position: relative;
@@ -19,9 +19,6 @@
   position: relative;
 }
 .recipe-image img {
-  width: 100%;
-  height: 270px;
-
   transition: all 1s ease;
   margin-top: -70px;
 }
@@ -35,7 +32,7 @@
 .recipe-name {
   width: 100%;
   height: 50px;
-  background: #659dbd;
+  background: #12343b;
   opacity: 0.85;
   filter: alpha(opacity=85); /* IE8 and Lower */
   zoom: 1; /* set "zoom", "width" or "height" to trigger "hasLayout" in IE 7 and lower */
@@ -58,7 +55,7 @@
 .recipe-media {
   width: 100%;
   font-size: 0.7em;
-  color: #777;
+  color: #fff;
   padding: 10px 5px;
   text-align: center;
   vertical-align: middle;

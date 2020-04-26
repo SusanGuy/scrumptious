@@ -29,7 +29,7 @@
   content: "";
 }
 .loader:after {
-  background: #fff;
+  background: #c89666;
   width: 75%;
   height: 75%;
   border-radius: 50%;

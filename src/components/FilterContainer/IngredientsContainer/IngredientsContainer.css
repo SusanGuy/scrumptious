@@ -26,6 +26,8 @@
 .ingredient-suggest-input {
   border-radius: 28px;
   border: none;
+  color: #fff;
+  background-color: #12343b;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.05) inset;
   width: 100%;
   padding: 10px 0 10px 45px;
@@ -34,5 +36,5 @@
 }
 
 .ingredient-suggest-input::placeholder {
-  color: #928d8d;
+  color: #8eb9c3;
 }

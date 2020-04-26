@@ -450,7 +450,9 @@ const Create = ({
               image={imageSrc}
               setImage={setImage}
             />
-            <CustomButton type="submit">Submit</CustomButton>
+            <CustomButton edit type="submit">
+              Submit
+            </CustomButton>
           </form>
         </div>
       </main>

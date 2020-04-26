@@ -7,7 +7,7 @@
 }
 
 .user-card-inner {
-  background-color: #fff;
+  background-color: #2d545e;
   box-shadow: 0 0.375rem 0.75rem 0 rgba(0, 0, 0, 0.1);
   margin: 0 1rem 1rem;
   overflow: hidden;
@@ -56,14 +56,14 @@
 
 .campaign-action-tile-title {
   font-size: 1.1125rem;
-  color: #333;
+  color: #fff;
   line-height: 1.5;
 }
 .campaign-action-tile-info {
   position: relative;
   margin-top: 15px;
   font-size: 0.875rem;
-  color: #666;
+  color: rgb(238, 238, 238);
 }
 
 .action-buttons-user {
@@ -77,7 +77,7 @@
 }
 
 .new-campaign-tile-body {
-  border: 1px dashed #659dbd;
+  border: 1px dashed #12343b;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -90,13 +90,13 @@
 .new-campaign-link {
   font-weight: 400;
   text-decoration: none;
-  color: #333;
+  color: #12343b;
   line-height: inherit;
   cursor: pointer;
 }
 .new-campaign-link:hover,
-:visited {
-  color: #659dbd;
+.new-campaign-link:visited {
+  color: #fff;
 }
 
 .new-campaign-logo {
@@ -107,4 +107,5 @@
   height: 62px;
   margin-bottom: 1rem !important;
   width: 66px;
+  color: #fff;
 }

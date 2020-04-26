@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Aux from "./hoc/Aux";
+import Footer from "./components/footer/footer";
 import { Switch, Route } from "react-router-dom";
 import Auth from "./containers/Auth/auth";
 import Landing from "../src/containers/Landing/landing";
@@ -29,24 +30,30 @@ const App = ({ loadUser, message, type, hidden }) => {
   return (
     <Aux>
       <Navigation />
-      {!hidden && <Alert message={message} type={type} />}
-      <Switch>
-        <PrivateRoute exact path="/new" component={CreateRecipe} />
-        <PrivateRoute exact path="/recipes/:id" component={CreateRecipe} />
-        <PrivateRoute exact path="/my-profile" component={ProfileCard} />
-        <PrivateRoute
-          exact
-          path="/account-settings"
-          component={AccountSetttings}
-        />
-        <PrivateRoute exact path="/my-fridge" component={Fridge} />
-        <PrivateRoute exact path="/my-favorites" component={Favorites} />
-        <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
-        <PrivateRoute exact path="/logout" component={Logout} />
-        <Route path="/auth" exact component={Auth} />
-        <Route path="/" exact component={Landing} />
-        <Route component={NotFound} />
-      </Switch>
+      <div className="page-container">
+        <div className="content-wrap">
+          {!hidden && <Alert message={message} type={type} />}
+
+          <Switch>
+            <PrivateRoute exact path="/new" component={CreateRecipe} />
+            <PrivateRoute exact path="/recipes/:id" component={CreateRecipe} />
+            <PrivateRoute exact path="/my-profile" component={ProfileCard} />
+            <PrivateRoute
+              exact
+              path="/account-settings"
+              component={AccountSetttings}
+            />
+            <PrivateRoute exact path="/my-fridge" component={Fridge} />
+            <PrivateRoute exact path="/my-favorites" component={Favorites} />
+            <PrivateRoute exact path="/my-recipes" component={UserRecipes} />
+            <PrivateRoute exact path="/logout" component={Logout} />
+            <Route path="/auth" exact component={Auth} />
+            <Route path="/" exact component={Landing} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+        <Footer />
+      </div>
     </Aux>
   );
 };

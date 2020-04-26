@@ -8,10 +8,11 @@
 .nav_link a {
   transition: all 0.3s ease 0s;
   text-decoration: none;
-  color: #55565a;
+  color: #fff;
 }
 
-.nav_link a:hover {
-  color: rgba(101, 157, 189, 1);
+.nav_link a:hover,
+.nav_link a:focused {
+  color: #c89666;
   transition: 0.7s;
 }

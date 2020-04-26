@@ -6,24 +6,24 @@
 
 .searchTerm {
   width: 100%;
-  border: 3px solid #659dbd;
+  border: 3px solid #12343b;
   border-right: none;
   padding: 5px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: rgb(2, 71, 117);
+  color: #12343b;
   font-size: 15px;
 }
 
 .searchTerm:focus {
-  color: #659dbd;
+  color: #12343b;
 }
 
 .searchButton {
   width: 40px;
   height: 36px;
-  border: 1px solid #659dbd;
-  background: #659dbd;
+  border: 1px solid #12343b;
+  background: #12343b;
   text-align: center;
   color: #fff;
   padding-top: 3px;

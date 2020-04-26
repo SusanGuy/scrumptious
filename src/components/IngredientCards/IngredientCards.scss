@@ -14,13 +14,13 @@ div.ingredient_card img {
   max-width: 300px;
   cursor: pointer;
 }
-div.ingredient_card card__image-holder {
+div.ingredient_card .card__image-holder {
   background: rgba(0, 0, 0, 0.1);
   height: 0;
   padding-bottom: 75%;
 }
 div.ingredient_card div.card-title {
-  background: #ffffff;
+  background: #2d545e;
   padding: 6px 15px 10px;
   position: relative;
   z-index: 0;

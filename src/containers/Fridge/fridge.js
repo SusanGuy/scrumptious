@@ -25,7 +25,11 @@ const Fridge = ({
   if (userLoading) {
     card = <Spinner />;
   } else if (fridge.length === 0) {
-    card = <p>No ingredients added to your fridge yet!</p>;
+    card = (
+      <p style={{ color: "#12343b" }}>
+        No ingredients added to your fridge yet!
+      </p>
+    );
   } else {
     card = fridge.map(({ _id, ingredient: { name } }) => (
       <IngredientCard

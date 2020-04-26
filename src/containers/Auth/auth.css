@@ -1,7 +1,10 @@
 .tip {
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bolder;
+
   margin: 40px auto 50px;
   text-align: center;
+  color: #fff;
 }
 .cont {
   overflow: hidden;

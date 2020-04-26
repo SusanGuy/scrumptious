@@ -5,8 +5,8 @@ const customButton = ({ children, width, rating, ...rest }) => {
   if (rest.type === "submit") {
     classes.push("submit");
   }
-  if (rest.facebook) {
-    classes.push("fb-btn");
+  if (rest.edit) {
+    classes.push("recipe-edit");
   }
 
   if (rating) {

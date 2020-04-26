@@ -1,5 +1,5 @@
 .suggestion-container {
-  background-color: white;
+  background-color: #12343b;
   border: 1px solid #efe6de;
   border-radius: 4%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
@@ -22,9 +22,10 @@
   padding-left: 1em;
   cursor: pointer;
   line-height: 1.1;
+  color: #fff;
 }
 
 .checkbox-group:hover {
-  background-color: rgba(101, 157, 189, 1);
+  background-color: #2d545e;
   color: white !important;
 }

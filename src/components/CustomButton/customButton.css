@@ -24,21 +24,12 @@
   margin-top: 20px;
 }
 
-.fb-btn {
-  background: #3b579d;
-}
-.fb-btn span {
-  font-weight: bold;
-  color: #fff;
+.recipe-edit {
+  background-color: #2d545e;
+  width: 320px;
+  height: 50px;
 }
 
-.fb-btn:hover {
-  background-color: #4261b0;
-}
-
-.fb-btn .fab {
-  font-size: 1em;
-  color: #fff;
-  line-height: 0.875rem;
-  margin-right: 10px;
+.recipe-edit:hover {
+  background-color: #12343b;
 }

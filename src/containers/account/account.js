@@ -142,7 +142,7 @@ const Account = ({
             <div className="delete-account-row">
               <div className="delete-account-description">
                 Deleting your account will remove all of your activity and
-                campaigns, and you will no longer be able to sign in with this
+                recipes, and you will no longer be able to sign in with this
                 account.
               </div>
               <div className="delete-account-button">

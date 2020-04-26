@@ -8,7 +8,7 @@
 }
 .filter-item-title {
   position: relative;
-  color: #707070;
+  color: #fff8f8;
   line-height: 2;
   transition: color 400ms;
   font-size: 16px;
@@ -16,13 +16,13 @@
 }
 
 .filter-item-title:hover {
-  color: #659dbd;
+  color: #2d545e;
 }
 
 .allergy-clicked {
-  color: #659dbd;
+  color: #2d545e;
 }
 .filter-item-desc {
-  color: #bababa;
+  color: #d8d2c6;
   margin: 0;
 }

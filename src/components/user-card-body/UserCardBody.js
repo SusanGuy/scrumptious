@@ -40,7 +40,19 @@ const UserCardBody = ({ favorites, recipes, error }) => {
       )
     );
   } else if (error) {
-    cards = <p>{error}</p>;
+    cards = (
+      <p
+        style={{
+          marginLeft: "auto",
+          marginRight: "auto",
+          fontSize: "30px",
+          marginTop: "20px",
+          color: "#12343b;",
+        }}
+      >
+        {error}
+      </p>
+    );
   }
 
   return (

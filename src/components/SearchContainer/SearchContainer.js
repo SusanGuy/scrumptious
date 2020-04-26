@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import {
   hideFilterModal,
   showFilterModal,
-  resetFilters
+  resetFilters,
 } from "../../store/actions/filter";
 import FilterModal from "../FilterModal/FilterModal";
 
@@ -13,7 +13,7 @@ const SearchContainer = ({
   hidden,
   showFilterModal,
   hideFilterModal,
-  resetFilters
+  resetFilters,
 }) => {
   return (
     <div className="cookbook-search-results">
@@ -28,7 +28,7 @@ const SearchContainer = ({
               <span className="filter-sliders"></span>
               <i
                 style={{
-                  color: hidden ? "#659dbd" : ""
+                  color: hidden ? " #2d545e" : "",
                 }}
                 className="fas fa-sliders-h"
               ></i>
@@ -48,14 +48,14 @@ const SearchContainer = ({
     </div>
   );
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    hidden: state.filter.hidden
+    hidden: state.filter.hidden,
   };
 };
 
 export default connect(mapStateToProps, {
   showFilterModal,
   hideFilterModal,
-  resetFilters
+  resetFilters,
 })(SearchContainer);

@@ -16,21 +16,20 @@ const SearchBar = ({ filterByName, filter }) => {
       </span>
       <div className="searchbox-container">
         <input
-          onChange={e => setRecipeName(e.target.value)}
+          onChange={(e) => setRecipeName(e.target.value)}
           type="text"
           className="searchbox-input"
           placeholder="Search recipes"
           value={recipeName}
         />
-        <div className="searchbox-suggestion-container"></div>
       </div>
     </form>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    filter: state.filter.filter
+    filter: state.filter.filter,
   };
 };
 

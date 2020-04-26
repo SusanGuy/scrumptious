@@ -20,7 +20,7 @@
 .control-label {
   position: absolute;
   top: 0.1875rem;
-  color: #659dbd;
+  color: #2d545e;
   pointer-events: none;
   padding-left: 0.11875rem;
   z-index: 1;
@@ -41,5 +41,5 @@
 }
 
 .bar-change {
-  border-bottom: 2px solid #659dbd;
+  border-bottom: 2px solid #2d545e;
 }

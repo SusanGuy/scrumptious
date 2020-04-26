@@ -149,8 +149,7 @@ const filterReducer = (state = initialState, action) => {
         return {
           ...state,
           nutritions: state.nutritions.filter(
-            (nutrition) =>
-              nutrition.name !== payload.name && nutrition.type !== payload.type
+            (nutrition) => nutrition.name !== payload.name
           ),
         };
       } else if (

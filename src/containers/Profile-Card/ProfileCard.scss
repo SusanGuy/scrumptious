@@ -8,7 +8,7 @@
   margin-left: -200px;
   border-radius: 2px;
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.6);
-  background: rgba(101, 157, 189, 1);
+  background: #2d545e;
   color: #786450;
   font-family: "Josefin slab", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,6 +18,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  margin-top: 5.5rem;
 }
 .center {
   height: 399px;
@@ -50,7 +52,7 @@
   left: -3px;
   border-width: 1px;
   border-style: solid;
-  border-color: #659dbd #659dbd #659dbd transparent;
+  border-color: #2d545e#2d545e #2d545e transparent;
   border-radius: 50%;
   transition: all 1.5s ease-in-out;
 }
@@ -67,7 +69,7 @@
   height: 82px;
   top: -6px;
   left: -6px;
-  border-color: #659dbd transparent #659dbd #659dbd;
+  border-color: #12343b transparent #12343b #12343b;
   animation: circle 2s;
 }
 @keyframes circle {
@@ -91,6 +93,7 @@
   transform: rotate(-360deg);
 }
 .profile .name {
+  color: #12343b;
   font-size: 2rem;
   margin-top: 20px;
 }
@@ -108,7 +111,7 @@
   border: 2px solid transparent;
   font-size: 1.7rem;
   box-sizing: border-box;
-  color: #659dbd;
+  color: #12343b;
 }
 .btn,
 .parameter {
@@ -157,7 +160,7 @@
   text-align: center;
   padding-top: 28px;
   transition: all 0.4s ease-in-out;
-  color: #659dbd;
+  color: #12343b;
 }
 .box1 {
   animation: bg 0.5s ease-in-out;
@@ -195,7 +198,7 @@
   left: 100%;
   right: 0;
   bottom: 0;
-  background: #659dbd;
+  background: #12343b;
   height: 132px;
   transition-property: left;
   transition-duration: 0.3s;
