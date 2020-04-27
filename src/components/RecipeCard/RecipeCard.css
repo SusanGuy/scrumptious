@@ -1,5 +1,5 @@
 .recipe-card {
-  background: #2d545e;
+  background: #f1f1f1;
   max-width: 280px;
   height: 300px;
   position: relative;
@@ -42,8 +42,8 @@
   text-align: center;
   vertical-align: middle;
   line-height: 50px;
-  text-shadow: 1px 1px 2px#659dbd;
-  border-bottom: 1px dotted #659dbd;
+  text-shadow: 1px 1px 2px#12343b;
+  border-bottom: 1px dotted #12343b;
 }
 
 .recipe-name h3 {
@@ -55,7 +55,7 @@
 .recipe-media {
   width: 100%;
   font-size: 0.7em;
-  color: #fff;
+  color: #777;
   padding: 10px 5px;
   text-align: center;
   vertical-align: middle;

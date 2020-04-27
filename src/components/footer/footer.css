@@ -28,7 +28,7 @@
 
 .footer-column-1 {
   flex: 0 0 41.666667%;
-  max-width: 41.666667%;
+
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -53,9 +53,9 @@
 }
 
 .second-column {
-  margin-left: 8.333333%;
-  flex: 0 0 16.666667%;
-  max-width: 16.666667%;
+  margin-left: 6.333333%;
+  flex: 0 0 19.666667%;
+  max-width: 19.666667%;
 }
 
 .footer-list {
@@ -85,7 +85,7 @@
 }
 
 .third-column {
-  margin-left: 8.333333%;
+  margin-left: 6.333333%;
   flex: 0 0 25%;
   max-width: 25%;
 }

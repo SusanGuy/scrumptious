@@ -1,7 +1,18 @@
-.label {
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-  line-height: 1.5rem;
-  color: #fff;
-  display: block;
+.strong {
+  font-weight: 900;
+  line-height: inherit;
+}
+
+.action-button {
+  border: 0;
+  font-size: 14px;
+  background: none;
+  color: #333;
+  text-decoration: underline;
+  outline: 0;
+  cursor: pointer;
+}
+
+.delete {
+  color: #c54646;
 }

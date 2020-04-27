@@ -281,6 +281,7 @@ router.patch("/me/changePassword", auth, async (req, res) => {
       req.user.email,
       req.body.password
     );
+
     user.password = req.body.new_password;
     await user.save();
     res.send();
