@@ -86,8 +86,8 @@ export const makePrivate = (id, isPrivate) => {
       dispatch(
         createAlert(
           isPrivate
-            ? "Recipe made private succesfully!"
-            : "Recipe unlocked succesfully!",
+            ? "Recipe unlocked succesfully!"
+            : "Recipe made private succesfully!",
           "success"
         )
       );
