@@ -8,7 +8,7 @@ const admin = require("../middleware/admin");
 
 router.get("/users", auth, admin, async (req, res) => {
   try {
-    const users = await User.find({ isAdmin: false });
+    const users = await User.find({ isAdmin: false }).select("name avatar");
     res.send(users);
   } catch (err) {
     res.status(400).send(err);
@@ -33,7 +33,15 @@ router.get("/recipes/:id", auth, admin, async (req, res) => {
   }
 });
 
-router.delete("/user/:id", auth, admin, async (req, res) => {});
+router.delete("/user/:id", auth, admin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    await user.remove();
+    res.send();
+  } catch (error) {
+    res.status(400).send(err);
+  }
+});
 
 router.delete("/recipe/:id", auth, admin, async (req, res) => {});
 

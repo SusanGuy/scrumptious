@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ProfileCard.scss";
+import { Redirect } from "react-router-dom";
 import {
   getFavorites,
   getRecipes,
@@ -20,12 +21,18 @@ const ProfileCard = ({
   getUserIngredients,
 }) => {
   useEffect(() => {
-    getRecipes();
-    getFavorites();
-    getUserIngredients();
-  }, [getFavorites, getRecipes, getUserIngredients]);
+    if (user && !user.isAdmin) {
+      getRecipes();
+      getFavorites();
+      getUserIngredients();
+    }
+  }, [getFavorites, user, getRecipes, getUserIngredients]);
   if (loading || !user) {
     return <Spinner />;
+  }
+
+  if (user && user.isAdmin) {
+    return <Redirect to="/users" />;
   }
   const { name, avatar } = user;
 

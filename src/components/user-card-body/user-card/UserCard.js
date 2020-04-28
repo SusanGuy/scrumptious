@@ -51,17 +51,21 @@ const UserCard = (props) => {
                 {moment(props.created).fromNow()}
               </div>
               <div className="action-buttons-user">
+                {!props.userRecipes && (
+                  <ActionButton
+                    clicked={() => {
+                      return props.history.push(`/recipes/${props.link}`);
+                    }}
+                    edit
+                  />
+                )}
+
                 <ActionButton
-                  clicked={() => {
-                    return props.history.push(`/recipes/${props.link}`);
-                  }}
-                  edit
-                />
-                <ActionButton
+                  userRecipes={props.userRecipes}
                   clicked={() => props.deleteRecipe(props.id)}
                   remove
                 />
-                {!props.recipes && (
+                {!props.recipes && !props.userRecipes && (
                   <ActionButton
                     clicked={() => {
                       props.setHidden(false);

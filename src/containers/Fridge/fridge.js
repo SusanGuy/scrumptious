@@ -15,7 +15,6 @@ const Fridge = ({
   deleteFromFridge,
   userLoading,
   fridge,
-  error,
 }) => {
   useEffect(() => {
     if (user && !user.isAdmin) {

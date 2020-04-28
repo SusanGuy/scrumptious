@@ -26,7 +26,10 @@ const DropDownMenu = ({ user }) => {
   return (
     <li className=" logged-in">
       <div className="dropdown">
-        <Link className="dropdown-link" to="/my-recipes">
+        <Link
+          className="dropdown-link"
+          to={user && user.isAdmin ? "/users" : "/my-recipes"}
+        >
           <button className="dropdown-button">
             <Image
               name={user ? user.name : "user's image"}

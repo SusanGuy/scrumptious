@@ -14,6 +14,7 @@ const RecipeModal = ({
   history,
   addToCart,
   userId,
+  isAdmin,
   recipe: {
     title,
     time,
@@ -54,7 +55,10 @@ const RecipeModal = ({
 
   let action = null;
   if (userId) {
-    if (creator === null || creator.toString() !== userId.toString()) {
+    if (
+      (creator === null || creator.toString() !== userId.toString()) &&
+      !isAdmin
+    ) {
       action = (
         <AuthButton onClick={() => addToCart(id, history)} save>
           Add to Favorites
@@ -131,8 +135,8 @@ const RecipeModal = ({
 const mapStateToProps = (state) => {
   return {
     hidden: state.modal.hidden,
-
     userId: state.auth.user && state.auth.user._id,
+    isAdmin: state.auth.user.isAdmin,
   };
 };
 

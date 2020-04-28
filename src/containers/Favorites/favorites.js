@@ -1,16 +1,24 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { getFavorites } from "../../store/actions/user";
 import UserCardBody from "../../components/user-card-body/UserCardBody";
 import Spinner from "../../components/Spinner/Spinner";
-const Favorites = ({ getFavorites, favorites, loading, error }) => {
+const Favorites = ({ getFavorites, favorites, user, loading, error }) => {
   useEffect(() => {
-    getFavorites();
-  }, [getFavorites]);
+    if (user && !user.isAdmin) getFavorites();
+  }, [getFavorites, user]);
 
+  if (!user) {
+    return <Spinner />;
+  }
+  if (user && user.isAdmin) {
+    return <Redirect to="/users" />;
+  }
   if (loading) {
     return <Spinner />;
   }
+
   if (error.errMessage) {
     return <UserCardBody error={error.errMessage} />;
   }
@@ -26,6 +34,7 @@ const mapStateToProps = (state) => {
     favorites: state.user.favorites,
     loading: state.user.loading,
     error: state.user.error,
+    user: state.auth.user,
   };
 };
 
