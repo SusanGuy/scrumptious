@@ -59,7 +59,7 @@ const Account = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateForm({ name: first_name + " " + last_name, email });
+    updateForm({ name: first_name + " " + last_name });
   };
 
   if ((loading || !user) && !hidden) {
@@ -124,6 +124,7 @@ const Account = ({
                 value={email}
                 onChange={(e) => handleChange(e)}
                 required
+                disabled
               />
             </div>
             {error.emailError && <ErrorBox>{error.emailError}!</ErrorBox>}
@@ -139,18 +140,20 @@ const Account = ({
               </CustomActionButton>
             </div>
             <div className="dotted-line"></div>
-            <div className="delete-account-row">
-              <div className="delete-account-description">
-                Deleting your account will remove all of your activity and
-                recipes, and you will no longer be able to sign in with this
-                account.
+            {!user.isAdmin && (
+              <div className="delete-account-row">
+                <div className="delete-account-description">
+                  Deleting your account will remove all of your activity and
+                  recipes, and you will no longer be able to sign in with this
+                  account.
+                </div>
+                <div className="delete-account-button">
+                  <CustomActionButton onClick={() => deleteAccount()} remove>
+                    Delete Account
+                  </CustomActionButton>
+                </div>
               </div>
-              <div className="delete-account-button">
-                <CustomActionButton onClick={() => deleteAccount()} remove>
-                  Delete Account
-                </CustomActionButton>
-              </div>
-            </div>
+            )}
             <div className="save-changes-button">
               <CustomButton type="submit" width="50%">
                 Save Changes

@@ -1,12 +1,15 @@
 import React from "react";
 import "./customButton.css";
-const customButton = ({ children, width, rating, ...rest }) => {
+const customButton = ({ children, width, edit, rating, admin, ...rest }) => {
   const classes = ["main-button"];
   if (rest.type === "submit") {
     classes.push("submit");
   }
-  if (rest.edit) {
+  if (edit) {
     classes.push("recipe-edit");
+  }
+  if (admin) {
+    classes.push("admin-custom");
   }
 
   if (rating) {
@@ -15,8 +18,6 @@ const customButton = ({ children, width, rating, ...rest }) => {
 
   return (
     <button style={{ width }} className={classes.join(" ")} {...rest}>
-      {rest.facebook && <i className="fab fa-facebook-f"></i>}
-
       {children}
     </button>
   );

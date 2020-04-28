@@ -33,3 +33,7 @@
 .recipe-edit:hover {
   background-color: #12343b;
 }
+
+.admin-custom {
+  margin: 20px auto;
+}

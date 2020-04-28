@@ -9,7 +9,6 @@ import Spinner from "../../components/Spinner/Spinner";
 import LoadMore from "../../components/LoadMore/loadMore";
 import Aux from "../../hoc/Aux";
 import SearchContainer from "../../components/SearchContainer/SearchContainer";
-
 const Landing = ({
   hidden,
   recipeFilter,
@@ -128,6 +127,7 @@ const Landing = ({
   return (
     <Aux>
       <SearchContainer />
+
       <div className="recipe-content">
         <div className="main-flex-wrapper">
           <h1 className="recipe-content-title ">

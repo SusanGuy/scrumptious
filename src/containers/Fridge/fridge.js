@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import IngredientsSearch from "../../components/NewIngredients/NewIngredients";
 import "./fridge.css";
 import { getUserIngredients, deleteFromFridge } from "../../store/actions/user";
-
+import { Redirect } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import IngredientCard from "../../components/IngredientCards/IngredientCards";
 
@@ -11,15 +11,23 @@ import Aux from "../../hoc/Aux";
 
 const Fridge = ({
   getUserIngredients,
-
+  user,
   deleteFromFridge,
   userLoading,
   fridge,
   error,
 }) => {
   useEffect(() => {
-    getUserIngredients();
-  }, [getUserIngredients]);
+    if (user && !user.isAdmin) {
+      getUserIngredients();
+    }
+  }, [user, getUserIngredients]);
+  if (!user) {
+    return <Spinner />;
+  }
+  if (user && user.isAdmin) {
+    return <Redirect to="/users" />;
+  }
 
   let card;
   if (userLoading) {
@@ -57,6 +65,7 @@ const mapStateToProps = (state) => {
     fridge: state.user.fridge,
     userLoading: state.user.loading,
     error: state.user.error,
+    user: state.auth.user,
   };
 };
 

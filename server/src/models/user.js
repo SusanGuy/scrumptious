@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Recipe = require("./recipe");
+const UserRecipe = require("./userRecipe");
 const fs = require("fs");
 const userSchema = new mongoose.Schema(
   {
@@ -56,6 +58,10 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -109,6 +115,11 @@ userSchema.pre("save", async function (next) {
 
 userSchema.pre("remove", async function (next) {
   const user = this;
+  const recipes = await Recipe.find({ creator: user });
+  for (let i = 0; i < recipes.length; i++) {
+    await recipes[i].remove();
+  }
+  await UserRecipe.deleteMany({ user: user });
   if (user.avatar) {
     fs.unlink(`src/assets/${user.avatar}`, (err) => {
       if (err) throw err;

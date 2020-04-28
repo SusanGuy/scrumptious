@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Image from "../ppImage/ppImage";
 import "./DropDownMenu.scss";
 import { connect } from "react-redux";
-
+import Aux from "../../hoc/Aux";
 import DropDownItem from "./dropdown-item/dropdownItem";
 const DropDownMenu = ({ user }) => {
   const [hidden, setHidden] = useState(false);
@@ -38,10 +38,18 @@ const DropDownMenu = ({ user }) => {
       </div>
       {hidden && (
         <ul className="dropdown-menu">
-          <DropDownItem link="/my-favorites">Favorites</DropDownItem>
-          <DropDownItem link="/my-recipes">My Recipes</DropDownItem>
-          <DropDownItem link="/my-fridge">My Fridge</DropDownItem>
-          <DropDownItem link="/my-profile">My Profile</DropDownItem>
+          {user && !user.isAdmin ? (
+            <Aux>
+              <DropDownItem link="/my-favorites">Favorites</DropDownItem>
+              <DropDownItem link="/my-recipes">My Recipes</DropDownItem>
+              <DropDownItem link="/my-fridge">My Fridge</DropDownItem>
+              <DropDownItem link="/my-profile">My Profile</DropDownItem>
+            </Aux>
+          ) : (
+            <Aux>
+              <DropDownItem link="/users">All Users</DropDownItem>
+            </Aux>
+          )}
           <DropDownItem link="/account-settings">Account Settings</DropDownItem>
         </ul>
       )}

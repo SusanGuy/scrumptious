@@ -2,13 +2,12 @@ const express = require("express");
 const multer = require("multer");
 const User = require("../models/user");
 const Ingredient = require("../models/ingredient");
-const Recipe = require("../models/recipe");
-const UserRecipe = require("../models/userRecipe");
+
 const auth = require("../middleware/auth");
 const router = new express.Router();
 const fs = require("fs");
 router.post("/", async (req, res) => {
-  const user = new User(req.body);
+  user = new User(req.body);
 
   try {
     await user.save();
@@ -191,7 +190,7 @@ router.post("/login", async (req, res) => {
       req.body.password
     );
     const token = await user.generateAuthToken();
-    res.send({ token });
+    res.send({ isAdmin: user.isAdmin, token });
   } catch (err) {
     if (err.toString().includes("Error: ")) {
       return res.status(400).send({
@@ -356,6 +355,7 @@ router.delete("/me/avatar", auth, async (req, res) => {
     fs.unlink(`src/assets/${req.user.avatar}`, (err) => {
       if (err) throw err;
     });
+
     req.user.avatar = undefined;
     await req.user.save();
     res.send();
@@ -376,11 +376,6 @@ router.get("/:id/avatar", async (req, res) => {
 
 router.delete("/me", auth, async (req, res) => {
   try {
-    const recipes = await Recipe.find({ creator: req.user });
-    for (let i = 0; i < recipes.length; i++) {
-      await recipes[i].remove();
-    }
-    await UserRecipe.deleteMany({ user: req.user });
     await req.user.remove();
     res.send();
   } catch (e) {

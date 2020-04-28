@@ -6,18 +6,26 @@ import AuthButton from "../authButton/authButton";
 import "./Navigation.css";
 import Aux from "../../hoc/Aux";
 import "./Navigation.css";
-const Navigation = ({ history, isAuthenticated }) => {
+const Navigation = ({ history, user, isAuthenticated, showAdminModal }) => {
   return (
     <Aux>
       <header className="main-header">
         <h1 onClick={() => history.push("/")} className="logo">
           scrumptious<span></span>
         </h1>
-        <NavigationItems isAuthenticated={isAuthenticated} />
+        <NavigationItems
+          isAdmin={user && user.isAdmin}
+          isAuthenticated={isAuthenticated}
+        />
         {!isAuthenticated ? (
-          <Link to="/auth">
-            <AuthButton>Sign In</AuthButton>
-          </Link>
+          <Aux>
+            <Link to="/auth">
+              <AuthButton>Sign In</AuthButton>
+            </Link>
+            <AuthButton onClick={() => showAdminModal()} admin>
+              Admin
+            </AuthButton>
+          </Aux>
         ) : (
           <Link to="/logout">
             <AuthButton signout>Sign Out</AuthButton>
@@ -31,6 +39,7 @@ const Navigation = ({ history, isAuthenticated }) => {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
+    user: state.auth.user,
   };
 };
 

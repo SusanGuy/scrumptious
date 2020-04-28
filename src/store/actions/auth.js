@@ -106,26 +106,42 @@ export const clearErrors = () => {
   return { type: actionTypes.CLEAR_ERRORS };
 };
 
-export const login = (email, password, history) => {
+export const login = (
+  email,
+  password,
+  history,
+  admin = false,
+  hideAdminModal = undefined
+) => {
   return async (dispatch) => {
     try {
       dispatch(authStart());
       const submitForm = { email, password };
       const {
-        data: { token },
+        data: { isAdmin, token },
       } = await axios.post("/users/login", submitForm);
-      dispatch(authSuccess(token));
-      dispatch(loadUser());
-      dispatch(resetFilters());
-      dispatch(hideModal());
-      history.push("/my-recipes");
+
+      if (admin && !isAdmin) {
+        dispatch(authFail({ authError: "Login for Admin only!" }));
+      } else if (!admin && isAdmin) {
+        dispatch(createAlert("Login for general users only!", "failure"));
+        dispatch(authFail({ authError: "Login for general users only!" }));
+      } else {
+        dispatch(authSuccess(token));
+        dispatch(loadUser());
+        dispatch(resetFilters());
+        dispatch(hideModal());
+        history.push(`${isAdmin ? "/users" : "/my-recipes"}`);
+        isAdmin && hideAdminModal();
+      }
     } catch (err) {
-      dispatch(
-        createAlert(
-          err.response ? err.response.data.authError : err.message,
-          "failure"
-        )
-      );
+      !admin &&
+        dispatch(
+          createAlert(
+            err.response ? err.response.data.authError : err.message,
+            "failure"
+          )
+        );
       dispatch(authFail(err.response ? err.response.data : err.message));
     }
   };
@@ -160,6 +176,7 @@ export const loadUser = () => {
   return async (dispatch) => {
     try {
       setAuthToken(localStorage.token);
+
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {

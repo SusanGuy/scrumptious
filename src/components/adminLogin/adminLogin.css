@@ -1,0 +1,23 @@
+.admin-wrapper {
+  background: rgba(10, 10, 10, 0.87);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 110;
+  right: 0;
+  top: 0;
+}
+.admin-main-modal {
+  margin-top: 13.25rem;
+}
+.admin-form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.admin-form-signin .admin-form-signin-heading,
+.admin-form-signin {
+  margin-bottom: 30px;
+}

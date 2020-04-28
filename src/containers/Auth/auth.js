@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login, signup } from "../../store/actions/auth";
 import Spinner from "../../components/Spinner/Spinner";
-const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
+const Auth = ({ history, login, signup, loading, isAuthenticated, admin }) => {
   const [classesName, setClasses] = useState({
     classes: ["cont"],
   });
@@ -47,7 +47,7 @@ const Auth = ({ history, login, signup, loading, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/my-recipes" />;
+    return <Redirect to={admin ? "/users" : "my-recipes"} />;
   }
   return (
     <Aux>
@@ -174,6 +174,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     isAuthenticated: state.auth.token !== null,
+    admin: state.auth.user ? state.auth.user.isAdmin : false,
   };
 };
 

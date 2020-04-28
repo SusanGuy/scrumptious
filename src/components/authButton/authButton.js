@@ -1,9 +1,13 @@
 import React from "react";
 import "./authButton.css";
-const authButton = ({ signout, children, save, ...rest }) => {
+const authButton = ({ signout, admin, children, save, ...rest }) => {
   const classes = ["sign-in"];
   if (signout) {
     classes.push("sign-out");
+  }
+
+  if (admin) {
+    classes.push("admin");
   }
   if (save) {
     classes.push("save");

@@ -17,6 +17,10 @@
   color: #55565a;
 }
 
+.admin {
+  background: #1f190c;
+}
+
 .sign-in:hover {
   background-color: #886c52;
   color: #fff;

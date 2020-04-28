@@ -13,12 +13,14 @@ import BasicInfo from "./BasicInfo/basic";
 import CheckBox from "./Checkmark/checkmark";
 import IngredientsContainer from "../../components/NewIngredients/NewIngredients";
 import CustomButton from "../../components/CustomButton/customButton";
+import { Redirect } from "react-router-dom";
 const Create = ({
   history,
   createAlert,
   match: {
     params: { id },
   },
+  user,
 }) => {
   const [basicState, setBasicState] = useState({
     title: "",
@@ -142,29 +144,31 @@ const Create = ({
         console.log(error.response.data);
       }
     };
-    if (id) {
-      getRecipeData(id);
-    } else {
-      setImageSrc("");
-      setBasicState({
-        title: "",
-        instructions: "",
-        cost: "",
-        carbs: "",
-        calories: "",
-        protein: "",
-        fat: "",
-      });
-      setAllergy({
-        glutenFree: false,
-        dairyFree: false,
-        vegan: false,
-        vegetarian: false,
-      });
-      setTime(0);
-      setIngredients([]);
+    if (user && !user.isAdmin) {
+      if (id) {
+        getRecipeData(id);
+      } else {
+        setImageSrc("");
+        setBasicState({
+          title: "",
+          instructions: "",
+          cost: "",
+          carbs: "",
+          calories: "",
+          protein: "",
+          fat: "",
+        });
+        setAllergy({
+          glutenFree: false,
+          dairyFree: false,
+          vegan: false,
+          vegetarian: false,
+        });
+        setTime(0);
+        setIngredients([]);
+      }
     }
-  }, [id]);
+  }, [user, id]);
 
   const changeIngredientState = (e, ingredient) => {
     if (e.target.checked) {
@@ -265,6 +269,12 @@ const Create = ({
     }
   };
 
+  if (!user) {
+    return <Spinner />;
+  }
+  if (user && user.isAdmin) {
+    return <Redirect to="/users" />;
+  }
   return (
     <Aux>
       <main role="main" className="main-container">
@@ -460,4 +470,10 @@ const Create = ({
   );
 };
 
-export default connect(null, { createAlert })(Create);
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps, { createAlert })(Create);
