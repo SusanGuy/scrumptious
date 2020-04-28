@@ -10,8 +10,9 @@ const UserCardBody = ({ favorites, recipes, userRecipes, clicked, error }) => {
   let cards;
   if (recipes) {
     cards = recipes.map(
-      ({ _id: id, recipe: { title, image, _id }, createdAt }) => (
+      ({ _id: id, recipe: { title, image, _id, isPrivate }, createdAt }) => (
         <UserCard
+          isPrivate={isPrivate}
           recipes
           id={id}
           link={_id}

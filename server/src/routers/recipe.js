@@ -7,7 +7,7 @@ const fs = require("fs");
 const UserRecipe = require("../models/userRecipe");
 router.get("/", async (req, res) => {
   try {
-    const recipes = await Recipe.find().populate({
+    const recipes = await Recipe.find({ isPrivate: false }).populate({
       path: "ingredients.ingredient",
       select: "name price",
     });
@@ -241,6 +241,31 @@ router.post("/:id", auth, async (req, res) => {
     recipe.count += 1;
     await recipe.save();
     res.send(newUserRecipe);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.post("/lock/:id", auth, async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) {
+      return res.status(400).send({
+        errMessage: "No such recipe found",
+      });
+    }
+    if (recipe.creator.toString() !== req.user.id.toString()) {
+      return res.status(400).send({
+        errMessage: "Not authorized",
+      });
+    }
+    if (recipe.isPrivate === true) {
+      recipe.isPrivate = false;
+    } else {
+      recipe.isPrivate = true;
+    }
+    await recipe.save();
+    res.send(recipe);
   } catch (err) {
     res.status(400).send(err);
   }

@@ -3,7 +3,7 @@ import Aux from "../../../hoc/Aux";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ActionButton from "../../userActionButton/actionButton";
-import { deleteRecipe } from "../../../store/actions/user";
+import { deleteRecipe, makePrivate } from "../../../store/actions/user";
 import moment from "moment";
 import "./userCard.css";
 const UserCard = (props) => {
@@ -80,6 +80,14 @@ const UserCard = (props) => {
                     rate
                   />
                 )}
+                {props.recipes && (
+                  <ActionButton
+                    clicked={() =>
+                      props.makePrivate(props.link, props.isPrivate)
+                    }
+                    locked={props.isPrivate}
+                  />
+                )}
               </div>
             </div>
           </Aux>
@@ -89,4 +97,6 @@ const UserCard = (props) => {
   );
 };
 
-export default connect(null, { deleteRecipe })(withRouter(UserCard));
+export default connect(null, { deleteRecipe, makePrivate })(
+  withRouter(UserCard)
+);

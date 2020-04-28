@@ -77,6 +77,33 @@ export const addToFridge = (name, alert = true) => {
   };
 };
 
+export const makePrivate = (id, isPrivate) => {
+  return async (dispatch) => {
+    try {
+      dispatch(startLoading());
+      const { data } = await axios.post(`/recipes/lock/${id}`);
+      dispatch(lock(data));
+      dispatch(
+        createAlert(
+          isPrivate
+            ? "Recipe made private succesfully!"
+            : "Recipe unlocked succesfully!",
+          "success"
+        )
+      );
+    } catch (err) {
+      dispatch(userError(err.response ? err.response.data : err.message));
+    }
+  };
+};
+
+const lock = (recipe) => {
+  return {
+    type: actionTypes.MAKE_PRIVATE,
+    recipe,
+  };
+};
+
 export const deleteFromFridge = (id) => {
   return async (dispatch) => {
     try {

@@ -55,6 +55,24 @@ const userReducer = (state = initialState, action) => {
         favorites: state.favorites.concat(action.recipe),
       };
 
+    case actionTypes.MAKE_PRIVATE:
+      const includedRecipe = state.userRecipes.find(
+        (userRecipe) =>
+          userRecipe.recipe._id.toString() === action.recipe._id.toString()
+      );
+      const editedRecipes = state.userRecipes.filter(
+        (recipe) => recipe._id.toString() === includedRecipe._id.toString()
+      );
+
+      includedRecipe.recipe = action.recipe;
+      editedRecipes.concat(includedRecipe);
+      return {
+        ...state,
+        error: {},
+        loading: false,
+        userRecipes: editedRecipes,
+      };
+
     case actionTypes.DELETE_RECIPE_SUCCESS:
       return {
         ...state,

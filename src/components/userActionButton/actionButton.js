@@ -9,6 +9,7 @@ const actionButton = ({
   remove,
   fridge,
   clicked,
+  locked,
 }) => {
   const classes = ["toggle-info"];
   if (fridge) {
@@ -25,7 +26,6 @@ const actionButton = ({
 
   if (remove) {
     if (userRecipes) {
-      console.log("ayo");
       classes.push("all-alone");
     }
     classes.push("favorite-delete");
@@ -38,6 +38,10 @@ const actionButton = ({
     mama = <i className="fas fa-edit"></i>;
   } else if (rate) {
     mama = <i className="fas fa-star"></i>;
+  } else if (locked === true) {
+    mama = <i className="fas fa-unlock"></i>;
+  } else if (locked === false) {
+    mama = <i className="fas fa-lock"></i>;
   } else {
     mama = (
       <Aux>
