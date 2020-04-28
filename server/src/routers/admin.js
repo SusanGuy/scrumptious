@@ -43,6 +43,14 @@ router.delete("/user/:id", auth, admin, async (req, res) => {
   }
 });
 
-router.delete("/recipe/:id", auth, admin, async (req, res) => {});
+router.delete("/recipe/:id", auth, admin, async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    await recipe.remove();
+    res.send();
+  } catch (error) {
+    res.status(400).send(err);
+  }
+});
 
 module.exports = router;

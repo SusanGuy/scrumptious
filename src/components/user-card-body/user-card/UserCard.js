@@ -62,7 +62,12 @@ const UserCard = (props) => {
 
                 <ActionButton
                   userRecipes={props.userRecipes}
-                  clicked={() => props.deleteRecipe(props.id)}
+                  clicked={() => {
+                    if (props.userRecipes) {
+                      return props.clicked(props.recipeId);
+                    }
+                    props.deleteRecipe(props.id);
+                  }}
                   remove
                 />
                 {!props.recipes && !props.userRecipes && (

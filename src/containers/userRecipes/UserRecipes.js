@@ -41,6 +41,30 @@ const UserRecipes = ({
     if (id && user && user.isAdmin) getUserRecipes();
   }, [user, id]);
 
+  const handleDeleteRecipes = async (id) => {
+    try {
+      setRecipes({
+        recipes: [],
+        loading: true,
+        error: {},
+      });
+      await axios.delete(`/admin/recipe/${id}`);
+      setRecipes({
+        recipes: recipes.filter(
+          ({ recipe: { _id } }) => _id.toString() !== id.toString()
+        ),
+        loading: false,
+        error: {},
+      });
+    } catch (error) {
+      setRecipes({
+        ...recipeState,
+        loading: false,
+        error,
+      });
+    }
+  };
+
   if (!user) {
     return <Spinner />;
   }
@@ -58,7 +82,7 @@ const UserRecipes = ({
   if (recipes.length === 0) {
     return <UserCardBody error="This user hasn't created any recipes yet!" />;
   }
-  return <UserCardBody userRecipes={recipes} />;
+  return <UserCardBody clicked={handleDeleteRecipes} userRecipes={recipes} />;
 };
 
 const mapStateToProps = (state) => {

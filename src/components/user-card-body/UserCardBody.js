@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./UserCardBody.css";
 import RatingModal from "../../components/RatingModal/RatingModal";
 import UserCard from "./user-card/UserCard";
-const UserCardBody = ({ favorites, recipes, userRecipes, error }) => {
+const UserCardBody = ({ favorites, recipes, userRecipes, clicked, error }) => {
   const [hidden, setHidden] = useState(true);
   const [id, setId] = useState("");
   const [feedbacks, setFeedbacks] = useState([]);
@@ -43,6 +43,8 @@ const UserCardBody = ({ favorites, recipes, userRecipes, error }) => {
     cards = userRecipes.map(
       ({ _id: id, recipe: { title, image, _id }, createdAt }) => (
         <UserCard
+          clicked={clicked}
+          recipeId={_id}
           userRecipes
           key={id}
           id={id}

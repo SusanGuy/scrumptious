@@ -7,6 +7,10 @@ const recipeSchema = new mongoose.Schema({
     ref: "user",
     default: null,
   },
+  isPrivate: {
+    type: Boolean,
+    default: false,
+  },
   count: {
     type: Number,
     default: 0,

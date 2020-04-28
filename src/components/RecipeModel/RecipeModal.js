@@ -136,7 +136,7 @@ const mapStateToProps = (state) => {
   return {
     hidden: state.modal.hidden,
     userId: state.auth.user && state.auth.user._id,
-    isAdmin: state.auth.user.isAdmin,
+    isAdmin: state.auth.user && state.auth.user.isAdmin,
   };
 };
 
