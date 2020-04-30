@@ -40,7 +40,11 @@ const Account = ({
     clearErrors();
     setformData({
       first_name: !user ? " " : user.name.split(" ")[0],
-      last_name: !user ? " " : user.name.split(" ")[1],
+      last_name: !user
+        ? " "
+        : user.name.split(" ")[1] !== "undefined"
+        ? user.name.split(" ")[1]
+        : "",
       email: !user ? " " : user.email,
     });
   }, [user, clearErrors]);
