@@ -10,13 +10,13 @@
 }
 
 .main-button:hover {
-  background: #c27a15;
+  background: #34373d;
 }
 
 .submit {
   margin-top: 40px;
   margin-bottom: 20px;
-  background: #c58e40;
+  background: #15181d;
   text-transform: uppercase;
 }
 
@@ -25,13 +25,8 @@
 }
 
 .recipe-edit {
-  background-color: #2d545e;
   width: 320px;
   height: 50px;
-}
-
-.recipe-edit:hover {
-  background-color: #12343b;
 }
 
 .admin-custom {

@@ -28,13 +28,5 @@
   "devDependencies": {
     "express": "^4.17.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/npaudyal/Scrumtious.git"
-  },
-  "bugs": {
-    "url": "https://github.com/npaudyal/Scrumtious/issues"
-  },
-  "homepage": "https://github.com/npaudyal/Scrumtious#readme",
   "description": ""
 }

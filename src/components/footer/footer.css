@@ -7,7 +7,7 @@
 }
 
 .footer-area {
-  background: #153136;
+  background: #15181d;
   padding: 80px 0px;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .single-footer-widget .sm-head {
-  color: #008489;
+  color: #4285f4;
   margin-bottom: 0px;
 }
 
@@ -108,7 +108,7 @@
   height: 28px;
   line-height: 28px;
   text-align: center;
-  background: #006669;
+  background: #4285f4;
   color: #ffffff;
   border-radius: 20px;
   cursor: pointer;

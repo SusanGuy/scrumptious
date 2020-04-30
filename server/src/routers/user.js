@@ -376,6 +376,11 @@ router.get("/:id/avatar", async (req, res) => {
 
 router.delete("/me", auth, async (req, res) => {
   try {
+    if (req.user.isAdmin) {
+      return res.status(401).send({
+        errMessage: "Not authorized`",
+      });
+    }
     await req.user.remove();
     res.send();
   } catch (e) {

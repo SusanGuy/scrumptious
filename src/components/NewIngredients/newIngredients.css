@@ -6,12 +6,12 @@
 
 .searchTerm {
   width: 100%;
-  border: 3px solid #12343b;
+  border: 3px solid #737373;
   border-right: none;
   padding: 5px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #12343b;
+  color: #737373;
   font-size: 15px;
 }
 
@@ -22,8 +22,8 @@
 .searchButton {
   width: 40px;
   height: 36px;
-  border: 1px solid #12343b;
-  background: #12343b;
+  border: 1px solid #737373;
+  background: #4285f4;
   text-align: center;
   color: #fff;
   padding-top: 3px;

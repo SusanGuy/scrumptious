@@ -25,7 +25,7 @@
 
 .toggle-filters {
   cursor: pointer;
-  color: #12343b;
+  color: #204d81;
   transition: color 400ms ease;
   font-size: 14px;
   display: flex;
@@ -33,7 +33,7 @@
 }
 
 .toggle-filters i {
-  color: #12343b;
+  color: #4285f4;
   transform: scale(1.25);
   transition: all 800ms ease;
 }
@@ -44,7 +44,7 @@
   margin-right: 8px;
   transform: scale(1.25);
   transition: all 400ms ease;
-  color: #12343b;
+  color: #1c355d;
   margin-top: 2px;
 }
 
@@ -55,7 +55,7 @@
 
 .filters-title {
   cursor: pointer;
-  color: #fffafa;
+  color: #535353;
   font-weight: bolder;
   font-size: 18px;
   margin-left: 6px;
@@ -64,7 +64,7 @@
 .guided-search-breadcrumbs {
   margin-left: 1rem;
   cursor: pointer;
-  color: #232323;
+  color: #585151;
   transition: color 400ms ease;
   font-size: 14px;
   display: flex;
@@ -72,7 +72,7 @@
 }
 
 .reset {
-  color: #12343b;
+  color: #052457;
   transition: color 400ms ease;
   position: relative;
   padding-left: 1rem;

@@ -83,8 +83,7 @@ const Auth = ({ history, login, signup, loading, isAuthenticated, admin }) => {
                   margin="2px auto"
                   width="2em"
                   height="2em"
-                  background="#d4af7a"
-                  color="#d4af7a"
+                  background="#13100a"
                 />
               ) : (
                 "Sign in"

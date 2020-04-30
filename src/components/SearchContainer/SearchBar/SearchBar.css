@@ -15,7 +15,7 @@
   right: auto;
   bottom: auto;
   left: 20px;
-  color: #fff;
+  color: #737373;
   font-size: 20px;
 }
 
@@ -34,7 +34,7 @@
 .searchbox-input {
   width: 600px;
   border-radius: 39px;
-  background-color: #12343b;
+  background-color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.05) inset;
   font-size: 1.5em;
   height: 55px;
@@ -42,9 +42,9 @@
   padding: 0 1em 0 3em;
   outline: none;
   margin: 1em 0;
-  color: #fff;
+  color: #737373;
 }
 
 .searchbox-input::placeholder {
-  color: #8eb9c3;
+  color: #737373;
 }

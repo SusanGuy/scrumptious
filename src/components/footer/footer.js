@@ -15,8 +15,8 @@ const footer = () => {
                   the cook, must bring soul to the recipe.
                 </p>
                 <p>
-                  All rights reserved | © scrumptious.com | Designed by Susan
-                  Subedi
+                  All rights reserved | © scrumptious.com | Designed by 404s and
+                  Heartbreaks
                 </p>
               </div>
             </div>
