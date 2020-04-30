@@ -60,12 +60,15 @@ const userReducer = (state = initialState, action) => {
         (userRecipe) =>
           userRecipe.recipe._id.toString() === action.recipe._id.toString()
       );
+
       const editedRecipes = state.userRecipes.filter(
-        (recipe) => recipe._id.toString() === includedRecipe._id.toString()
+        (recipe) => recipe._id.toString() !== includedRecipe._id.toString()
       );
 
       includedRecipe.recipe = action.recipe;
-      editedRecipes.concat(includedRecipe);
+
+      editedRecipes.unshift(includedRecipe);
+
       return {
         ...state,
         error: {},

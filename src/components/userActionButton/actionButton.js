@@ -41,7 +41,7 @@ const actionButton = ({
   } else if (locked === true) {
     mama = <i className="fas fa-unlock"></i>;
   } else if (locked === false) {
-    mama = <i class="fas fa-user-shield"></i>;
+    mama = <i className="fas fa-user-shield"></i>;
   } else {
     mama = (
       <Aux>
