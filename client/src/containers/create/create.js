@@ -6,7 +6,7 @@ import { checkVal, checkInt } from "../../regex";
 import UploadImage from "./image/image";
 import Aux from "../../hoc/Aux";
 import Spinner from "../../components/Spinner/Spinner";
-import axios from "../../axios";
+import axios from "axios";
 import IngredientList from "./Ingredient/ingredient";
 import Selected from "../../components/FilterContainer/IngredientsContainer/SuggestionContainer/selected";
 import BasicInfo from "./BasicInfo/basic";

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import CloseButton from "../close-button/closeButton";
-import axios from "../../axios";
+import axios from "axios";
 import { createAlert } from "../../store/actions/alert";
 import { getFavorites } from "../../store/actions/user";
 import CustomButton from "../CustomButton/customButton";

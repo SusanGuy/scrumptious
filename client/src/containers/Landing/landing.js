@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import { connect } from "react-redux";
-import axios from "../../axios";
+import axios from "axios";
 import "./landing.css";
 import { hideFilterModal } from "../../store/actions/filter";
 import RecipeModal from "../../components/RecipeModel/RecipeModal";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import axios from "../../axios";
+import axios from "axios";
 import UserCardBody from "../../components/user-card-body/UserCardBody";
 import Spinner from "../../components/Spinner/Spinner";
 const UserRecipes = ({

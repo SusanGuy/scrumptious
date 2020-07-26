@@ -3,7 +3,7 @@ import "./newIngredients.css";
 import { connect } from "react-redux";
 import { addToFridge } from "../../store/actions/user";
 
-import axios from "../../axios";
+import axios from "axios";
 import DropDownMenu from "../FilterContainer/IngredientsContainer/DropDownContainer/dropdown";
 const NewIngredients = ({ ingro, addToFridge }) => {
   const [hidden, setHidden] = useState(false);

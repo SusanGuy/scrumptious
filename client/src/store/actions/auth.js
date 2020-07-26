@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import axios from "../../axios";
+import axios from "axios";
 import { createAlert } from "./alert";
 import { hideModal } from "../../store/actions/recipeModal";
 import { clearUser } from "./user";
