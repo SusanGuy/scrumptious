@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Recipe = require("./recipe");
 const UserRecipe = require("./userRecipe");
-const fs = require("fs");
+const deleteFile = require("../utils/deleteFile");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -121,9 +121,7 @@ userSchema.pre("remove", async function (next) {
   }
   await UserRecipe.deleteMany({ user: user });
   if (user.avatar) {
-    fs.unlink(`src/assets/${user.avatar}`, (err) => {
-      if (err) throw err;
-    });
+    deleteFile(user.avatar);
   }
   next();
 });

@@ -21,7 +21,7 @@ const Image = ({ image, id, setImageSrc, setImage }) => {
   if (image.includes("blob") || image.includes("spoonacular")) {
     uploadImage = image;
   } else {
-    uploadImage = "http://localhost:5000" + image;
+    uploadImage = image;
   }
 
   const imageChangeHandler = (e) => {

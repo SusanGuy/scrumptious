@@ -37,7 +37,7 @@ const ProfileCard = ({
   const { name, avatar } = user;
 
   const image = avatar
-    ? `http://localhost:5000${avatar}`
+    ? avatar
     : "https://api.adorable.io/avatars/285/abott@adorable.io.png";
   return (
     <div className="frame flex">

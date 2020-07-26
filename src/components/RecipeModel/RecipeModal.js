@@ -76,9 +76,7 @@ const RecipeModal = ({
           className="img-bk active"
           data-img="step0"
           style={{
-            backgroundImage: `url(${
-              src.includes("spoonacular") ? src : `http://localhost:5000${src}`
-            })`,
+            backgroundImage: `url(${src})`,
           }}
         ></div>
 

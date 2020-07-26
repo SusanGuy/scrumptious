@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const fs = require("fs");
+const deleteFile = require("../utils/deleteFile");
 const UserRecipe = require("./userRecipe");
 const recipeSchema = new mongoose.Schema({
   creator: {
@@ -106,9 +106,7 @@ recipeSchema.pre("remove", async function (next) {
   const recipe = this;
 
   if (recipe.image && !recipe.image.includes("spoonacular")) {
-    fs.unlink(`src/assets/${recipe.image}`, (err) => {
-      if (err) throw err;
-    });
+    deleteFile(recipe.image);
   }
   await UserRecipe.deleteMany({
     recipe: recipe,

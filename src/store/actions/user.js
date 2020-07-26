@@ -181,6 +181,7 @@ export const getRecipes = () => {
     try {
       dispatch(startLoading());
       const { data } = await axios.get("/recipes/me");
+
       dispatch(recipeSuccess(data));
     } catch (err) {
       dispatch(userError(err.response ? err.response.data : err.message));

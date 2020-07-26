@@ -2,7 +2,11 @@ const express = require("express");
 const router = new express.Router();
 const Recipe = require("../models/recipe");
 const auth = require("../middleware/auth");
-const multer = require("multer");
+const fileUpload = require("../utils/multer");
+const upload = fileUpload("user");
+const AmazonS3URI = require("amazon-s3-uri");
+const deleteFile = require("../utils/deleteFile");
+
 const fs = require("fs");
 const UserRecipe = require("../models/userRecipe");
 router.get("/", async (req, res) => {
@@ -34,28 +38,6 @@ router.get("/me", auth, async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
-});
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./src/assets/recipes");
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000000,
-  },
-  fileFilter(req, file, cb) {
-    if (!file.originalname.toLowerCase().match(/\.(jpg|jpeg|gif|png)$/)) {
-      return cb(new Error("Please upload an image"));
-    }
-    cb(undefined, true);
-  },
 });
 
 router.post("/", auth, async (req, res) => {
@@ -176,12 +158,10 @@ router.post(
       });
     }
     if (recipe.image && !recipe.image.includes("spoonacular")) {
-      fs.unlink(`src/assets/${recipe.image}`, (err) => {
-        if (err) throw err;
-      });
+      deleteFile(recipe.image);
     }
 
-    recipe.image = `/recipes/${req.file.filename}`;
+    recipe.image = req.file.location;
 
     await recipe.save();
     res.send();

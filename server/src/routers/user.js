@@ -1,11 +1,13 @@
 const express = require("express");
-const multer = require("multer");
 const User = require("../models/user");
 const Ingredient = require("../models/ingredient");
-
+const deleteFile = require("../utils/deleteFile");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 const fs = require("fs");
+const fileUpload = require("../utils/multer");
+const upload = fileUpload();
+
 router.post("/", async (req, res) => {
   user = new User(req.body);
 
@@ -307,40 +309,16 @@ router.patch("/me/changePassword", auth, async (req, res) => {
   }
 });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./src/assets/avatars");
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000000,
-  },
-  fileFilter(req, file, cb) {
-    if (!file.originalname.toLowerCase().match(/\.(jpg|jpeg|png)$/)) {
-      return cb(new Error("Please upload an image"));
-    }
-    cb(undefined, true);
-  },
-});
-
 router.post(
   "/me/avatar",
   auth,
   upload.single("upload"),
   async (req, res) => {
-    if (req.user.avatar) {
-      fs.unlink(`src/assets/${req.user.avatar}`, (err) => {
-        if (err) throw err;
-      });
+    if (req.user.avatar !== undefined) {
+      deleteFile(req.user.avatar);
     }
-    req.user.avatar = `/avatars/${req.file.filename}`;
 
+    req.user.avatar = req.file.location;
     await req.user.save();
     res.send();
   },
@@ -352,11 +330,9 @@ router.post(
 );
 router.delete("/me/avatar", auth, async (req, res) => {
   try {
-    fs.unlink(`src/assets/${req.user.avatar}`, (err) => {
-      if (err) throw err;
-    });
-
+    deleteFile(req.user.avatar);
     req.user.avatar = undefined;
+
     await req.user.save();
     res.send();
   } catch (err) {

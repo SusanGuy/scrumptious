@@ -11,7 +11,7 @@ const ppImage = ({ small, name, avatar }) => {
       className={classes.join(" ")}
       src={
         avatar
-          ? `http://localhost:5000${avatar}`
+          ? avatar
           : "https://api.adorable.io/avatars/285/abott@adorable.io.png"
       }
       alt={name}

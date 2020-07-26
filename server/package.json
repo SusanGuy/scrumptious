@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f ./config/dev.env node src/index.js",
+    "start": "node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon -e .js,.env src/index.js "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^6.5.2",
+    "amazon-s3-uri": "0.0.3",
+    "aws-sdk": "^2.720.0",
     "bcrypt": "^3.0.8",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.3",
@@ -20,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.1",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "request": "^2.88.2",
     "sharp": "^0.24.1",
     "url": "^0.11.0",
