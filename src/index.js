@@ -1,38 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
-import thunk from "redux-thunk";
-import { Provider } from "react-redux";
-import modalReducer from "./store/reducers/recipeModal";
-import filterReducer from "./store/reducers/filter";
-import authReducer from "./store/reducers/auth";
-import alertReducer from "./store/reducers/alert";
-import userReducer from "./store/reducers/user";
+const express = require("express");
+const connectDB = require("./database/mongoose");
+const cors = require("cors");
 
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+connectDB();
+const userRouter = require("./routers/user");
+const recipeRouter = require("./routers/recipe");
+const ingredientRouter = require("./routers/ingredient");
+const adminRouter = require("./routers/admin");
+const app = express();
+const port = process.env.PORT;
+app.use(cors());
+app.use(express.json());
 
-const rootReducer = combineReducers({
-  modal: modalReducer,
-  filter: filterReducer,
-  auth: authReducer,
-  alert: alertReducer,
-  user: userReducer,
+app.use("/users", userRouter);
+app.use("/recipes", recipeRouter);
+app.use("/ingredients", ingredientRouter);
+app.use("/admin", adminRouter);
+
+app.listen(port, () => {
+  console.log("Server is up on port " + port);
 });
-const composeEnhancers =
-  process.env.NODE_ENV === "development"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
-
-ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("root")
-);
